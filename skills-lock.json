@@ -1,11 +1,509 @@
 {
   "version": 1,
   "skills": {
+    "bitrix24-rest-api": {
+      "source": "bxmaximum/bitrix-framework-skills",
+      "sourceType": "github",
+      "skillPath": "skills/bitrix24-rest-api/SKILL.md",
+      "computedHash": "686e6ef1ccc7793346ad37ff373f3f7a2a2616fc9aa4a83222db4690ce38c059"
+    },
+    "bitrix24-tasks": {
+      "source": "bxmaximum/bitrix-framework-skills",
+      "sourceType": "github",
+      "skillPath": "skills/bitrix24-tasks/SKILL.md",
+      "computedHash": "a946d00693952c76cf6506c08d78e72bd96ca3dad555974335d95688dd414b7c"
+    },
+    "cf-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cf-edit/SKILL.md",
+      "computedHash": "2177d7c723c68e775262d5206e471f43801e1040b0da522ddb6554e46382a176"
+    },
+    "cf-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cf-info/SKILL.md",
+      "computedHash": "6c2705e6ed002bb61674e7390c4aa1910233ebb36d946351d3c2bfe77318bb21"
+    },
+    "cf-init": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cf-init/SKILL.md",
+      "computedHash": "0f83d8bc53a98c52f0fe4c40b52778cb7f48be8d42b9eda2a200be2f5f18967c"
+    },
+    "cf-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cf-validate/SKILL.md",
+      "computedHash": "92657c0d82f55adfb2eaf1f28947ac81dcdc060c056fa927e88e86720da950ab"
+    },
+    "cfe-borrow": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cfe-borrow/SKILL.md",
+      "computedHash": "f38cd5c36edb06d1295a05814aab8d0b72bcb3d591fab9cad814cd1bcba1ca7f"
+    },
+    "cfe-diff": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cfe-diff/SKILL.md",
+      "computedHash": "bbbe53425c3cef3d199d7f499e679fca4aed3be09667a16004aa088c08f28ace"
+    },
+    "cfe-init": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cfe-init/SKILL.md",
+      "computedHash": "d2daf4bd36455717eeeca585b70aeb6027cd15e68c3180430e6842be6774704c"
+    },
+    "cfe-patch-method": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cfe-patch-method/SKILL.md",
+      "computedHash": "8343801ceca1bcc5025d9397dce094b9d2ce02ce31bae1caff66020fafd6a1d0"
+    },
+    "cfe-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/cfe-validate/SKILL.md",
+      "computedHash": "f4c8ddea6f92baf49888ee3a59a1b2293aa1c454e880fe39a5401378904a4611"
+    },
+    "db-cfe-admin": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-cfe-admin/SKILL.md",
+      "computedHash": "32766932c700098ea2d8b257bca4e0f57e386385483915160d7cc9ee875cdb05"
+    },
+    "db-create": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-create/SKILL.md",
+      "computedHash": "43dbb464f6961cb502ac6ca7775393e1a470424990eb79240e40b49c3265012e"
+    },
+    "db-dump-cf": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-dump-cf/SKILL.md",
+      "computedHash": "181d70071a3fe9b8f37f92961fa15e5de7cc72b2573b1a8c2d980adef2c9b6c4"
+    },
+    "db-dump-dt": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-dump-dt/SKILL.md",
+      "computedHash": "9ab8fd0d4c1d24fadcc73ead292ab35e9ba34f0e0457608735059fb939a23881"
+    },
+    "db-dump-xml": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-dump-xml/SKILL.md",
+      "computedHash": "7b8c790cc7464dbbfcecbe6b36a9b886c206855b1d39e6f0cdcbcc9c3d2d1f17"
+    },
+    "db-list": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-list/SKILL.md",
+      "computedHash": "e667fd7dd6c7f4c6be8ad3e4712481899c05423c8e7e3007e577f15afcc35d9c"
+    },
+    "db-load-cf": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-load-cf/SKILL.md",
+      "computedHash": "3fd017c90e74e8fae9399361bd73a92c07b07278f9afbfc77cd2c07c3f08be12"
+    },
+    "db-load-dt": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-load-dt/SKILL.md",
+      "computedHash": "088d5c33927e7b5b1f2d5292debf9e9066b811d51cfaccdbf7db6a107f8fc2b0"
+    },
+    "db-load-git": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-load-git/SKILL.md",
+      "computedHash": "c506ca3a40117c8b8ce485371a98f954c1e66b26d55a2258472c6a94a7d69c57"
+    },
+    "db-load-xml": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-load-xml/SKILL.md",
+      "computedHash": "d47e230f2063acc55cb10ade149c16db8149fcddaf5026a62050723518420c7f"
+    },
+    "db-repo": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-repo/SKILL.md",
+      "computedHash": "721683dbbcff71f5ffed7f6e0bcc42c20a754bfb9e4954d018a118bd6b550b68"
+    },
+    "db-run": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-run/SKILL.md",
+      "computedHash": "8d4d14f27a1742402477799c04357a436149e00c0759f3d28525664d42822db2"
+    },
+    "db-update": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/db-update/SKILL.md",
+      "computedHash": "e160cd4d25ff9a7fed6cd7a50735ecb46fbe178ca81265f945df6ef993bcafe3"
+    },
+    "epf-bsp-add-command": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/epf-bsp-add-command/SKILL.md",
+      "computedHash": "03ecdb35fff30d28a3775e57d05a2f6d9c9215de098db8bf87c936774b2e4031"
+    },
+    "epf-bsp-init": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/epf-bsp-init/SKILL.md",
+      "computedHash": "b0ba075efddb58eba8cae1fe4d862598e1b30b0a602742f5b14662a3a32e692b"
+    },
+    "epf-build": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/epf-build/SKILL.md",
+      "computedHash": "0811878af7d81375b2fb525f6ca2d6c3651c3816005f8c4da0f64b3079bb558a"
+    },
+    "epf-dump": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/epf-dump/SKILL.md",
+      "computedHash": "b1d23a1dd481536c18149321b100d14615b17a11ffef4432c2d9c796ed7b0416"
+    },
+    "epf-init": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/epf-init/SKILL.md",
+      "computedHash": "c256a39e0d2ddcc30453afcf49bc92fd97cb2019134b805f88d460747d86775b"
+    },
+    "epf-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/epf-validate/SKILL.md",
+      "computedHash": "a3f230ac89f61421ab7d8d0bcc7f52afa567ada99c653f80f66541aee10c5de4"
+    },
+    "erf-build": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/erf-build/SKILL.md",
+      "computedHash": "f7c2f4aced8af2a6f93875aa0e3e13c26506b74db26c7091b65b0ee5a1ff0aeb"
+    },
+    "erf-dump": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/erf-dump/SKILL.md",
+      "computedHash": "91e18d615a42f723e6065582b0a4eb551c02b9d236dc8990f1071b8770ead008"
+    },
+    "erf-init": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/erf-init/SKILL.md",
+      "computedHash": "59062cafe057633ddfca317340422910479dbfefc16da434dd8b15518c07606a"
+    },
+    "erf-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/erf-validate/SKILL.md",
+      "computedHash": "4d96af2eedc9c44271f549d3bd2c4a3d4df64afdf47d980a50dcc388cd3a5c19"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
       "skillPath": "skills/find-skills/SKILL.md",
       "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
+    },
+    "form-add": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/form-add/SKILL.md",
+      "computedHash": "d82772654247f58c1839825ee92ee9b282d147d0e356a8843fdad9c3cd9714f6"
+    },
+    "form-compile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/form-compile/SKILL.md",
+      "computedHash": "1114f60d6deb86b974a8febb7c6b9fd5d3320668f92b4f3d5a4d821d65005b0a"
+    },
+    "form-decompile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/form-decompile/SKILL.md",
+      "computedHash": "9c3e0d4404b964e463589b11ee122d01e4dc5bd4171d243aab301688f3b1873f"
+    },
+    "form-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/form-edit/SKILL.md",
+      "computedHash": "49bf557a1ab012885264d4171f2d75b8e512f9ae430ff40316f557c2d99a63fa"
+    },
+    "form-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/form-info/SKILL.md",
+      "computedHash": "428ac9b16653a9651ea25fba0610f66116b7911dcb8d7679f4e6dd4d23aa0045"
+    },
+    "form-patterns": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/form-patterns/SKILL.md",
+      "computedHash": "35b98d4857baf45831f9d600f582f824ee1fdef3557d9db3339df9d9f184c1fd"
+    },
+    "form-remove": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/form-remove/SKILL.md",
+      "computedHash": "1992695fa6666400e39656a8dbf21bed9dcb0f7877ae26037ac65bdfa9c6e3c2"
+    },
+    "form-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/form-validate/SKILL.md",
+      "computedHash": "7c0238f18b536c6a95c09a545ead3ec851a7da12cdfd0da54474e8898ac5cfd7"
+    },
+    "help-add": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/help-add/SKILL.md",
+      "computedHash": "9c2d887e948be15eda24013ff05d144a8b523ad424c28e2b5522363d8e28ce15"
+    },
+    "img-grid": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/img-grid/SKILL.md",
+      "computedHash": "1a5879527c7974b3c6142d05ac89e99cb8060e86703acdc207d56cf368534f8a"
+    },
+    "interface-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/interface-edit/SKILL.md",
+      "computedHash": "5f966d67c98019a0717906d6817fc6bb418b216031e9a026e713b051a5edc475"
+    },
+    "interface-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/interface-validate/SKILL.md",
+      "computedHash": "d8760bf778f02a3a71e66436d3e7a6215e6efda3920bd5ed375f5aa1afbf318c"
+    },
+    "meta-compile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/meta-compile/SKILL.md",
+      "computedHash": "e64fae062b997dc326a41380986ff46741b4b2cf01aa82d8d492cf348d51dabb"
+    },
+    "meta-decompile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/meta-decompile/SKILL.md",
+      "computedHash": "ec5efb39695ab603a2785bef37cb5808133f375b3a6493c0b03e3d8a76a34cd9"
+    },
+    "meta-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/meta-edit/SKILL.md",
+      "computedHash": "ed3393929479fcc1b9b9e89d118739458e613536da50fd75449ea970a61228d8"
+    },
+    "meta-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/meta-info/SKILL.md",
+      "computedHash": "9c3e94ab7c0297b1d3cc1a2bc975410d6177b24dbdf0e16aabdcaa72cf51965b"
+    },
+    "meta-remove": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/meta-remove/SKILL.md",
+      "computedHash": "ff9b6000aaa179f8176335b313f77f114e2f87868b46a5cf887bc29dba21e692"
+    },
+    "meta-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/meta-validate/SKILL.md",
+      "computedHash": "f36a3f724f8ea839fa27d68020a68e07919695fe98e98143010457768ea5915b"
+    },
+    "mxl-compile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/mxl-compile/SKILL.md",
+      "computedHash": "cc668d57896b11e40aee17f510d5d58326ab6b778e0d7a71a41f6f7b6e3fa1e7"
+    },
+    "mxl-decompile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/mxl-decompile/SKILL.md",
+      "computedHash": "743d93a9acdd1142c5ca2eb976541d40d5b2eee1948cda71295724b15b245093"
+    },
+    "mxl-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/mxl-info/SKILL.md",
+      "computedHash": "f94a50f2c49440d6f18234e250eece901bc2651f744b178fa9b7f95a8694cc95"
+    },
+    "mxl-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/mxl-validate/SKILL.md",
+      "computedHash": "46c3776073258ca67d87f42e8ffbc50295d0b9b2521e8413baf5fc77b7e220ac"
+    },
+    "role-compile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/role-compile/SKILL.md",
+      "computedHash": "8052554948291d10a36c299ad46778db0d0db000be4d320bea945a4d15635e4f"
+    },
+    "role-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/role-edit/SKILL.md",
+      "computedHash": "c0e437189ee568684e04efd239d05b9ab51cf0dc8a5b766629d207c82877ddb8"
+    },
+    "role-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/role-info/SKILL.md",
+      "computedHash": "11cdd5b4408d1373ca18577eb17f922a3681b069321eeeebd893ac9d731ceb91"
+    },
+    "role-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/role-validate/SKILL.md",
+      "computedHash": "58ed10e8d30e033c49bb49e98655460c19c2840ef1c65ae8d20ae1c5d02c39c5"
+    },
+    "skd-compile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/skd-compile/SKILL.md",
+      "computedHash": "d47304e1604eb4dafad27e32b29003d6c0104326fac4ecdeb82c3217d2ddb049"
+    },
+    "skd-decompile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/skd-decompile/SKILL.md",
+      "computedHash": "780f9eac7d9763dc6723df777827b4489b75216f496311e427d7acab62b7ead5"
+    },
+    "skd-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/skd-edit/SKILL.md",
+      "computedHash": "c94de62e7211e49e7de33baf1729aef17f8d331501da646529d22438c9bdb7fd"
+    },
+    "skd-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/skd-info/SKILL.md",
+      "computedHash": "5191514ee556a5e994b09fdbfc71f02fa3177c7d0750cc7cad6693a246e82d20"
+    },
+    "skd-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/skd-validate/SKILL.md",
+      "computedHash": "615fc7f751951e2d775eae6a34ce89bef4a123bea0061c0023dc8909b0668535"
+    },
+    "subsystem-compile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/subsystem-compile/SKILL.md",
+      "computedHash": "b17142182461a4acbd26000412af7262ecf771cfad8f8eb98b4de4fcd2b7bee5"
+    },
+    "subsystem-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/subsystem-edit/SKILL.md",
+      "computedHash": "f58fdd9e9cca4aedb1a19a017fdaa4fb24819b76abdb94a875a1662a042168fa"
+    },
+    "subsystem-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/subsystem-info/SKILL.md",
+      "computedHash": "2e72308f3361675d2d6eee36100f1d448bb712122bbdfdd54a1fd0d3f0766402"
+    },
+    "subsystem-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/subsystem-validate/SKILL.md",
+      "computedHash": "c4c626ff885a3f52a37958c0284243ae370d93ac80a77e55887a772aae0cba02"
+    },
+    "support-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/support-edit/SKILL.md",
+      "computedHash": "8d35ba8972e78dae235a5a461faa649b41be3acb44ac51c1a581181fd50660e1"
+    },
+    "template-add": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/template-add/SKILL.md",
+      "computedHash": "1c3f2fdc4fb771ce38e6891f6bbec75cc93bbaf0a5a7c5555d1173743c320a80"
+    },
+    "template-remove": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/template-remove/SKILL.md",
+      "computedHash": "405c1d0a204de419bb93dbd7d11425d0ea658b9df0508c288bde8db36c66dc7b"
+    },
+    "v8-xsd-fetch": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/v8-xsd-fetch/SKILL.md",
+      "computedHash": "e84ca72847bcaf9c3a2b0d67f09a030a2661101522f77698454ca2aa5d94653e"
+    },
+    "web-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/web-info/SKILL.md",
+      "computedHash": "0bb6b8ab3d6431ec97eb09a5d74ac1dac3f92f0ed1d795725913bcf4d63b748a"
+    },
+    "web-publish": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/web-publish/SKILL.md",
+      "computedHash": "d5cb9955605aefff17c4c476d11de480127f3902c2c609cae0d483627c27383e"
+    },
+    "web-stop": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/web-stop/SKILL.md",
+      "computedHash": "23a76b1523d42576317aeddfa3ec60c9a312b03be1fcc6e6f74c56e7e4287502"
+    },
+    "web-test": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/web-test/SKILL.md",
+      "computedHash": "067f8e280260f090896fb78c34b5314ed6ccd54a1f565fbfb559ea8e7dc4bfb5"
+    },
+    "web-unpublish": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/web-unpublish/SKILL.md",
+      "computedHash": "5cb8f8c377e4745275e8659c0554f85720b32339d5dcf2176aeb61b93c624ed0"
+    },
+    "xdto-compile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/xdto-compile/SKILL.md",
+      "computedHash": "b6c26ce48f8e1d080b6a2af6af611195e5b3dd11c74bab2063880c2e066d3030"
+    },
+    "xdto-decompile": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/xdto-decompile/SKILL.md",
+      "computedHash": "0de590ea003ba9c36406aee245d64666f57885e03e53c343fa81098b2b43b4ae"
+    },
+    "xdto-edit": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/xdto-edit/SKILL.md",
+      "computedHash": "1a31c47db64de5f94665056ec4da1a58cb6ae6b5cfa919e69bd88ec62d92412e"
+    },
+    "xdto-info": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/xdto-info/SKILL.md",
+      "computedHash": "bb432d89b8e9d54f637dc167731c3ed0c59a35960240903ec55b4636806adc7d"
+    },
+    "xdto-validate": {
+      "source": "nikolay-shirokov/cc-1c-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/xdto-validate/SKILL.md",
+      "computedHash": "44b1e11669227946807157de3746db77240c6076f3c35dc54dc1e6c0ca0b498b"
     }
   }
 }
