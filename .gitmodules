@@ -1,0 +1,3 @@
+[submodule "tools/1c-mcp-toolkit"]
+	path = tools/1c-mcp-toolkit
+	url = https://github.com/ROCTUP/1c-mcp-toolkit.git
