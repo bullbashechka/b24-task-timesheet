@@ -38,7 +38,7 @@ The extension contains:
 
 - Identity comes from the 1C login: 1C user → its физлицо → the физлицо's e-mail (contact-info kind «Электронная почта») → the active Bitrix24 user with that e-mail.
 - 1C calls Bitrix24 REST through the webhook from the settings. The webhook runs with the rights of the admin who created it. Its scopes are `task`, `crm`, `user` and `sonet_group` (the last one only for the test project name). The 1C server needs outbound HTTPS access to the portal.
-- The feature only reads Bitrix24 (`user.get`, `tasks.task.list`, `tasks.task.get`, `crm.company.get`, `crm.requisite.list`, `sonet_group.get`). A webhook can't be made read-only, so this rule is enforced in code.
+- The feature only reads Bitrix24 (`user.get`, `tasks.task.list`, `tasks.task.get`, `crm.company.get`, `crm.company.list`, `crm.requisite.list`, `sonet_group.get`). A webhook can't be made read-only, so this rule is enforced in code.
 - The webhook URL must not reach the event log, messages or any form except the settings form.
 
 ### Matching rules (easy to get subtly wrong)
@@ -99,7 +99,7 @@ The extension contains:
   - A company without requisites: `crm.requisite.list` → `result: []`, `total: 0`.
 - **Users:** `user.get` with `FILTER.EMAIL` ignores case; add `ACTIVE: true`.
 - **Requisites:** presets on this portal (KZ, `COUNTRY_ID` 6): 1 «ИП» (`RQ_IIN`), 3 «Юр. лицо» (`RQ_BIN`, `RQ_IIN`), 5 «Физ. лицо». `crm.requisite.list` takes `ENTITY_ID` as a list, so one call covers several companies; order by `SORT`, then `ID`.
-- **Company names for the list:** `crm.company.list` with `filter.ID` as a list and `select: [ID, TITLE]` gives all names in one call. It is not yet in the feature's method list (see TASKS 2.8).
+- **Company names for the list:** `crm.company.list` with `filter.ID` as a list and `select: [ID, TITLE]` gives all names in one call. It is in the feature's method list (approved after stage 2).
 - **Time zones differ by method:** `sonet_group.get` returns `+03:00`, tasks return `+05:00`. Compare dates as instants, not as strings.
 
 ## Tooling
