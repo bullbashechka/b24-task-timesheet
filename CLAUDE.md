@@ -55,11 +55,29 @@ The extension contains:
   - It is compared with `Справочник.Контрагенты.ИНН` («БИН/ИИН»). Counterparties marked for deletion are excluded, and exactly one match is required.
   - The company name is never used. If no counterparty is found, the row is still added with an empty counterparty.
 - **Row:**
-  - The row is appended to the end of the open form's «Табель» table. Existing rows are never edited, and the document is never written.
+  - The row is added to the open form's «Табель» table, which is then sorted by `ВремяНач` the way the form does before «Добавить»; the new row lands in its place. Existing rows' values are never edited, and the document is never written.
+  - Default start time is the `ВремяКон` of the row with the latest `ВремяНач`; 09:00 if the table is empty; empty if that row has no end time. An overlap with another row is a warning, never a block.
+  - If no counterparty was found, the new row's «Контрагент» cell becomes current and its choice opens.
   - `ТипПП` is never filled.
-  - The time types offered are the `Перечисление.гем_ТипыВремени` values starting with «Клиент» or «Офис». The default is «Клиент (УД)».
+  - The time types offered are the `Перечисление.гем_ТипыВремени` values starting with «Клиент» or «Офис», except «Офис (командировка)» and «Офис (собрания)» (the form clears the counterparty for them). The default is «Клиент (УД)».
   - The calculated fields (Факт, Норма, К оплате, Зарплата and others) and the «Всего зарплата» total must use the same code the form runs on manual time entry. The other fields get the same defaults as a row added with «Добавить».
-  - The form has a «Редактировать в диалоге» flag, so rows can also be edited in `ФормаВвода`. Check both forms for the calculation code.
+  - The calculation lives only in `ФормаДокумента`. Its «Редактировать в диалоге» flag is locked off, and `ФормаВвода` has no calculation code.
+
+### KA base facts (stage 1)
+
+- **Form `гем_Табель.ФормаДокумента`** (client procedures, not exported):
+  - `Пересчет(Стр)` computes Факт, Норма, К оплате, Зарплата and the Вызов fields; for «Клиент» it calls `гем_Сервер.ПолучитьВызовКлиента`.
+  - `ОбработкаФормы(Стр)` sets column availability and clears fields per time type.
+  - `ОбновитьПодвал()` recomputes the «Всего к оплате» label.
+  - `ТабельПередНачаломДобавления` sorts by `ВремяНач`; `ТабельПриНачалеРедактирования` sets the new row's `ВремяНач` to the last row's `ВремяКон`.
+  - `ПриОткрытии` disables the table's command bar when `ПроверитьПрава()` is false (no full rights and the author's физлицо isn't the user's).
+- **Adding a row from the extension:** the borrowed form's module calls the original procedures directly: sort → add and fill → `ОбработкаФормы` → `Пересчет` → `ОбновитьПодвал` → make current, set `Модифицированность`. Our command has `ИзменяетСохраняемыеДанные`.
+- **Closed periods:** БСП checks the change-prohibition date only on write; the form stays editable.
+- **Form.xml** binds 7 events to procedures that don't exist (e.g. `ПослеЗаписи`). Expect this when borrowing the form.
+- **E-mail:** `УправлениеКонтактнойИнформацией.КонтактнаяИнформацияОбъектов` (server only) with type `АдресЭлектроннойПочты` and kind `Справочники.ВидыКонтактнойИнформации.EMailФизическиеЛица`; the address is in `Представление`.
+- **Counterparty number:** `Контрагенты.ИНН`, `Строка(12)`, indexed. `СокрЛП` works in queries here.
+- **Time types in the window:** representation starts with «Клиент»/«Офис», minus `ОфисКомандировка` and `ОфисСобрания`, 13 values; default `КлиентУдаленныйДоступ`.
+- **БСП:** safe storage via `ОбщегоНазначения.ЗаписатьДанныеВБезопасноеХранилище`/`ПрочитатьДанныеИзБезопасногоХранилища` in privileged mode, owner `"Б24ТабельИзЗадачи"`, key `"АдресВебхука"`; `Пользователи.ЭтоПолноправныйПользователь()`; the settings command goes into subsystem `Администрирование.НастройкаИнтеграции`.
 
 ## Tooling
 
@@ -145,7 +163,7 @@ How this applies here:
 - Tests come from the spec. Every branch of Ф2, Ф3, Ф4, Ф5, Ф6 and Ф8 and every acceptance scenario («С…» in `PRD.md`) gets a test before its code. Expected messages are copied from `PRD.md` word for word, so the tests also catch text drift.
 - Keep the matching rules in server functions that take plain structures, not HTTP connections or live REST calls. These rules are e-mail normalization, the role check, the 30-day list filter, the CRM-company count, number extraction from requisites and the counterparty lookup. Unit-test them against recorded Bitrix24 JSON responses with the webhook URL removed.
 - Test the window logic with the Bitrix24 REST client stubbed. Cover the invariants:
-  - a row is always appended and never overwrites an existing one;
+  - a row is always added and never overwrites an existing one;
   - the document is not written;
   - no REST call writes to Bitrix24;
   - the webhook URL never reaches the event log or messages.
