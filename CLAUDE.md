@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-There is no application code yet. The project is at the planning stage:
+Stage 0 is done: the empty product extension, the test extension and YAxUnit are installed in the local base, and the first rule (e-mail normalization) is implemented test-first. The plan:
 
 - `PRD.md` is the spec (in Russian). References like «Ф3» point to its features and «С5» to its acceptance scenarios.
 - `TASKS.md` is the work plan: stages and tasks derived from `PRD.md`, with the open questions the PRD leaves unanswered.
@@ -13,7 +13,15 @@ All user-facing texts (error messages, button labels, CRM-company reasons in the
 
 ## Stack
 
-Product code is strictly BSL (the 1C:Enterprise language) in the extension `Б24ПрототипЭтап1`: metadata, managed forms and modules. There is no HTML/JS, no BX24.js, no Bitrix24 app, no HTTP service published from 1C and no separate backend. Tests are BSL too. Python and PowerShell are used only by the vendored skill tooling.
+Product code is strictly BSL (the 1C:Enterprise language) in the extension `Б24ТабельИзЗадачи` (synonym «Б24: табель из задачи»): metadata, managed forms and modules. There is no HTML/JS, no BX24.js, no Bitrix24 app, no HTTP service published from 1C and no separate backend. Tests are BSL too. Python and PowerShell are used only by the vendored skill tooling; the one hand-written tool is the shell test runner `scripts/run-tests.sh`.
+
+### The other Bitrix24 extension in the base
+
+The base also has the extension `Б24ПрототипЭтап1`. It links customer orders to Bitrix24 tasks, comes from the sibling project `1c-invoice-generator` and is maintained by another programmer. It borrows `Документ.ЗаказКлиента` and keeps data in its own `Расш1_*` information registers.
+
+- Never modify, reload or delete it. Replacing it drops its registers together with their data.
+- Our extension shares no objects, settings or code with it and ships separately. This was a product decision: the two features are released and maintained independently.
+- Don't rename `Б24ТабельИзЗадачи` once it is in a working base. The «ID Б24» values live in the extension, and an extension with another name won't have them.
 
 ## Architecture (planned)
 
@@ -81,20 +89,48 @@ git submodule update --init
 The skill docs show `powershell.exe -NoProfile -File …/scripts/<name>.ps1`. That binary doesn't exist on this Mac. Every script has a Python twin that takes the same `-Param` arguments, for example:
 
 ```bash
-python3 .claude/skills/cfe-validate/scripts/cfe-validate.py -ExtensionPath src/cfe/Б24ПрототипЭтап1
+python3 .claude/skills/cfe-validate/scripts/cfe-validate.py -ExtensionPath src/cfe/Б24ТабельИзЗадачи
 ```
 
 `pwsh -NoProfile -File …ps1` also works.
 
-The local platform is `/opt/1cv8/8.3.23.2040`. `cfe-init` defaults `CompatibilityMode` to `Version8_3_24`. Take the mode from the base configuration with `-ConfigPath`, or pass it explicitly, so the extension still loads.
+The local platform is `/opt/1cv8/8.3.23.2040`. The base is «Комплексная автоматизация для Казахстана» 2.4.5.21 with БСП 3.1.7 in compatibility mode `Version8_3_21`. `cfe-init` defaults `CompatibilityMode` to `Version8_3_24`. Take the mode from the base configuration with `-ConfigPath`, or pass `Version8_3_21` explicitly, so the extension still loads.
 
 The local development base is a copy of the KA demo base, the file base `~/Documents/1C/Базы/КА демо`. Designer-mode skills (`db-dump-*`, `db-load-*`) fail with a lock error while the Configurator has that base open.
 
-### Not set up yet
+Its configuration was loaded from the production KA's `.cf`, so `гем_Табель` and its forms match production as of that snapshot. The office server runs a compatible platform and already reaches Bitrix24 over HTTPS: the orders extension calls its REST from there.
 
-- **`.v8-project.json`**, the database registry that the `db-*` and `cfe-*` skills read for connection details and `configSrc`. Create it with `/db-list add`.
-- **Source layout.** By skill convention, extension sources go in `src/cfe/<Name>`. Run `cfe-validate` after every change to them.
-- **Test framework.** It must be BSL, for example YAxUnit as a separate test extension. The runner and the fixture layout aren't chosen yet. Settle them before the first extension code is written.
+### Local setup
+
+- **`.v8-project.json`** (git-ignored, per developer) is the database registry in the `db-list` format. The `db-*` scripts read only `v8path`/`v8args` from it, so always pass `-InfoBasePath` and `-UserName` explicitly. The local base is used as «Администратор (ОрловАВ)» without a password; that user's физлицо «Орлов Александр Владимирович» carries `TEST_USER_EMAIL`.
+- **`.local/`** (git-ignored) holds the full config dump `.local/ka-config` (`configSrc`, about 80 000 files, 5.5 GB, format 2.16), downloads in `.local/vendor/`, logs and test reports.
+- **Sources:**
+  - `src/cfe/Б24ТабельИзЗадачи` is the product extension: AddOn, prefix `б24т_`, `Version8_3_21`, safe mode off, unsafe-action protection on.
+  - `src/cfe/Б24ТабельИзЗадачиТесты` is the test extension: AddOn, prefix `б24тТест_`, safe mode and protection off.
+  - Run `cfe-validate` after every change. The warning about format 2.16 being below the tested range is expected.
+- **Dev loop.** Load an extension with `db-load-xml.py -ConfigDir src/cfe/<Name> -Extension <Name> -UpdateDB`.
+  - Always name `-Extension` explicitly and never use `-AllExtensions`, so `Б24ПрототипЭтап1` stays untouched.
+  - Run every `1cv8`/`ibcmd` command outside the Claude Code sandbox; inside it the platform exits with 134 or hangs.
+  - A 1C session sees extension changes only after it restarts. Test runs start their own session. The `1c` MCP session needs a restart only when you inspect new metadata through it.
+  - If `/UpdateDBCfg` hits an exclusive lock, ask the user to close the 1C clients.
+- **Module files** are UTF-8 with exactly one BOM. Writing a file can keep an existing BOM, so check the first bytes (`efbbbf` once) before loading. A doubled BOM breaks compilation.
+
+### Tests
+
+- **Framework:** YAxUnit 25.12, extension `YAXUNIT`, from `https://github.com/bia-technologies/yaxunit/releases/download/25.12/YAxUnit-25.12.cfe`, SHA-256 `805a2277c997a3c24be0b0d080696479e91e4a15ed7e27aaf3991a7346522d70`. Safe mode and protection are off.
+  - The applicability check warns that `OnStart` and `ОбработкаОтображенияОшибки` handlers are missing. Tests still run.
+  - `YAXUNIT` and the test extension live only in the local base and are never installed in the office or production bases.
+- **Run:** `scripts/run-tests.sh` (outside the sandbox). It launches the thin client `1cv8c` with `RunUnitTests` and reads YAxUnit's result file. Exit codes: 0 green, 1 red (failed tests are printed), 2 environment not ready. Reports go to `.local/tests/` (`junit.xml`, `yaxunit.log`).
+  - YAxUnit skips a test module that fails to compile and still reports success. The script therefore treats `[ERR]` in its log or zero executed tests as red.
+- **Test modules:** server common modules `б24тТест_<ТестируемыйМодуль>` with `ИсполняемыеСценарии()`. A module compiled on the client can't use server-only БСП modules, so keep server tests in server-only modules; client tests go in separate client modules.
+- **Recorded Bitrix24 responses:** text common templates of the test extension, `б24тТест_Ответ_<метод>_<случай>`, with the webhook URL, real e-mails and names removed.
+- **REST client stub.** YAxUnit's Мокито can't intercept methods of an extension, so the transport is passed in as a parameter.
+  - The parameter is the name of a common module with `Выполнить(Запрос)`. Production code uses the HTTPS module of the product extension; tests pass `б24тТест_ЗаглушкаТранспорта`.
+  - The stub answers from the templates and appends every call to the `Вызовы` array of the client structure.
+  - Resolve the module with БСП `ОбщегоНазначения.ОбщийМодуль`; it finds product-extension modules (verified).
+- **Data in the base:** `ЮТест.Данные()` with `.УдалениеТестовыхДанных()`, plus `.ВТранзакции()` for server tests. Names start with «[ТЕСТ]».
+- **Form logic** lives in server functions on plain structures and is tested on the server. The glue to `ФормаДокумента` is covered by client tests that open the form with `ПолучитьФорму(…)` and call its exported procedures.
+- **HTTPS:** connect with `Новый ЗащищенноеСоединениеOpenSSL(Неопределено, Новый СертификатыУдостоверяющихЦентровОС)`. Without the second parameter the certificate isn't checked. The local base reaches `toofirmagem.bitrix24.kz` this way.
 
 ## Development method: TDD
 
@@ -124,3 +160,6 @@ How this applies here:
 - Test data is created over REST through a temporary incoming webhook, which is deleted afterwards.
 - The CRM 1C ↔ Bitrix24 exchange is not involved in development or acceptance.
 - Local test values live in `.env` (git-ignored; `.env.example` is the template). `TEST_USER_EMAIL` is the developer's e-mail for the Bitrix24 user and the физлицо in the local demo base. Reading `.env` is allowed.
+- The developer is also the Bitrix24 portal admin. They create the development webhook and the temporary test-data webhooks under their own account and enter the URLs into 1C themselves.
+  - Webhook URLs never go into `.env`, the repo or the agent chat. Don't ask for them, and don't read them back from the safe storage through the `1c` MCP server.
+  - The webhook owner and the test user are the same person. A live run therefore can't catch code that lists the webhook owner's tasks instead of the employee's. Unit tests must assert that every task request passes the employee's Bitrix24 ID explicitly.

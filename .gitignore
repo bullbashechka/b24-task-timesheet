@@ -25,3 +25,9 @@ build/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Local 1C artifacts: config dump, vendor downloads, test reports
+.local/
+
+# 1C database registry (per developer, may hold credentials)
+.v8-project.json
