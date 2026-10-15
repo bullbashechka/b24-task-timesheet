@@ -1,0 +1,25 @@
+{
+  "project": 38,
+  "companies": {
+    "dalstroy": 2926,
+    "arkharov": 2928,
+    "dalstroy2": 2930,
+    "norq": 2932,
+    "nobin": 2934,
+    "kikinda": 2936,
+    "dup": 2938
+  },
+  "tasks": {
+    "dalstroy": 10180,
+    "arkharov": 10182,
+    "dalstroy2": 10184,
+    "norq": 10186,
+    "nobin": 10188,
+    "kikinda": 10190,
+    "dup": 10192,
+    "twoCompanies": 10194,
+    "noCompany": 10196,
+    "observer": 10198,
+    "outside": 10200
+  }
+}

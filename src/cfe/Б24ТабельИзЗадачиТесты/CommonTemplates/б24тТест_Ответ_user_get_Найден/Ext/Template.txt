@@ -1,0 +1,22 @@
+﻿{
+  "result": [
+    {
+      "ID": "30",
+      "ACTIVE": true,
+      "NAME": "Тест",
+      "LAST_NAME": "Тестов",
+      "EMAIL": "Test.User@Example.com"
+    }
+  ],
+  "total": 1,
+  "time": {
+    "start": 1792079383,
+    "finish": 1792079383.428114,
+    "duration": 0.4281139373779297,
+    "processing": 0,
+    "date_start": "2026-10-15T18:49:43+03:00",
+    "date_finish": "2026-10-15T18:49:43+03:00",
+    "operating_reset_at": 1792079983,
+    "operating": 0
+  }
+}

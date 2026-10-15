@@ -1,0 +1,27 @@
+﻿{
+  "result": [
+    {
+      "ID": "142",
+      "ENTITY_TYPE_ID": "4",
+      "ENTITY_ID": "2926",
+      "PRESET_ID": "3",
+      "NAME": "Дальстрой",
+      "SORT": "10",
+      "ACTIVE": "Y",
+      "RQ_BIN": "234512612395",
+      "RQ_IIN": null,
+      "RQ_INN": null
+    }
+  ],
+  "total": 1,
+  "time": {
+    "start": 1792079386,
+    "finish": 1792079386.94955,
+    "duration": 0.9495499134063721,
+    "processing": 0,
+    "date_start": "2026-10-15T18:49:46+03:00",
+    "date_finish": "2026-10-15T18:49:46+03:00",
+    "operating_reset_at": 1792079986,
+    "operating": 0
+  }
+}

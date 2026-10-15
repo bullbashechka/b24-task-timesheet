@@ -63,7 +63,28 @@
 		</Properties>
 		<ChildObjects>
 			<Language>Русский</Language>
+			<CommonTemplate>б24тТест_Ответ_user_get_Найден</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_user_get_НеНайден</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_list_ПостановщикИлиИсполнитель</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_list_Соисполнитель</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_list_Страница1</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_list_Страница2</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_get_Найдена</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_get_НеНайдена</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_company_get_Найдена</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_company_get_НеНайдена</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_company_list_Названия</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_БИН</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_ИИН</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_ДваРеквизита</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_Пусто</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_ИНН_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_sonet_group_get_Проект</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_Ошибка_НеверныйВебхук</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_Ошибка_ЛимитЗапросов_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_Ошибка_Сервер_Синтетика</CommonTemplate>
 			<CommonModule>б24тТест_Сопоставление</CommonModule>
+			<CommonModule>б24тТест_ЗаписанныеОтветы</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

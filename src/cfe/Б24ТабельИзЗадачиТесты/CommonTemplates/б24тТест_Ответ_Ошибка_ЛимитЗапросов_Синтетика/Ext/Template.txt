@@ -1,0 +1,4 @@
+﻿{
+  "error": "QUERY_LIMIT_EXCEEDED",
+  "error_description": "Too many requests"
+}

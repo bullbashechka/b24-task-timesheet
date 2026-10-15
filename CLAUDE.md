@@ -13,7 +13,7 @@ All user-facing texts (error messages, button labels, CRM-company reasons in the
 
 ## Stack
 
-Product code is strictly BSL (the 1C:Enterprise language) in the extension `Б24ТабельИзЗадачи` (synonym «Б24: табель из задачи»): metadata, managed forms and modules. There is no HTML/JS, no BX24.js, no Bitrix24 app, no HTTP service published from 1C and no separate backend. Tests are BSL too. Python and PowerShell are used only by the vendored skill tooling; the one hand-written tool is the shell test runner `scripts/run-tests.sh`.
+Product code is strictly BSL (the 1C:Enterprise language) in the extension `Б24ТабельИзЗадачи` (synonym «Б24: табель из задачи»): metadata, managed forms and modules. There is no HTML/JS, no BX24.js, no Bitrix24 app, no HTTP service published from 1C and no separate backend. Tests are BSL too. Python and PowerShell are used only by the vendored skill tooling. The hand-written tools are shell scripts in `scripts/`: the test runner `run-tests.sh`, the Bitrix24 REST caller `b24.sh`, the test-data script `b24-test-data.sh` and the response recorder `b24-record-responses.sh`.
 
 ### The other Bitrix24 extension in the base
 
@@ -79,6 +79,29 @@ The extension contains:
 - **Time types in the window:** representation starts with «Клиент»/«Офис», minus `ОфисКомандировка` and `ОфисСобрания`, 13 values; default `КлиентУдаленныйДоступ`.
 - **БСП:** safe storage via `ОбщегоНазначения.ЗаписатьДанныеВБезопасноеХранилище`/`ПрочитатьДанныеИзБезопасногоХранилища` in privileged mode, owner `"Б24ТабельИзЗадачи"`, key `"АдресВебхука"`; `Пользователи.ЭтоПолноправныйПользователь()`; the settings command goes into subsystem `Администрирование.НастройкаИнтеграции`.
 
+### Bitrix24 REST facts (stage 2, checked on the portal)
+
+- **Webhook access.** The development webhook sees tasks where its owner has no role (e.g. task 550). The role check is therefore only ours: never trust the list to contain only the employee's tasks.
+- **Task list by role.** `::SUBFILTER-…` with `"::LOGIC": "OR"` works for `CREATED_BY` and `RESPONSIBLE_ID`, but `ACCOMPLICE` or `AUDITOR` inside an OR subfilter silently drops tasks that have no accomplices or auditors at all. `MEMBER` includes auditors. So the list takes two queries merged by ID:
+  1. `::SUBFILTER-R`: OR of `CREATED_BY` and `RESPONSIBLE_ID` = the employee's ID;
+  2. `ACCOMPLICE` = the employee's ID.
+- **Open or recently closed.** `::SUBFILTER-ST`: `{"::LOGIC": "OR", "!REAL_STATUS": 5, ">=CLOSED_DATE": "ДД.ММ.ГГГГ ЧЧ:ММ:СС"}`. Inside a subfilter only the portal format is accepted; ISO dates give «Incorrect date/time» (outside subfilters ISO works). The date is read in the webhook owner's time zone (+05:00 here) and the boundary is exact to the second.
+- **Project filter:** `GROUP_ID`; tasks outside a project return `groupId: "0"`.
+- **Title search:** `TITLE` with a plain value is a case-insensitive substring search; `%` is taken literally.
+- **Paging:** 50 per page, `start` = offset, the answer has `total` and `next` (absent on the last page).
+- **Answer shape:** `result.tasks[]` with camelCase keys (`id`, `title`, `createdBy`, `responsibleId`, `accomplices`, `auditors`, `status`, `groupId`, `ufCrmTask`, `closedDate`, `deadline`, `activityDate`), all IDs as strings. `ufCrmTask` is `null` when empty, otherwise `["CO_<id>", …]` (other prefixes are deals, contacts and so on). Dates are ISO with offset, e.g. `2026-10-15T20:40:55+05:00`.
+- **Status codes** (`status`/`REAL_STATUS`): 2 «Ждёт выполнения», 3 «Выполняется», 4 «Ждёт контроля», 5 «Завершена», 6 «Отложена». Only codes come back, names are ours. A task created with `TASK_CONTROL = N` goes straight to 5 on `tasks.task.complete`.
+- **Task links:** `…/company/personal/user/<uid>/tasks/task/view/<id>/` and `…/workgroups/group/<gid>/tasks/task/view/<id>/`; take the number after `/task/view/`.
+- **Errors:**
+  - `tasks.task.get` of a missing task: HTTP 200 with `"result": []` (no error).
+  - `crm.company.get` of a missing (or deleted) company: HTTP 400, `"error": ""`, `"error_description": "Not found"`.
+  - Wrong webhook token: HTTP 401, `INVALID_CREDENTIALS`.
+  - A company without requisites: `crm.requisite.list` → `result: []`, `total: 0`.
+- **Users:** `user.get` with `FILTER.EMAIL` ignores case; add `ACTIVE: true`.
+- **Requisites:** presets on this portal (KZ, `COUNTRY_ID` 6): 1 «ИП» (`RQ_IIN`), 3 «Юр. лицо» (`RQ_BIN`, `RQ_IIN`), 5 «Физ. лицо». `crm.requisite.list` takes `ENTITY_ID` as a list, so one call covers several companies; order by `SORT`, then `ID`.
+- **Company names for the list:** `crm.company.list` with `filter.ID` as a list and `select: [ID, TITLE]` gives all names in one call. It is not yet in the feature's method list (see TASKS 2.8).
+- **Time zones differ by method:** `sonet_group.get` returns `+03:00`, tasks return `+05:00`. Compare dates as instants, not as strings.
+
 ## Tooling
 
 ### MCP servers (`.mcp.json`)
@@ -141,7 +164,10 @@ Its configuration was loaded from the production KA's `.cf`, so `гем_Табе
 - **Run:** `scripts/run-tests.sh` (outside the sandbox). It launches the thin client `1cv8c` with `RunUnitTests` and reads YAxUnit's result file. Exit codes: 0 green, 1 red (failed tests are printed), 2 environment not ready. Reports go to `.local/tests/` (`junit.xml`, `yaxunit.log`).
   - YAxUnit skips a test module that fails to compile and still reports success. The script therefore treats `[ERR]` in its log or zero executed tests as red.
 - **Test modules:** server common modules `б24тТест_<ТестируемыйМодуль>` with `ИсполняемыеСценарии()`. A module compiled on the client can't use server-only БСП modules, so keep server tests in server-only modules; client tests go in separate client modules.
-- **Recorded Bitrix24 responses:** text common templates of the test extension, `б24тТест_Ответ_<метод>_<случай>`, with the webhook URL, real e-mails and names removed.
+- **Recorded Bitrix24 responses:** text common templates of the test extension, `б24тТест_Ответ_<метод>_<случай>` (dots in the method become `_`, errors not tied to a method are `Ответ_Ошибка_<случай>`), with the webhook URL, real e-mails and names removed.
+  - `scripts/b24-record-responses.sh` re-records all of them from the test data (IDs in `scripts/b24-test-data.ids.json`) and builds the `_Синтетика` ones the portal can't produce on demand.
+  - Templates hold only the body. HTTP statuses: «Not found» 400, `INVALID_CREDENTIALS` 401, `INTERNAL_SERVER_ERROR` 500, `QUERY_LIMIT_EXCEEDED` 503.
+  - The test `б24тТест_ЗаписанныеОтветы` lists the required ones and fails if any template is not JSON or contains `/rest/`, the portal domain or an e-mail outside `example.com`. A new template must be added to its list.
 - **REST client stub.** YAxUnit's Мокито can't intercept methods of an extension, so the transport is passed in as a parameter.
   - The parameter is the name of a common module with `Выполнить(Запрос)`. Production code uses the HTTPS module of the product extension; tests pass `б24тТест_ЗаглушкаТранспорта`.
   - The stub answers from the templates and appends every call to the `Вызовы` array of the client structure.
@@ -175,9 +201,10 @@ How this applies here:
 
 - Development happens on the developer's copy of the KA demo base. Acceptance happens on the KA demo base on the office server, in test mode. Both use the production Bitrix24 portal.
 - Test companies and tasks are prefixed «[ТЕСТ]» and live in the project «[ТЕСТ] Табель из задачи».
-- Test data is created over REST through a temporary incoming webhook, which is deleted afterwards.
+- Test data is created over REST through the development webhook with `scripts/b24-test-data.sh`. The webhook is reissued before production.
 - The CRM 1C ↔ Bitrix24 exchange is not involved in development or acceptance.
 - Local test values live in `.env` (git-ignored; `.env.example` is the template). `TEST_USER_EMAIL` is the developer's e-mail for the Bitrix24 user and the физлицо in the local demo base. Reading `.env` is allowed.
-- The developer is also the Bitrix24 portal admin. They create the development webhook and the temporary test-data webhooks under their own account and enter the URLs into 1C themselves.
-  - Webhook URLs never go into `.env`, the repo or the agent chat. Don't ask for them, and don't read them back from the safe storage through the `1c` MCP server.
+- The developer is also the Bitrix24 portal admin. They create the development webhook under their own account, put its URL into the macOS Keychain (`security add-generic-password -a "$USER" -s b24-dev-webhook -w`) and enter it into 1C themselves.
+  - Webhook URLs never go into `.env`, the repo or the agent chat. Don't ask for them, don't read them back from the safe storage through the `1c` MCP server, and never run `security find-generic-password … -w` yourself.
+  - Call Bitrix24 only through `scripts/b24.sh <method> ['<json>'] [--write] [--save <file>] [--bad-token]`. It reads the URL from the Keychain, masks it in all output, allows a whitelist of read methods and needs `--write` for the methods that create or delete test data. Run it outside the sandbox (Keychain access).
   - The webhook owner and the test user are the same person. A live run therefore can't catch code that lists the webhook owner's tasks instead of the employee's. Unit tests must assert that every task request passes the employee's Bitrix24 ID explicitly.

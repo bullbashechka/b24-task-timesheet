@@ -1,0 +1,35 @@
+﻿{
+  "result": [
+    {
+      "ID": "38",
+      "SITE_ID": "ex",
+      "NAME": "[ТЕСТ] Табель из задачи",
+      "DESCRIPTION": null,
+      "DATE_CREATE": "2026-10-15T18:40:46+03:00",
+      "DATE_UPDATE": "2026-10-15T18:40:46+03:00",
+      "ACTIVE": "Y",
+      "VISIBLE": "N",
+      "OPENED": "N",
+      "CLOSED": "N",
+      "SUBJECT_ID": "1",
+      "OWNER_ID": "30",
+      "KEYWORDS": null,
+      "NUMBER_OF_MEMBERS": "4",
+      "DATE_ACTIVITY": "2026-10-15T18:41:04+03:00",
+      "SUBJECT_NAME": "Рабочие группы",
+      "PROJECT": "Y",
+      "IS_EXTRANET": "Y"
+    }
+  ],
+  "total": 1,
+  "time": {
+    "start": 1792079387,
+    "finish": 1792079387.994369,
+    "duration": 0.9943690299987793,
+    "processing": 0,
+    "date_start": "2026-10-15T18:49:47+03:00",
+    "date_finish": "2026-10-15T18:49:47+03:00",
+    "operating_reset_at": 1792079987,
+    "operating": 0.11033415794372559
+  }
+}

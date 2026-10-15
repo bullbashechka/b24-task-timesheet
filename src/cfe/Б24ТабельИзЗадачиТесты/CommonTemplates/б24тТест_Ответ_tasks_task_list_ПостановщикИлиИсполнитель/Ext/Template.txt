@@ -1,0 +1,591 @@
+﻿{
+  "result": {
+    "tasks": [
+      {
+        "id": "10180",
+        "title": "[ТЕСТ] Дальстрой — БИН, завершена",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "ufCrmTask": [
+          "CO_2926"
+        ],
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": "2026-10-15T20:40:55+05:00",
+        "activityDate": "2026-10-15T20:40:55+05:00",
+        "createdDate": "2026-10-15T20:40:53+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "5",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "5"
+      },
+      {
+        "id": "10182",
+        "title": "[ТЕСТ] ИП Архаров — ИИН",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "ufCrmTask": [
+          "CO_2928"
+        ],
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": null,
+        "activityDate": "2026-10-15T20:40:57+05:00",
+        "createdDate": "2026-10-15T20:40:56+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "2",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "-3"
+      },
+      {
+        "id": "10184",
+        "title": "[ТЕСТ] Дальстрой — два реквизита",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "ufCrmTask": [
+          "CO_2930"
+        ],
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": null,
+        "activityDate": "2026-10-15T20:40:57+05:00",
+        "createdDate": "2026-10-15T20:40:57+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "2",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "-3"
+      },
+      {
+        "id": "10186",
+        "title": "[ТЕСТ] Компания без реквизитов",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "ufCrmTask": [
+          "CO_2932"
+        ],
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": null,
+        "activityDate": "2026-10-15T20:40:58+05:00",
+        "createdDate": "2026-10-15T20:40:58+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "2",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "-3"
+      },
+      {
+        "id": "10188",
+        "title": "[ТЕСТ] Несуществующий БИН",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "ufCrmTask": [
+          "CO_2934"
+        ],
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": null,
+        "activityDate": "2026-10-15T20:40:59+05:00",
+        "createdDate": "2026-10-15T20:40:59+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "2",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "-3"
+      },
+      {
+        "id": "10190",
+        "title": "[ТЕСТ] Kikinda — БИН",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "ufCrmTask": [
+          "CO_2936"
+        ],
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": null,
+        "activityDate": "2026-10-15T20:41:00+05:00",
+        "createdDate": "2026-10-15T20:41:00+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "2",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "-3"
+      },
+      {
+        "id": "10192",
+        "title": "[ТЕСТ] Бытовая техника — два контрагента с БИН",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "ufCrmTask": [
+          "CO_2938"
+        ],
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": null,
+        "activityDate": "2026-10-15T20:41:01+05:00",
+        "createdDate": "2026-10-15T20:41:01+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "2",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "-3"
+      },
+      {
+        "id": "10194",
+        "title": "[ТЕСТ] Две компании CRM",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "ufCrmTask": [
+          "CO_2926",
+          "CO_2928"
+        ],
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": null,
+        "activityDate": "2026-10-15T20:41:02+05:00",
+        "createdDate": "2026-10-15T20:41:02+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "2",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "-3"
+      },
+      {
+        "id": "10196",
+        "title": "[ТЕСТ] Без компании CRM",
+        "createdBy": "26",
+        "responsibleId": "30",
+        "deadline": "2026-10-16T19:00:00+05:00",
+        "closedDate": null,
+        "activityDate": "2026-10-15T20:41:03+05:00",
+        "createdDate": "2026-10-15T20:41:03+05:00",
+        "ufTaskWebdavFiles": null,
+        "ufMailMessage": null,
+        "status": "2",
+        "groupId": "38",
+        "auditors": [
+          "28"
+        ],
+        "accomplices": [
+          "50"
+        ],
+        "group": {
+          "id": "38",
+          "name": "[ТЕСТ] Табель из задачи",
+          "opened": false,
+          "membersCount": 4,
+          "image": "",
+          "additionalData": []
+        },
+        "creator": {
+          "id": "26",
+          "name": "Тест Пользователь 26",
+          "link": "/company/personal/user/26/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "responsible": {
+          "id": "30",
+          "name": "Тест Пользователь 30",
+          "link": "/company/personal/user/30/",
+          "icon": "",
+          "workPosition": ""
+        },
+        "accomplicesData": {
+          "50": {
+            "id": "50",
+            "name": "Тест Пользователь 50",
+            "link": "/company/personal/user/50/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "auditorsData": {
+          "28": {
+            "id": "28",
+            "name": "Тест Пользователь 28",
+            "link": "/company/personal/user/28/",
+            "icon": "",
+            "workPosition": ""
+          }
+        },
+        "subStatus": "-3"
+      }
+    ]
+  },
+  "total": 9,
+  "time": {
+    "start": 1792079383,
+    "finish": 1792079384.008148,
+    "duration": 1.008147954940796,
+    "processing": 1,
+    "date_start": "2026-10-15T18:49:43+03:00",
+    "date_finish": "2026-10-15T18:49:44+03:00",
+    "operating_reset_at": 1792079983,
+    "operating": 0
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "project": "[ТЕСТ] Табель из задачи",
+  "users": {
+    "developer": 30,
+    "oksana": 26,
+    "polina": 50,
+    "inga": 28
+  },
+  "presets": {
+    "company": 3,
+    "ip": 1
+  },
+  "roles": {
+    "default": {
+      "creator": "oksana",
+      "responsible": "developer",
+      "accomplices": [
+        "polina"
+      ],
+      "auditors": [
+        "inga"
+      ]
+    },
+    "observer": {
+      "creator": "oksana",
+      "responsible": "oksana",
+      "accomplices": [],
+      "auditors": [
+        "developer",
+        "inga"
+      ]
+    }
+  },
+  "companies": [
+    {
+      "key": "dalstroy",
+      "title": "[ТЕСТ] Дальстрой",
+      "requisites": [
+        {
+          "preset": "company",
+          "name": "Дальстрой",
+          "fields": {
+            "RQ_BIN": "234512612395"
+          }
+        }
+      ]
+    },
+    {
+      "key": "arkharov",
+      "title": "[ТЕСТ] ИП Архаров",
+      "requisites": [
+        {
+          "preset": "ip",
+          "name": "ИП Архаров",
+          "fields": {
+            "RQ_IIN": "745105884167"
+          }
+        }
+      ]
+    },
+    {
+      "key": "dalstroy2",
+      "title": "[ТЕСТ] Дальстрой, два реквизита",
+      "requisites": [
+        {
+          "preset": "company",
+          "name": "Без БИН",
+          "fields": {}
+        },
+        {
+          "preset": "company",
+          "name": "С БИН",
+          "fields": {
+            "RQ_BIN": "234512612395"
+          }
+        }
+      ]
+    },
+    {
+      "key": "norq",
+      "title": "[ТЕСТ] Без реквизитов",
+      "requisites": []
+    },
+    {
+      "key": "nobin",
+      "title": "[ТЕСТ] Несуществующий БИН",
+      "requisites": [
+        {
+          "preset": "company",
+          "name": "Несуществующий БИН",
+          "fields": {
+            "RQ_BIN": "990840000017"
+          }
+        }
+      ]
+    },
+    {
+      "key": "kikinda",
+      "title": "[ТЕСТ] Kikinda",
+      "requisites": [
+        {
+          "preset": "company",
+          "name": "Kikinda",
+          "fields": {
+            "RQ_BIN": "452407560239"
+          }
+        }
+      ]
+    },
+    {
+      "key": "dup",
+      "title": "[ТЕСТ] Бытовая техника",
+      "requisites": [
+        {
+          "preset": "company",
+          "name": "Бытовая техника",
+          "fields": {
+            "RQ_BIN": "772824024014"
+          }
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "key": "dalstroy",
+      "title": "[ТЕСТ] Дальстрой — БИН, завершена",
+      "companies": [
+        "dalstroy"
+      ],
+      "roles": "default",
+      "inProject": true,
+      "complete": true
+    },
+    {
+      "key": "arkharov",
+      "title": "[ТЕСТ] ИП Архаров — ИИН",
+      "companies": [
+        "arkharov"
+      ],
+      "roles": "default",
+      "inProject": true
+    },
+    {
+      "key": "dalstroy2",
+      "title": "[ТЕСТ] Дальстрой — два реквизита",
+      "companies": [
+        "dalstroy2"
+      ],
+      "roles": "default",
+      "inProject": true
+    },
+    {
+      "key": "norq",
+      "title": "[ТЕСТ] Компания без реквизитов",
+      "companies": [
+        "norq"
+      ],
+      "roles": "default",
+      "inProject": true
+    },
+    {
+      "key": "nobin",
+      "title": "[ТЕСТ] Несуществующий БИН",
+      "companies": [
+        "nobin"
+      ],
+      "roles": "default",
+      "inProject": true
+    },
+    {
+      "key": "kikinda",
+      "title": "[ТЕСТ] Kikinda — БИН",
+      "companies": [
+        "kikinda"
+      ],
+      "roles": "default",
+      "inProject": true
+    },
+    {
+      "key": "dup",
+      "title": "[ТЕСТ] Бытовая техника — два контрагента с БИН",
+      "companies": [
+        "dup"
+      ],
+      "roles": "default",
+      "inProject": true
+    },
+    {
+      "key": "twoCompanies",
+      "title": "[ТЕСТ] Две компании CRM",
+      "companies": [
+        "dalstroy",
+        "arkharov"
+      ],
+      "roles": "default",
+      "inProject": true
+    },
+    {
+      "key": "noCompany",
+      "title": "[ТЕСТ] Без компании CRM",
+      "companies": [],
+      "roles": "default",
+      "inProject": true
+    },
+    {
+      "key": "observer",
+      "title": "[ТЕСТ] Только наблюдатель",
+      "companies": [
+        "dalstroy"
+      ],
+      "roles": "observer",
+      "inProject": true
+    },
+    {
+      "key": "outside",
+      "title": "[ТЕСТ] Вне проекта",
+      "companies": [
+        "dalstroy"
+      ],
+      "roles": "default",
+      "inProject": false
+    }
+  ]
+}
