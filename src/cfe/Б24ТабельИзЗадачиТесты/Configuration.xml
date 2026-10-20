@@ -85,6 +85,8 @@
 			<CommonTemplate>б24тТест_Ответ_Ошибка_Сервер_Синтетика</CommonTemplate>
 			<CommonModule>б24тТест_Сопоставление</CommonModule>
 			<CommonModule>б24тТест_ЗаписанныеОтветы</CommonModule>
+			<CommonModule>б24тТест_ТабельИДБ24</CommonModule>
+			<CommonModule>б24тТест_ТабельФормаКлиент</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.16">
+	<Document uuid="6da10346-0610-4ae9-947c-eeb8d92bac03">
+		<InternalInfo>
+			<xr:GeneratedType name="DocumentObject.гем_Табель" category="Object">
+				<xr:TypeId>da56eb6f-12a1-41b6-864c-394d1927ac76</xr:TypeId>
+				<xr:ValueId>d105b070-b76a-43da-bce2-379f445ab1eb</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="DocumentRef.гем_Табель" category="Ref">
+				<xr:TypeId>98bfce1d-04db-42f7-b3a1-583c35b8d457</xr:TypeId>
+				<xr:ValueId>8714b7c6-dae9-4239-a698-3d41abbdfd23</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="DocumentSelection.гем_Табель" category="Selection">
+				<xr:TypeId>0075e6e1-cc41-45ec-9d59-7382f2786d87</xr:TypeId>
+				<xr:ValueId>85e15094-fc0a-433e-a274-d6dbf470dfd5</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="DocumentList.гем_Табель" category="List">
+				<xr:TypeId>13e855c0-2c23-43b8-841f-1314d334d933</xr:TypeId>
+				<xr:ValueId>e7f78e12-fbe0-4e66-ac1c-5ca7f1e047a7</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="DocumentManager.гем_Табель" category="Manager">
+				<xr:TypeId>c71623c5-1fd1-4a2e-b83b-b5341639ddd3</xr:TypeId>
+				<xr:ValueId>d9f41b77-fb4d-42d8-b603-ec0737a1ec9e</xr:ValueId>
+			</xr:GeneratedType>
+		</InternalInfo>
+		<Properties>
+			<ObjectBelonging>Adopted</ObjectBelonging>
+			<Name>гем_Табель</Name>
+			<Comment/>
+			<ExtendedConfigurationObject>c0877ebd-b645-4634-82bb-88ac56c78a89</ExtendedConfigurationObject>
+			<NumberType>String</NumberType>
+			<NumberLength>11</NumberLength>
+			<NumberAllowedLength>Fixed</NumberAllowedLength>
+		</Properties>
+		<ChildObjects>
+			<Form>ФормаДокумента</Form>
+		
+			<Attribute uuid="53b6c5ad-a2d0-4252-b69b-94897bb5df64">
+				<InternalInfo/>
+				<Properties>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<Name>Автор</Name>
+					<Comment/>
+					<ExtendedConfigurationObject>da5b55eb-9481-4484-a03f-eba9c67ed746</ExtendedConfigurationObject>
+					<Type><v8:Type>cfg:CatalogRef.Пользователи</v8:Type></Type>
+				</Properties>
+			</Attribute>
+			<Attribute uuid="9c3d140f-26ba-4e1b-b71f-b757f09d0528">
+				<InternalInfo/>
+				<Properties>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<Name>Комментарий</Name>
+					<Comment/>
+					<ExtendedConfigurationObject>5c860b95-5e2d-472b-af75-05414ef95dc3</ExtendedConfigurationObject>
+					<Type><v8:Type>xs:string</v8:Type><v8:StringQualifiers><v8:Length>0</v8:Length><v8:AllowedLength>Variable</v8:AllowedLength></v8:StringQualifiers></Type>
+				</Properties>
+			</Attribute>
+			<Attribute uuid="1c875167-f0df-4ba0-904f-74eb2ceb746c">
+				<InternalInfo/>
+				<Properties>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<Name>Корректор</Name>
+					<Comment/>
+					<ExtendedConfigurationObject>f8e219fd-d311-43df-8a91-5031a422310a</ExtendedConfigurationObject>
+					<Type><v8:Type>cfg:CatalogRef.Пользователи</v8:Type></Type>
+				</Properties>
+			</Attribute>
+			<Attribute uuid="19042885-e815-4971-a05f-d4a6ae64fad7">
+				<InternalInfo/>
+				<Properties>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<Name>ПроверятьОрфографию</Name>
+					<Comment/>
+					<ExtendedConfigurationObject>cab54738-ea8d-4791-af55-38b2c906c8bd</ExtendedConfigurationObject>
+					<Type><v8:Type>xs:boolean</v8:Type></Type>
+				</Properties>
+			</Attribute>
+			<Attribute uuid="1d6b2ff6-5581-4b46-882e-6b5d73a082a1">
+				<InternalInfo/>
+				<Properties>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<Name>Сотрудник</Name>
+					<Comment/>
+					<ExtendedConfigurationObject>9b8ce549-e635-46b0-9494-1552a38b2168</ExtendedConfigurationObject>
+					<Type><v8:Type>cfg:CatalogRef.ФизическиеЛица</v8:Type></Type>
+				</Properties>
+			</Attribute>
+			<Attribute uuid="dfa2219a-02eb-4228-8060-9385fb55b376">
+				<InternalInfo/>
+				<Properties>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<Name>УД_ВремяПоследнейЗагрузки</Name>
+					<Comment/>
+					<ExtendedConfigurationObject>2aef525d-dd65-4b8e-a977-9854e5078014</ExtendedConfigurationObject>
+					<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>DateTime</v8:DateFractions></v8:DateQualifiers></Type>
+				</Properties>
+			</Attribute>
+			<TabularSection uuid="613661fd-c45b-430e-a6df-6d4c867af562">
+				<InternalInfo>
+					<xr:GeneratedType name="DocumentTabularSection.гем_Табель.Табель" category="TabularSection">
+						<xr:TypeId>e1f4baa7-9cd6-433f-9ffe-6e0403a46df8</xr:TypeId>
+						<xr:ValueId>c3468dad-d464-4fc2-982e-6113942ca877</xr:ValueId>
+					</xr:GeneratedType>
+					<xr:GeneratedType name="DocumentTabularSectionRow.гем_Табель.Табель" category="TabularSectionRow">
+						<xr:TypeId>9d6520e7-7dd2-4d1c-bede-3028a661ee05</xr:TypeId>
+						<xr:ValueId>452678ce-6e35-499d-bd09-e0d228ebfc81</xr:ValueId>
+					</xr:GeneratedType>
+				</InternalInfo>
+				<Properties>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<Name>Табель</Name>
+					<Comment/>
+					<ExtendedConfigurationObject>492b3366-418d-4ae8-a12c-6ec7b88fac64</ExtendedConfigurationObject>
+				</Properties>
+				<ChildObjects>
+					<Attribute uuid="0c0487b8-47c1-4807-929b-e55dd6fa34f3">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>ВремяКон</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>0d0ed771-d9f1-4a14-a28c-6279b8674a00</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>Time</v8:DateFractions></v8:DateQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="812a70c0-31fc-4f09-84bd-11b66dba55c6">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>ВремяНач</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>d628c085-539e-4d42-8cb0-fe6e77dec171</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>Time</v8:DateFractions></v8:DateQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="752a7a0e-690c-41c4-acf8-37afa2ef9d79">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>Факт</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>dffe01d2-059d-4cf0-8701-a880c6c258a0</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>Time</v8:DateFractions></v8:DateQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="8dba9d8e-a4e5-4aaa-b192-fb0d93127060">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>ТипПП</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>ed3699e1-9b61-43ff-95c4-3ba5b264a1f3</ExtendedConfigurationObject>
+							<Type><v8:Type>cfg:EnumRef.ГЕМ_ТипПП</v8:Type></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="6e0d265b-a94d-46cb-9b3a-46976ba36769">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>ТипВремени</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>0962e137-3316-4223-906b-5637cf20735d</ExtendedConfigurationObject>
+							<Type><v8:Type>cfg:EnumRef.гем_ТипыВремени</v8:Type></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="cf6bf05f-df3e-49ca-9ddd-841811698646">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>Проезд</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>b4c375f9-c74f-4045-87f2-83f64a73d870</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:decimal</v8:Type><v8:NumberQualifiers><v8:Digits>7</v8:Digits><v8:FractionDigits>0</v8:FractionDigits><v8:AllowedSign>Any</v8:AllowedSign></v8:NumberQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="8cdd73bd-7e4e-4a59-b8cd-58ee204a3ee2">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>Контрагент</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>5a6a9447-e4c5-44a7-8efe-2b9b3a087e44</ExtendedConfigurationObject>
+							<Type><v8:Type>cfg:CatalogRef.Контрагенты</v8:Type></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="203be17c-d735-4678-b882-f2c7e4fe8053">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>Содержание</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>81418ba7-eceb-47d2-88f8-8f9273358a6f</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:string</v8:Type><v8:StringQualifiers><v8:Length>1000</v8:Length><v8:AllowedLength>Variable</v8:AllowedLength></v8:StringQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="cefcbb22-e6ce-491e-be40-40cb5e90034d">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>Норма</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>2269e0f4-35ab-42e2-9c87-3ec275fe126c</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>Time</v8:DateFractions></v8:DateQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="45dd730a-4dfe-46f9-b886-f44f06500ae7">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>КОплате</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>fdbed58c-6c23-47ca-8090-766453fdee92</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>Time</v8:DateFractions></v8:DateQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="a258f596-6b1b-4b1e-bc2a-1d659d5e7bb7">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>Зарплата</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>dc38eab9-0d8e-4fed-916c-3ab206d0bddd</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>Time</v8:DateFractions></v8:DateQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="7f55718d-66cc-4b1a-8357-8b6c24b05ea7">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>Заметки</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>0def04eb-10ba-4b57-910f-6990f67a2177</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:string</v8:Type><v8:StringQualifiers><v8:Length>500</v8:Length><v8:AllowedLength>Variable</v8:AllowedLength></v8:StringQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="b3da0f8a-232e-422b-8152-5f59659de218">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>ВызовНорма</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>c8cb1dd8-644d-43ae-8cb9-d926496ba5e3</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>Time</v8:DateFractions></v8:DateQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="920d70ed-7362-48ae-95fd-4c2f704f5228">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>ВызовКОплате</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>6868e959-5151-43c8-8bcc-d61024267e49</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>Time</v8:DateFractions></v8:DateQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="f37997b5-b789-4c69-888f-4b9cf641f1fe">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>Печать</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>8d7a017c-c1a8-43cd-b5fe-ecdc824a0bdf</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:boolean</v8:Type></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="f471b1ac-5f69-43f8-bf25-d6c05f1475de">
+						<InternalInfo/>
+						<Properties>
+							<ObjectBelonging>Adopted</ObjectBelonging>
+							<Name>RAAccessID</Name>
+							<Comment/>
+							<ExtendedConfigurationObject>83cd09c6-4caf-4b24-8292-0b14c382454e</ExtendedConfigurationObject>
+							<Type><v8:Type>xs:string</v8:Type><v8:StringQualifiers><v8:Length>100</v8:Length><v8:AllowedLength>Variable</v8:AllowedLength></v8:StringQualifiers></Type>
+						</Properties>
+					</Attribute>
+					<Attribute uuid="801a351b-929d-40c0-a6c0-335959b7335b">
+						<Properties>
+							<Name>б24т_IDБ24</Name>
+							<Synonym>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ID Б24</v8:content>
+								</v8:item>
+							</Synonym>
+							<Comment/>
+							<Type>
+								<v8:Type>xs:string</v8:Type>
+								<v8:StringQualifiers>
+									<v8:Length>20</v8:Length>
+									<v8:AllowedLength>Variable</v8:AllowedLength>
+								</v8:StringQualifiers>
+							</Type>
+							<PasswordMode>false</PasswordMode>
+							<Format/>
+							<EditFormat/>
+							<ToolTip/>
+							<MarkNegatives>false</MarkNegatives>
+							<Mask/>
+							<MultiLine>false</MultiLine>
+							<ExtendedEdit>false</ExtendedEdit>
+							<MinValue xsi:nil="true"/>
+							<MaxValue xsi:nil="true"/>
+							<FillChecking>DontCheck</FillChecking>
+							<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+							<ChoiceParameterLinks/>
+							<ChoiceParameters/>
+							<QuickChoice>Auto</QuickChoice>
+							<CreateOnInput>Auto</CreateOnInput>
+							<ChoiceForm/>
+							<LinkByType/>
+							<ChoiceHistoryOnInput>Auto</ChoiceHistoryOnInput>
+							<Indexing>DontIndex</Indexing>
+							<FullTextSearch>Use</FullTextSearch>
+							<DataHistory>Use</DataHistory>
+						</Properties>
+					</Attribute>
+				</ChildObjects>
+			</TabularSection>
+		</ChildObjects>
+	</Document>
+</MetaDataObject>

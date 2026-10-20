@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.16">
+	<Enum uuid="6a11c87d-4a75-40a0-a01d-1f51240d9f7e">
+		<InternalInfo>
+			<xr:GeneratedType name="EnumRef.гем_ТипыВремени" category="Ref">
+				<xr:TypeId>ca13ea40-b147-4161-a3a5-5bf76bc12eab</xr:TypeId>
+				<xr:ValueId>b3dd2d22-7155-4705-82c9-442073224383</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="EnumManager.гем_ТипыВремени" category="Manager">
+				<xr:TypeId>0b584eb2-41fd-4c8d-a3ba-fc3102643e37</xr:TypeId>
+				<xr:ValueId>16c530fb-9408-4dce-a3c4-087040f8ed71</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="EnumList.гем_ТипыВремени" category="List">
+				<xr:TypeId>e19ee392-5eb0-422f-b638-5bbd4de6ef31</xr:TypeId>
+				<xr:ValueId>628f44a5-7f68-45cc-9871-4f11d3e31257</xr:ValueId>
+			</xr:GeneratedType>
+		</InternalInfo>
+		<Properties>
+			<ObjectBelonging>Adopted</ObjectBelonging>
+			<Name>гем_ТипыВремени</Name>
+			<Comment/>
+			<ExtendedConfigurationObject>360d1d3d-b2f9-4d94-b47b-11ebe294292f</ExtendedConfigurationObject>
+		</Properties>
+		<ChildObjects/>
+	</Enum>
+</MetaDataObject>

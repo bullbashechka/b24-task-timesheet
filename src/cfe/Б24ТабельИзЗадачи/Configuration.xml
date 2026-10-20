@@ -67,6 +67,12 @@
 			<Language>Русский</Language>
 			<Role>б24т_ОсновнаяРоль</Role>
 			<CommonModule>б24т_Сопоставление</CommonModule>
+			<Catalog>Пользователи</Catalog>
+			<Catalog>ФизическиеЛица</Catalog>
+			<Catalog>Контрагенты</Catalog>
+			<Document>гем_Табель</Document>
+			<Enum>ГЕМ_ТипПП</Enum>
+			<Enum>гем_ТипыВремени</Enum>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

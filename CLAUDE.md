@@ -4,12 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Stage 0 is done: the empty product extension, the test extension and YAxUnit are installed in the local base, and the first rule (e-mail normalization) is implemented test-first. The plan:
+Stages 0–3 are done: the extensions and YAxUnit are installed in the local base, the first rule (e-mail normalization) is implemented test-first, and the «ID Б24» column (Ф7) is in the tabular section and in `ФормаДокумента`. The plan:
 
 - `PRD.md` is the spec (in Russian). References like «Ф3» point to its features and «С5» to its acceptance scenarios.
 - `TASKS.md` is the work plan: stages and tasks derived from `PRD.md`, with the open questions the PRD leaves unanswered.
 
 All user-facing texts (error messages, button labels, CRM-company reasons in the Ф6 table) must match `PRD.md` word for word.
+
+## Working on a stage
+
+Every `TASKS.md` stage or task goes through three steps. Each step is agreed with the user before the next one starts:
+
+1. **Edge cases.** List the pitfalls of the stage as numbered edge cases, each with options and the recommended one first. The user is not a programmer: they decide only what affects the product and the user experience. Technical choices are ours; state them with the reason. Only read-only checks are allowed in this step: code, `.local/ka-config`, reads through the `1c` MCP, the `b24-dev-mcp` docs and read methods of `scripts/b24.sh`.
+2. **Implementation plan.** Write a plan from the agreed edge cases and wait for the user to approve it.
+3. **Implementation.** Carry out the approved plan, test-first (see «Development method: TDD»).
+
+The user's «ок» closes the current step only; it never means "go implement". Until the plan is approved, don't install software, change data in a base or on the portal (`b24.sh --write`), load extensions, edit `src/` or run the test client.
 
 ## Stack
 
@@ -73,7 +83,14 @@ The extension contains:
   - `ПриОткрытии` disables the table's command bar when `ПроверитьПрава()` is false (no full rights and the author's физлицо isn't the user's).
 - **Adding a row from the extension:** the borrowed form's module calls the original procedures directly: sort → add and fill → `ОбработкаФормы` → `Пересчет` → `ОбновитьПодвал` → make current, set `Модифицированность`. Our command has `ИзменяетСохраняемыеДанные`.
 - **Closed periods:** БСП checks the change-prohibition date only on write; the form stays editable.
-- **Form.xml** binds 7 events to procedures that don't exist (e.g. `ПослеЗаписи`). Expect this when borrowing the form.
+- **Form.xml** binds 7 events to procedures that don't exist (e.g. `ПослеЗаписи`). The borrowed form still loads and opens; nothing had to be removed.
+- **«ID Б24» (stage 3):**
+  - The tabular-section attribute is `б24т_IDБ24`, `Строка(20)`, synonym «ID Б24». The form column is `Табельб24т_IDБ24`, placed right after `ТабельСодержание`. It is the only column the extension adds; `ФормаВвода` is not borrowed.
+  - The extension now changes the data structure. After an update on the office server users must restart 1C. Disabling the extension hides the numbers, deleting it erases them.
+  - Borrowing `гем_Табель` pulled in `Справочник.Пользователи`, `ФизическиеЛица`, `Контрагенты` and the enums `гем_ТипыВремени`, `ГЕМ_ТипПП` as unchanged borrowed objects.
+  - A row copy (F9, document copy) carries the number with the other fields. This is platform behavior; Ф7 says so.
+  - The form module of the extension can call the original non-exported client procedures `ОбработкаФормы`, `Пересчет` and `ОбновитьПодвал` directly (checked with a probe that computed Факт 01:30 and updated the footer). This confirms the stage 1.4 decision for stage 10.
+  - `cfe-validate -ConfigPath` reports error 14 for the new column: it checks form paths only against the main configuration and doesn't see the extension's own attributes. Run it without `-ConfigPath`. The `NegativeTextColor` warning is harmless.
 - **E-mail:** `УправлениеКонтактнойИнформацией.КонтактнаяИнформацияОбъектов` (server only) with type `АдресЭлектроннойПочты` and kind `Справочники.ВидыКонтактнойИнформации.EMailФизическиеЛица`; the address is in `Представление`.
 - **Counterparty number:** `Контрагенты.ИНН`, `Строка(12)`, indexed. `СокрЛП` works in queries here.
 - **Time types in the window:** representation starts with «Клиент»/«Офис», minus `ОфисКомандировка` and `ОфисСобрания`, 13 values; default `КлиентУдаленныйДоступ`.
@@ -164,6 +181,9 @@ Its configuration was loaded from the production KA's `.cf`, so `гем_Табе
 - **Run:** `scripts/run-tests.sh` (outside the sandbox). It launches the thin client `1cv8c` with `RunUnitTests` and reads YAxUnit's result file. Exit codes: 0 green, 1 red (failed tests are printed), 2 environment not ready. Reports go to `.local/tests/` (`junit.xml`, `yaxunit.log`).
   - YAxUnit skips a test module that fails to compile and still reports success. The script therefore treats `[ERR]` in its log or zero executed tests as red.
 - **Test modules:** server common modules `б24тТест_<ТестируемыйМодуль>` with `ИсполняемыеСценарии()`. A module compiled on the client can't use server-only БСП modules, so keep server tests in server-only modules; client tests go in separate client modules.
+  - `meta-compile` with `"context": "server"` sets `ServerCall` to true and YAxUnit silently skips such a module (it reports fewer tests and green). Set `<ServerCall>false</ServerCall>` in the module's XML and check the test count after a run.
+  - Client tests: keep the form from `ПолучитьФорму(...)` in a variable (an element of a released form is «недействительный объект»), and don't read `ПутьКДанным` of an element (unavailable on the client).
+  - Changing the data structure (a new attribute) needs exclusive access: close every 1C client, Designer and the MCP processing before loading the extension.
 - **Recorded Bitrix24 responses:** text common templates of the test extension, `б24тТест_Ответ_<метод>_<случай>` (dots in the method become `_`, errors not tied to a method are `Ответ_Ошибка_<случай>`), with the webhook URL, real e-mails and names removed.
   - `scripts/b24-record-responses.sh` re-records all of them from the test data (IDs in `scripts/b24-test-data.ids.json`) and builds the `_Синтетика` ones the portal can't produce on demand.
   - Templates hold only the body. HTTP statuses: «Not found» 400, `INVALID_CREDENTIALS` 401, `INTERNAL_SERVER_ERROR` 500, `QUERY_LIMIT_EXCEEDED` 503.
