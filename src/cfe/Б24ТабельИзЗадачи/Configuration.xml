@@ -65,8 +65,13 @@
 		</Properties>
 		<ChildObjects>
 			<Language>Русский</Language>
+			<Subsystem>Администрирование</Subsystem>
 			<Role>б24т_ОсновнаяРоль</Role>
 			<CommonModule>б24т_Сопоставление</CommonModule>
+			<CommonModule>б24т_Настройки</CommonModule>
+			<Constant>б24т_РежимТестирования</Constant>
+			<Constant>б24т_ПроектДляТестирования</Constant>
+			<CommonForm>б24т_НастройкиИнтеграции</CommonForm>
 			<Catalog>Пользователи</Catalog>
 			<Catalog>ФизическиеЛица</Catalog>
 			<Catalog>Контрагенты</Catalog>

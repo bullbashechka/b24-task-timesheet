@@ -87,6 +87,8 @@
 			<CommonModule>б24тТест_ЗаписанныеОтветы</CommonModule>
 			<CommonModule>б24тТест_ТабельИДБ24</CommonModule>
 			<CommonModule>б24тТест_ТабельФормаКлиент</CommonModule>
+			<CommonModule>б24тТест_Настройки</CommonModule>
+			<CommonModule>б24тТест_НастройкиФормаКлиент</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

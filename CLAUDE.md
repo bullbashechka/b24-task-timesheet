@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Stages 0–3 are done: the extensions and YAxUnit are installed in the local base, the first rule (e-mail normalization) is implemented test-first, and the «ID Б24» column (Ф7) is in the tabular section and in `ФормаДокумента`. The plan:
+Stages 0–3 are done, and stage 4 is done except its manual step 4.5 (the developer enters the webhook): the extensions and YAxUnit are installed in the local base, the first rule (e-mail normalization) is implemented test-first, and the «ID Б24» column (Ф7) is in the tabular section and in `ФормаДокумента`; the settings form (Ф8) and `б24т_Настройки` exist. The plan:
 
 - `PRD.md` is the spec (in Russian). References like «Ф3» point to its features and «С5» to its acceptance scenarios.
 - `TASKS.md` is the work plan: stages and tasks derived from `PRD.md`, with the open questions the PRD leaves unanswered.
@@ -91,6 +91,14 @@ The extension contains:
   - A row copy (F9, document copy) carries the number with the other fields. This is platform behavior; Ф7 says so.
   - The form module of the extension can call the original non-exported client procedures `ОбработкаФормы`, `Пересчет` and `ОбновитьПодвал` directly (checked with a probe that computed Факт 01:30 and updated the footer). This confirms the stage 1.4 decision for stage 10.
   - `cfe-validate -ConfigPath` reports error 14 for the new column: it checks form paths only against the main configuration and doesn't see the extension's own attributes. Run it without `-ConfigPath`. The `NegativeTextColor` warning is harmless.
+- **Integration settings (stage 4):**
+  - `б24т_Настройки` (server module): `Настройки()` (no URL in the structure, read in privileged mode), `АдресВебхука()` (only the REST client calls it), `НормализованныйАдресВебхука`, `ПредставлениеАдресаВебхука`, `ДанныеФормыНастроек`, `ЗаписатьНастройки(Изменения, Пользователь)` (returns errors as `Поле`/`Текст`, writes nothing on error), `ПроверитьПраваНаНастройку`.
+  - The test flag and project ID are constants of the extension; the URL is only in the safe storage. The event log gets `Б24ТабельИзЗадачи.Настройки` with the list of changed fields, never a value.
+  - The form is the common form `б24т_НастройкиИнтеграции` in the adopted subsystem `Администрирование.НастройкаИнтеграции`. `cfe-borrow` can't borrow a nested subsystem, so `Subsystems/Администрирование/Subsystems/НастройкаИнтеграции.xml` is hand-written (`ExtendedConfigurationObject` = the UUID of the original) and holds only the form in `Content`.
+  - Rights: only the role `ПолныеПрава` of the main configuration has «setForNewObjects», so it alone gets rights on new objects of the extension; the extension's role is empty and not given to everyone. A test checks every role.
+  - `ПравоДоступа(…, Роль)` works only in privileged mode (the platform raises an error otherwise).
+  - Tests that write settings run in a transaction with rollback (`.ВТранзакции()`), so the developer's real webhook in the base is not touched.
+  - `Новый` and `Исключение` are keywords: they can't be variable names.
 - **E-mail:** `УправлениеКонтактнойИнформацией.КонтактнаяИнформацияОбъектов` (server only) with type `АдресЭлектроннойПочты` and kind `Справочники.ВидыКонтактнойИнформации.EMailФизическиеЛица`; the address is in `Представление`.
 - **Counterparty number:** `Контрагенты.ИНН`, `Строка(12)`, indexed. `СокрЛП` works in queries here.
 - **Time types in the window:** representation starts with «Клиент»/«Офис», minus `ОфисКомандировка` and `ОфисСобрания`, 13 values; default `КлиентУдаленныйДоступ`.

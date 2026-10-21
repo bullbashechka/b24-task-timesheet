@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcssch="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.16">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Настройки интеграции с Битрикс24</v8:content>
+		</v8:item>
+	</Title>
+	<Width>70</Width>
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="ЗаписатьИЗакрыть" id="1">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ЗаписатьИЗакрыть</CommandName>
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Записать и закрыть</v8:content>
+					</v8:item>
+				</Title>
+				<ExtendedTooltip name="ЗаписатьИЗакрытьРасширеннаяПодсказка" id="2"/>
+			</Button>
+			<Button name="Закрыть" id="3">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.StandardCommand.Close</CommandName>
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Закрыть</v8:content>
+					</v8:item>
+				</Title>
+				<ExtendedTooltip name="ЗакрытьРасширеннаяПодсказка" id="4"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+		<Event name="BeforeClose">ПередЗакрытием</Event>
+	</Events>
+	<ChildItems>
+		<InputField name="НовыйАдресВебхука" id="5">
+			<DataPath>НовыйАдресВебхука</DataPath>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Адрес входящего вебхука Битрикс24</v8:content>
+				</v8:item>
+			</Title>
+			<TitleLocation>Top</TitleLocation>
+			<ContextMenu name="НовыйАдресВебхукаКонтекстноеМеню" id="6"/>
+			<ExtendedTooltip name="НовыйАдресВебхукаРасширеннаяПодсказка" id="7"/>
+			<Events>
+				<Event name="OnChange">НовыйАдресВебхукаПриИзменении</Event>
+			</Events>
+		</InputField>
+		<UsualGroup name="ГруппаСохранённыйАдрес" id="8">
+			<Representation>None</Representation>
+			<ExtendedTooltip name="ГруппаСохранённыйАдресРасширеннаяПодсказка" id="9"/>
+			<ChildItems>
+				<LabelDecoration name="НадписьСохранённогоАдреса" id="10">
+					<Title formatted="false">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Не указан</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="НадписьСохранённогоАдресаКонтекстноеМеню" id="11"/>
+					<ExtendedTooltip name="НадписьСохранённогоАдресаРасширеннаяПодсказка" id="12"/>
+				</LabelDecoration>
+				<Button name="КнопкаУдалитьАдрес" id="13">
+					<CommandName>Form.Command.УдалитьАдресКоманда</CommandName>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Удалить адрес</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="КнопкаУдалитьАдресРасширеннаяПодсказка" id="14"/>
+				</Button>
+			</ChildItems>
+		</UsualGroup>
+		<LabelDecoration name="ПодсказкаАдреса" id="15">
+			<Title formatted="false">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создайте в Битрикс24 входящий вебхук с правами «Задачи», «CRM», «Пользователи» и «Рабочие группы» и вставьте его адрес</v8:content>
+				</v8:item>
+			</Title>
+			<ContextMenu name="ПодсказкаАдресаКонтекстноеМеню" id="16"/>
+			<ExtendedTooltip name="ПодсказкаАдресаРасширеннаяПодсказка" id="17"/>
+		</LabelDecoration>
+		<CheckBoxField name="РежимТестирования" id="18">
+			<DataPath>РежимТестирования</DataPath>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Режим тестирования</v8:content>
+				</v8:item>
+			</Title>
+			<TitleLocation>Right</TitleLocation>
+			<CheckBoxType>Auto</CheckBoxType>
+			<ContextMenu name="РежимТестированияКонтекстноеМеню" id="19"/>
+			<ExtendedTooltip name="РежимТестированияРасширеннаяПодсказка" id="20"/>
+			<Events>
+				<Event name="OnChange">РежимТестированияПриИзменении</Event>
+			</Events>
+		</CheckBoxField>
+		<InputField name="ПроектДляТестирования" id="21">
+			<DataPath>ПроектДляТестирования</DataPath>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проект для тестирования (ID)</v8:content>
+				</v8:item>
+			</Title>
+			<Format>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ЧГ=0</v8:content>
+				</v8:item>
+			</Format>
+			<EditFormat>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ЧГ=0</v8:content>
+				</v8:item>
+			</EditFormat>
+			<MinValue xsi:type="xs:decimal">0</MinValue>
+			<ContextMenu name="ПроектДляТестированияКонтекстноеМеню" id="22"/>
+			<ExtendedTooltip name="ПроектДляТестированияРасширеннаяПодсказка" id="23"/>
+		</InputField>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="ПредставлениеАдреса" id="24">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Представление адреса</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="НовыйАдресВебхука" id="25">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Новый адрес вебхука</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="УдалитьАдрес" id="26">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Удалить адрес</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="РежимТестирования" id="27">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Режим тестирования</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПроектДляТестирования" id="28">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проект для тестирования</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ЗаписатьИЗакрыть" id="29">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать и закрыть</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ЗаписатьИЗакрыть</Action>
+		</Command>
+		<Command name="УдалитьАдресКоманда" id="30">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Удалить адрес</v8:content>
+				</v8:item>
+			</Title>
+			<Action>УдалитьАдресКоманда</Action>
+		</Command>
+	</Commands>
+</Form>
