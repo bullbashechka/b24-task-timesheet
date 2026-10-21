@@ -94,6 +94,11 @@ record sonet_group_get_НеНайден sonet_group.get '{"FILTER":{"ID":9999999
 
 body_of() { tail -c +4 "$TEMPLATES/$PREFIX$1/Ext/Template.txt" | tr -d '\r'; }
 body_of user_admin_Да | jq '.result = false' | write_template user_admin_Нет_Синтетика
+# Stage 6: an inactive user, and two different users matching the addresses of one employee.
+body_of user_get_Найден | jq '.result[0].ACTIVE = false' | write_template user_get_Неактивный_Синтетика
+body_of user_get_Найден \
+  | jq '.result += [{ID: "31", ACTIVE: true, NAME: "Тест", LAST_NAME: "Двойник", EMAIL: "Test.User.Second@Example.com"}] | .total = 2' \
+  | write_template user_get_ДваПользователя_Синтетика
 # A middle page of a task list: 50 more ids, and `next` points to the third page.
 body_of tasks_task_list_Страница1 \
   | jq '.result.tasks = [range(100001; 100051) | {id: tostring, group: []}] | .next = 100 | .total = 120' \

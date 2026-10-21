@@ -60,7 +60,7 @@
 Функция НужныеОтветы()
 
 	Случаи = СтрРазделить(
-		"user_get_Найден,user_get_НеНайден,"
+		"user_get_Найден,user_get_НеНайден,user_get_Неактивный_Синтетика,user_get_ДваПользователя_Синтетика,"
 		+ "tasks_task_list_ПостановщикИлиИсполнитель,tasks_task_list_Соисполнитель,"
 		+ "tasks_task_list_Страница1,tasks_task_list_Страница2,"
 		+ "tasks_task_get_Найдена,tasks_task_get_НеНайдена,"

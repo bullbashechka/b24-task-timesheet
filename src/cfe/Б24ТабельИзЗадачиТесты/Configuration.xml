@@ -65,6 +65,8 @@
 			<Language>Русский</Language>
 			<CommonTemplate>б24тТест_Ответ_user_get_Найден</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_user_get_НеНайден</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_user_get_Неактивный_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_user_get_ДваПользователя_Синтетика</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_tasks_task_list_ПостановщикИлиИсполнитель</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_tasks_task_list_Соисполнитель</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_tasks_task_list_Страница1</CommonTemplate>
@@ -98,6 +100,7 @@
 			<CommonModule>б24тТест_ТабельИДБ24</CommonModule>
 			<CommonModule>б24тТест_ТабельФормаКлиент</CommonModule>
 			<CommonModule>б24тТест_Настройки</CommonModule>
+			<CommonModule>б24тТест_Доступ</CommonModule>
 			<CommonModule>б24тТест_НастройкиФормаКлиент</CommonModule>
 			<CommonModule>б24тТест_ЗаглушкаТранспорта</CommonModule>
 			<CommonModule>б24тТест_Битрикс24</CommonModule>
