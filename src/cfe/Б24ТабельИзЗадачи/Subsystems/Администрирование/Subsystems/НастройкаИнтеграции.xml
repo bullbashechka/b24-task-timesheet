@@ -7,7 +7,7 @@
 			<Name>НастройкаИнтеграции</Name>
 			<Comment/>
 			<Content>
-				<xr:Item xsi:type="xr:MDObjectRef">CommonForm.б24т_НастройкиИнтеграции</xr:Item>
+				<xr:Item xsi:type="xr:MDObjectRef">CommonCommand.б24т_НастройкиИнтеграции</xr:Item>
 			</Content>
 			<ExtendedConfigurationObject>942ddd28-a917-4e3d-ba68-726374c1ce8d</ExtendedConfigurationObject>
 		</Properties>

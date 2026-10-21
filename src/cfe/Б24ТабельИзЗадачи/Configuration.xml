@@ -69,6 +69,7 @@
 			<Role>б24т_ОсновнаяРоль</Role>
 			<CommonModule>б24т_Сопоставление</CommonModule>
 			<CommonModule>б24т_Настройки</CommonModule>
+			<CommonCommand>б24т_НастройкиИнтеграции</CommonCommand>
 			<Constant>б24т_РежимТестирования</Constant>
 			<Constant>б24т_ПроектДляТестирования</Constant>
 			<CommonForm>б24т_НастройкиИнтеграции</CommonForm>
