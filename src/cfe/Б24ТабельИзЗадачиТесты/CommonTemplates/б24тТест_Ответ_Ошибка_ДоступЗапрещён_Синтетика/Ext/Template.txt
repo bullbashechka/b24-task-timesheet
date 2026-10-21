@@ -1,0 +1,4 @@
+﻿{
+  "error": "ACCESS_DENIED",
+  "error_description": "Access denied!"
+}

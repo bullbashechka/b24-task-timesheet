@@ -83,12 +83,25 @@
 			<CommonTemplate>б24тТест_Ответ_Ошибка_НеверныйВебхук</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_Ошибка_ЛимитЗапросов_Синтетика</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_Ошибка_Сервер_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_user_admin_Да</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_list_Пусто</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_company_list_Пусто</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_sonet_group_get_НеНайден</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_user_admin_Нет_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_list_СредняяСтраница_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_Ошибка_НетПрава_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_Ошибка_МетодНеНайден_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_Ошибка_ДоступЗапрещён_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_Ошибка_ВремяМетода_Синтетика</CommonTemplate>
 			<CommonModule>б24тТест_Сопоставление</CommonModule>
 			<CommonModule>б24тТест_ЗаписанныеОтветы</CommonModule>
 			<CommonModule>б24тТест_ТабельИДБ24</CommonModule>
 			<CommonModule>б24тТест_ТабельФормаКлиент</CommonModule>
 			<CommonModule>б24тТест_Настройки</CommonModule>
 			<CommonModule>б24тТест_НастройкиФормаКлиент</CommonModule>
+			<CommonModule>б24тТест_ЗаглушкаТранспорта</CommonModule>
+			<CommonModule>б24тТест_Битрикс24</CommonModule>
+			<CommonModule>б24тТест_ЖивойПрогон</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

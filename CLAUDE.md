@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Stages 0–4 are done (the development webhook is entered, test mode on, project 38): the extensions and YAxUnit are installed in the local base, the first rule (e-mail normalization) is implemented test-first, and the «ID Б24» column (Ф7) is in the tabular section and in `ФормаДокумента`; the settings form (Ф8) and `б24т_Настройки` exist. The plan:
+Stages 0–4 are done and stage 5 (the REST client) is implemented, its live run 5.6 is pending (the development webhook is entered, test mode on, project 38): the extensions and YAxUnit are installed in the local base, the first rule (e-mail normalization) is implemented test-first, and the «ID Б24» column (Ф7) is in the tabular section and in `ФормаДокумента`; the settings form (Ф8) and `б24т_Настройки` exist; `б24т_Битрикс24` is the REST client, the settings form has the «Проверить подключение» button. The plan:
 
 - `PRD.md` is the spec (in Russian). References like «Ф3» point to its features and «С5» to its acceptance scenarios.
 - `TASKS.md` is the work plan: stages and tasks derived from `PRD.md`, with the open questions the PRD leaves unanswered.
@@ -48,7 +48,7 @@ The extension contains:
 
 - Identity comes from the 1C login: 1C user → its физлицо → the физлицо's e-mail (contact-info kind «Электронная почта») → the active Bitrix24 user with that e-mail.
 - 1C calls Bitrix24 REST through the webhook from the settings. The webhook runs with the rights of the admin who created it. Its scopes are `task`, `crm`, `user` and `sonet_group` (the last one only for the test project name). The 1C server needs outbound HTTPS access to the portal.
-- The feature only reads Bitrix24 (`user.get`, `tasks.task.list`, `tasks.task.get`, `crm.company.get`, `crm.company.list`, `crm.requisite.list`, `sonet_group.get`). A webhook can't be made read-only, so this rule is enforced in code.
+- The feature only reads Bitrix24 (`user.get`, `user.admin`, `tasks.task.list`, `tasks.task.get`, `crm.company.get`, `crm.company.list`, `crm.requisite.list`, `sonet_group.get`). A webhook can't be made read-only, so this rule is enforced in code.
 - The webhook URL must not reach the event log, messages or any form except the settings form.
 
 ### Matching rules (easy to get subtly wrong)
@@ -99,6 +99,16 @@ The extension contains:
   - `ПравоДоступа(…, Роль)` works only in privileged mode (the platform raises an error otherwise).
   - Tests that write settings run in a transaction with rollback (`.ВТранзакции()`), so the developer's real webhook in the base is not touched.
   - `Новый` and `Исключение` are keywords: they can't be variable names.
+- **REST client (stage 5):**
+  - `б24т_Битрикс24` (server): `НовыйКлиент(Транспорт, АдресВебхука)`, `Вызвать(Клиент, Метод, Параметры)`, `ВызватьВсеСтраницы(Клиент, Метод, Параметры, ИмяСписка)`, `ТекстОшибки(Ошибка)`, `ВидОшибки*()`. Eight methods are allowed (the Bitrix24 list above plus `user.admin`); any other, `batch` included, raises an exception before the address is read.
+  - Errors are returned as data: `Ошибка.Вид` is `Недоступен` (no answer in 30 s, 5xx, 429, not JSON, rate limit), `НеНастроено` (401, 403, 3xx, access codes) or `ОшибкаМетода` (e.g. «Not found»). One retry after `ПаузаПовтора` (2 s) only for 503/5xx. Success is decided by the body (`error` / `result` keys), not by the HTTP status.
+  - Parameters with keys like `::SUBFILTER-R` must be a `Соответствие`, a `Структура` can't hold them.
+  - The transport is a common module with `ВыполнитьЗапрос(Запрос)` (`Выполнить` is a keyword). Product: `б24т_ТранспортHTTPS`, the only place with `HTTPСоединение`. Tests: `б24тТест_ЗаглушкаТранспорта` (queue `Клиент.Ответы`, journal `Клиент.Вызовы`; `НовыйКлиент`, `ДобавитьОтвет`, `ДобавитьСыройОтвет`, `ДобавитьИсключение`).
+  - Event log: `Б24ТабельИзЗадачи.Обращение` (every call, no answer content) and `Б24ТабельИзЗадачи.Ошибка`. `б24т_Настройки.СкрытьКлючВебхука` masks the webhook in any text, `НомерВладельцаВебхука` takes the creator's id from the address.
+  - `б24т_Настройки.ПроверитьПодключение(Параметры, Пользователь, Клиент)` backs the settings-form button; the form calls it from a wait handler so the «Проверка подключения…» label is painted first.
+  - Keywords that can't be names of variables, parameters, structure properties or functions: `Новый`, `Исключение`, `Выполнить`. A local variable named `Параметры` inside a managed form is read-only.
+  - `scripts/b24-record-responses.sh` re-records every template from the portal; the portal data changed since stage 2, so a full re-run rewrites the old templates with different content. The stage 5 block runs on its own: copy the preamble and the block into a temporary script.
+  - Live run 5.6: `б24тТест_ЖивойПрогон.Прогон(Данные)` through the `1c` MCP (restart its session first so it sees the new module).
 - **E-mail:** `УправлениеКонтактнойИнформацией.КонтактнаяИнформацияОбъектов` (server only) with type `АдресЭлектроннойПочты` and kind `Справочники.ВидыКонтактнойИнформации.EMailФизическиеЛица`; the address is in `Представление`.
 - **Counterparty number:** `Контрагенты.ИНН`, `Строка(12)`, indexed. `СокрЛП` works in queries here.
 - **Time types in the window:** representation starts with «Клиент»/«Офис», minus `ОфисКомандировка` and `ОфисСобрания`, 13 values; default `КлиентУдаленныйДоступ`.

@@ -81,6 +81,16 @@
 					</Title>
 					<ExtendedTooltip name="КнопкаУдалитьАдресРасширеннаяПодсказка" id="14"/>
 				</Button>
+				<Button name="КнопкаПроверитьПодключение" id="24">
+					<CommandName>Form.Command.ПроверитьПодключениеКоманда</CommandName>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Проверить подключение</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="КнопкаПроверитьПодключениеРасширеннаяПодсказка" id="25"/>
+				</Button>
 			</ChildItems>
 		</UsualGroup>
 		<LabelDecoration name="ПодсказкаАдреса" id="15">
@@ -133,6 +143,17 @@
 			<ContextMenu name="ПроектДляТестированияКонтекстноеМеню" id="22"/>
 			<ExtendedTooltip name="ПроектДляТестированияРасширеннаяПодсказка" id="23"/>
 		</InputField>
+		<LabelDecoration name="НадписьРезультатаПроверки" id="26">
+			<Visible>false</Visible>
+			<Title formatted="false">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Результат проверки</v8:content>
+				</v8:item>
+			</Title>
+			<ContextMenu name="НадписьРезультатаПроверкиКонтекстноеМеню" id="27"/>
+			<ExtendedTooltip name="НадписьРезультатаПроверкиРасширеннаяПодсказка" id="28"/>
+		</LabelDecoration>
 	</ChildItems>
 	<Attributes>
 		<Attribute name="ПредставлениеАдреса" id="24">
@@ -222,6 +243,15 @@
 				</v8:item>
 			</Title>
 			<Action>УдалитьАдресКоманда</Action>
+		</Command>
+		<Command name="ПроверитьПодключениеКоманда" id="31">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверить подключение</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ПроверитьПодключение</Action>
 		</Command>
 	</Commands>
 </Form>

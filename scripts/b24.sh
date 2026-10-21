@@ -11,7 +11,7 @@
 set -u
 KEYCHAIN_ITEM="b24-dev-webhook"
 
-READ_METHODS=" user.get user.current tasks.task.list tasks.task.get tasks.task.getFields
+READ_METHODS=" user.get user.current user.admin tasks.task.list tasks.task.get tasks.task.getFields
   crm.company.get crm.company.list crm.company.fields crm.requisite.list crm.requisite.fields
   crm.requisite.preset.list crm.requisite.preset.field.list sonet_group.get sonet_group.user.get "
 WRITE_METHODS=" sonet_group.create sonet_group.user.add sonet_group.delete

@@ -85,3 +85,21 @@ jq '.result |= map(.PRESET_ID = "7" | .NAME = "Российская органи
 # Error bodies as documented for QUERY_LIMIT_EXCEEDED (HTTP 503) and INTERNAL_SERVER_ERROR (HTTP 500).
 echo '{"error":"QUERY_LIMIT_EXCEEDED","error_description":"Too many requests"}' | write_template Ошибка_ЛимитЗапросов_Синтетика
 echo '{"error":"INTERNAL_SERVER_ERROR","error_description":"Internal server error"}' | write_template Ошибка_Сервер_Синтетика
+
+# Stage 5: answers for the client tests.
+record user_admin_Да user.admin '{}'
+record tasks_task_list_Пусто tasks.task.list '{"filter":{"ID":0},"select":["ID"]}'
+record crm_company_list_Пусто crm.company.list '{"filter":{"ID":[999999999]},"select":["ID","TITLE"]}'
+record sonet_group_get_НеНайден sonet_group.get '{"FILTER":{"ID":999999999}}'
+
+body_of() { tail -c +4 "$TEMPLATES/$PREFIX$1/Ext/Template.txt" | tr -d '\r'; }
+body_of user_admin_Да | jq '.result = false' | write_template user_admin_Нет_Синтетика
+# A middle page of a task list: 50 more ids, and `next` points to the third page.
+body_of tasks_task_list_Страница1 \
+  | jq '.result.tasks = [range(100001; 100051) | {id: tostring, group: []}] | .next = 100 | .total = 120' \
+  | write_template tasks_task_list_СредняяСтраница_Синтетика
+# System error bodies as documented at https://apidocs.bitrix24.com/error-codes.html
+echo '{"error":"insufficient_scope","error_description":"The request requires higher privileges than provided by the webhook token"}' | write_template Ошибка_НетПрава_Синтетика
+echo '{"error":"ERROR_METHOD_NOT_FOUND","error_description":"Method not found!"}' | write_template Ошибка_МетодНеНайден_Синтетика
+echo '{"error":"ACCESS_DENIED","error_description":"Access denied!"}' | write_template Ошибка_ДоступЗапрещён_Синтетика
+echo '{"error":"OPERATION_TIME_LIMIT","error_description":"Method is blocked due to operation time limit"}' | write_template Ошибка_ВремяМетода_Синтетика

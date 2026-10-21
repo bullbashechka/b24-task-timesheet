@@ -69,6 +69,8 @@
 			<Role>б24т_ОсновнаяРоль</Role>
 			<CommonModule>б24т_Сопоставление</CommonModule>
 			<CommonModule>б24т_Настройки</CommonModule>
+			<CommonModule>б24т_Битрикс24</CommonModule>
+			<CommonModule>б24т_ТранспортHTTPS</CommonModule>
 			<CommonCommand>б24т_НастройкиИнтеграции</CommonCommand>
 			<Constant>б24т_РежимТестирования</Constant>
 			<Constant>б24т_ПроектДляТестирования</Constant>
