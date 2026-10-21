@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Stages 0–4 are done and stage 5 (the REST client) is implemented, its live run 5.6 is pending (the development webhook is entered, test mode on, project 38): the extensions and YAxUnit are installed in the local base, the first rule (e-mail normalization) is implemented test-first, and the «ID Б24» column (Ф7) is in the tabular section and in `ФормаДокумента`; the settings form (Ф8) and `б24т_Настройки` exist; `б24т_Битрикс24` is the REST client, the settings form has the «Проверить подключение» button. The plan:
+Stages 0–5 are done, including the live run 5.6 of the REST client (the development webhook is entered, test mode on, project 38; the 11 test tasks were deleted from the portal and must be recreated before acceptance, which notifies the colleagues in their roles): the extensions and YAxUnit are installed in the local base, the first rule (e-mail normalization) is implemented test-first, and the «ID Б24» column (Ф7) is in the tabular section and in `ФормаДокумента`; the settings form (Ф8) and `б24т_Настройки` exist; `б24т_Битрикс24` is the REST client, the settings form has the «Проверить подключение» button. The plan:
 
 - `PRD.md` is the spec (in Russian). References like «Ф3» point to its features and «С5» to its acceptance scenarios.
 - `TASKS.md` is the work plan: stages and tasks derived from `PRD.md`, with the open questions the PRD leaves unanswered.
@@ -109,6 +109,7 @@ The extension contains:
   - Keywords that can't be names of variables, parameters, structure properties or functions: `Новый`, `Исключение`, `Выполнить`. A local variable named `Параметры` inside a managed form is read-only.
   - `scripts/b24-record-responses.sh` re-records every template from the portal; the portal data changed since stage 2, so a full re-run rewrites the old templates with different content. The stage 5 block runs on its own: copy the preamble and the block into a temporary script.
   - Live run 5.6: `б24тТест_ЖивойПрогон.Прогон(Данные)` through the `1c` MCP (restart its session first so it sees the new module).
+  - Task answers: `accomplicesData` and `auditorsData` are objects keyed by user id, but an empty `[]` when the task has no such members; `closedDate` is present and `null` on an open task. Code must accept both shapes and must not rely on these `*Data` fields for the role check.
 - **E-mail:** `УправлениеКонтактнойИнформацией.КонтактнаяИнформацияОбъектов` (server only) with type `АдресЭлектроннойПочты` and kind `Справочники.ВидыКонтактнойИнформации.EMailФизическиеЛица`; the address is in `Представление`.
 - **Counterparty number:** `Контрагенты.ИНН`, `Строка(12)`, indexed. `СокрЛП` works in queries here.
 - **Time types in the window:** representation starts with «Клиент»/«Офис», minus `ОфисКомандировка` and `ОфисСобрания`, 13 values; default `КлиентУдаленныйДоступ`.
