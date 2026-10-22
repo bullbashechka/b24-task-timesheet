@@ -12,6 +12,9 @@
 			</Button>
 		</ChildItems>
 	</AutoCommandBar>
+	<Events>
+		<Event name="OnOpen" callType="After">б24т_ПриОткрытииПосле</Event>
+	</Events>
 	<ChildItems>
 		<UsualGroup name="Шапка" id="1">
 			<Title>
@@ -167,6 +170,17 @@
 							<ContextMenu name="ТабельКонтекстноеМеню" id="42"/>
 							<AutoCommandBar name="ТабельКоманднаяПанель" id="43">
 								<ChildItems>
+									<Button name="б24т_ЗаполнитьИзЗадачи" id="1000003">
+										<Type>CommandBarButton</Type>
+										<CommandName>Form.Command.б24т_ЗаполнитьИзЗадачи</CommandName>
+										<Title>
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>Заполнить из задачи Б24</v8:content>
+											</v8:item>
+										</Title>
+										<ExtendedTooltip name="б24т_ЗаполнитьИзЗадачиРасширеннаяПодсказка" id="1000004"/>
+									</Button>
 									<Button name="ТабельПроверитьПоле" id="140">
 										<Type>CommandBarButton</Type>
 										<CommandName>0</CommandName>
@@ -534,6 +548,17 @@
 			</dcsset:item>
 		</ConditionalAppearance>
 	</Attributes>
+	<Commands>
+		<Command name="б24т_ЗаполнитьИзЗадачи" id="1000000">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить из задачи Б24</v8:content>
+				</v8:item>
+			</Title>
+			<Action callType="Before">б24т_ЗаполнитьИзЗадачи</Action>
+		</Command>
+	</Commands>
 	<BaseForm version="2.16">
 		<AutoTime>CurrentOrLast</AutoTime>
 		<UsePostingMode>Auto</UsePostingMode>

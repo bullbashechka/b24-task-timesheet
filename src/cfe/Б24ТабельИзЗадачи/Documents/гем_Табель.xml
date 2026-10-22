@@ -95,6 +95,7 @@
 					<Type><v8:Type>xs:dateTime</v8:Type><v8:DateQualifiers><v8:DateFractions>DateTime</v8:DateFractions></v8:DateQualifiers></Type>
 				</Properties>
 			</Attribute>
+			<Form>б24т_ЗаполнениеИзЗадачи</Form>
 			<TabularSection uuid="613661fd-c45b-430e-a6df-6d4c867af562">
 				<InternalInfo>
 					<xr:GeneratedType name="DocumentTabularSection.гем_Табель.Табель" category="TabularSection">

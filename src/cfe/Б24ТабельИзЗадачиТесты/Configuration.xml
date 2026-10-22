@@ -109,6 +109,8 @@
 			<CommonModule>б24тТест_ЖивойПрогон</CommonModule>
 			<CommonModule>б24тТест_Задачи</CommonModule>
 			<CommonModule>б24тТест_Контрагенты</CommonModule>
+			<CommonModule>б24тТест_ЗаполнениеИзЗадачи</CommonModule>
+			<CommonModule>б24тТест_ЗаполнениеИзЗадачиФормаКлиент</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>
