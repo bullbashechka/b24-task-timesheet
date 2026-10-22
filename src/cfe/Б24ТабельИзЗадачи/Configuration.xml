@@ -74,6 +74,7 @@
 			<CommonModule>б24т_ТранспортHTTPS</CommonModule>
 			<CommonModule>б24т_ЗадачиКлиентСервер</CommonModule>
 			<CommonModule>б24т_Задачи</CommonModule>
+			<CommonModule>б24т_Контрагенты</CommonModule>
 			<CommonCommand>б24т_НастройкиИнтеграции</CommonCommand>
 			<Constant>б24т_РежимТестирования</Constant>
 			<Constant>б24т_ПроектДляТестирования</Constant>

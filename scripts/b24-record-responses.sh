@@ -111,3 +111,9 @@ echo '{"error":"insufficient_scope","error_description":"The request requires hi
 echo '{"error":"ERROR_METHOD_NOT_FOUND","error_description":"Method not found!"}' | write_template Ошибка_МетодНеНайден_Синтетика
 echo '{"error":"ACCESS_DENIED","error_description":"Access denied!"}' | write_template Ошибка_ДоступЗапрещён_Синтетика
 echo '{"error":"OPERATION_TIME_LIMIT","error_description":"Method is blocked due to operation time limit"}' | write_template Ошибка_ВремяМетода_Синтетика
+
+# Stage 8: all test companies and their requisites in one answer each, as the product asks (one call for the whole list).
+ALL="$(jq -c '[.companies[]]' "$IDS")"
+record crm_company_list_НаборС6 crm.company.list "{\"filter\":{\"ID\":$ALL},\"select\":[\"ID\",\"TITLE\"]}"
+record crm_requisite_list_НаборС6 crm.requisite.list \
+  "{\"filter\":{\"ENTITY_TYPE_ID\":4,\"ENTITY_ID\":$ALL},\"select\":$RQ_SELECT,\"order\":{\"SORT\":\"ASC\",\"ID\":\"ASC\"}}"

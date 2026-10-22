@@ -81,6 +81,8 @@
 			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_ДваРеквизита</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_Пусто</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_ИНН_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_company_list_НаборС6</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_crm_requisite_list_НаборС6</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_sonet_group_get_Проект</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_Ошибка_НеверныйВебхук</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_Ошибка_ЛимитЗапросов_Синтетика</CommonTemplate>
@@ -106,6 +108,7 @@
 			<CommonModule>б24тТест_Битрикс24</CommonModule>
 			<CommonModule>б24тТест_ЖивойПрогон</CommonModule>
 			<CommonModule>б24тТест_Задачи</CommonModule>
+			<CommonModule>б24тТест_Контрагенты</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>
