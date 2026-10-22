@@ -105,6 +105,7 @@
 			<CommonModule>б24тТест_ЗаглушкаТранспорта</CommonModule>
 			<CommonModule>б24тТест_Битрикс24</CommonModule>
 			<CommonModule>б24тТест_ЖивойПрогон</CommonModule>
+			<CommonModule>б24тТест_Задачи</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

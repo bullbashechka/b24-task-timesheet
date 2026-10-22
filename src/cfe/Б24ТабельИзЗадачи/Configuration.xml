@@ -72,6 +72,8 @@
 			<CommonModule>б24т_Битрикс24</CommonModule>
 			<CommonModule>б24т_Доступ</CommonModule>
 			<CommonModule>б24т_ТранспортHTTPS</CommonModule>
+			<CommonModule>б24т_ЗадачиКлиентСервер</CommonModule>
+			<CommonModule>б24т_Задачи</CommonModule>
 			<CommonCommand>б24т_НастройкиИнтеграции</CommonCommand>
 			<Constant>б24т_РежимТестирования</Constant>
 			<Constant>б24т_ПроектДляТестирования</Constant>
