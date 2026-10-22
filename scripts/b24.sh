@@ -37,9 +37,14 @@ done
 echo "$PARAMS" | jq -e 'type == "object"' >/dev/null 2>&1 || { echo "Параметры должны быть JSON-объектом." >&2; exit 2; }
 
 # Every method, including each command inside batch, must be on a list; write methods need --write.
+# The name is checked as a plain string: a pattern or a curl glob ([a-z], {a,b}) would match a listed method
+# and then expand to an unlisted one.
 check_method() {
-  if printf '%s' "$READ_METHODS" | tr -s ' \n' '\n\n' | grep -qx "$1"; then return 0; fi
-  if printf '%s' "$WRITE_METHODS" | tr -s ' \n' '\n\n' | grep -qx "$1"; then
+  if ! printf '%s' "$1" | LC_ALL=C grep -Eqx '[a-z][a-z0-9_.]*' || [ "$(printf '%s\n' "$1" | wc -l)" -ne 1 ]; then
+    echo "Метода $1 нет в белом списке scripts/b24.sh." >&2; exit 2
+  fi
+  if printf '%s' "$READ_METHODS" | tr -s ' \n' '\n\n' | grep -Fqx "$1"; then return 0; fi
+  if printf '%s' "$WRITE_METHODS" | tr -s ' \n' '\n\n' | grep -Fqx "$1"; then
     [ "$WRITE" = 1 ] && return 0
     echo "Метод $1 меняет данные Битрикс24: нужен флаг --write." >&2; exit 2
   fi
@@ -71,7 +76,8 @@ mask() { sed -E -e "s#$TOKEN#***#g" -e 's#/rest/[0-9]+/[A-Za-z0-9]+#/rest/***#g'
 
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 # The URL goes to curl through stdin, so it does not show up in the process list either.
-HTTP_CODE="$(printf 'url = "%s%s.json"\n' "$WEBHOOK" "$METHOD" | curl --config - -sS --max-time 30 \
+# --globoff: no [] and {} expansion in the URL; --proto: HTTPS only.
+HTTP_CODE="$(printf 'url = "%s%s.json"\n' "$WEBHOOK" "$METHOD" | curl --config - --globoff --proto =https -sS --max-time 30 \
   -X POST -H 'Content-Type: application/json' --data-binary "$PARAMS" \
   -o "$TMP/body" -w '%{http_code}' 2>"$TMP/err")"
 CURL_EXIT=$?

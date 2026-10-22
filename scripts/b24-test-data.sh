@@ -20,8 +20,9 @@ call() { # method params → result JSON on stdout; stops the script on an error
   echo "$OUT" | jq '.result'
 }
 spec() { jq -r "$@" "$SPEC"; }
+TMP=""; trap 'rm -f "$TMP"' EXIT
 save_id() { # path id
-  local TMP; TMP="$(mktemp)"
+  TMP="$(mktemp)"
   jq --argjson id "$2" "$1 = \$id" "$IDS" > "$TMP" && mv "$TMP" "$IDS"
 }
 user() { spec --arg k "$1" '.users[$k]'; }

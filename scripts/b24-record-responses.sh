@@ -14,7 +14,9 @@ TEMPLATES="$ROOT/src/cfe/Б24ТабельИзЗадачиТесты/CommonTempla
 PREFIX="б24тТест_Ответ_"
 
 [ -f "$IDS" ] || { echo "Нет $IDS: сначала scripts/b24-test-data.sh create" >&2; exit 2; }
-set -a; . "$ROOT/.env"; set +a
+# .env is read, not executed: only TEST_USER_EMAIL is needed.
+TEST_USER_EMAIL="$(sed -n 's/^TEST_USER_EMAIL=//p' "$ROOT/.env" | tail -1 | tr -d "\"'\r")"
+[ -n "$TEST_USER_EMAIL" ] || { echo "В $ROOT/.env нет TEST_USER_EMAIL" >&2; exit 2; }
 id() { jq -r "$1" "$IDS"; }
 DEV=30; ACCOMPLICE=50
 GROUP="$(id .project)"
@@ -42,9 +44,10 @@ write_template() { # case name, JSON on stdin
   echo "$PREFIX$1"
 }
 
+TMP=""; trap 'rm -f "$TMP"' EXIT
 record() { # case name, method, params [, extra jq filter] [, --bad-token]
   local CASE="$1" METHOD="$2" PARAMS="$3" FILTER="${4:-.}" FLAG="${5:-}"
-  local TMP; TMP="$(mktemp)"
+  TMP="$(mktemp)"
   "$B24" "$METHOD" "$PARAMS" --save "$TMP" $FLAG >/dev/null 2>&1 || true
   jq -e 'type == "object"' "$TMP" >/dev/null || { echo "$CASE: ответ не JSON" >&2; rm -f "$TMP"; exit 1; }
   jq "$SANITIZE | $FILTER" "$TMP" | write_template "$CASE"
