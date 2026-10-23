@@ -5,7 +5,8 @@
 #
 #   scripts/ui-check.sh [scenario] [--user "1C user name"]
 #
-# Scenarios are procedures of tools/ui-check (default «окно»). --user runs only the test client (what the user sees)
+# Scenarios are procedures of tools/ui-check (default «окно»; «строка» adds rows from the two own test tasks recorded as
+# ownDalstroy and ownNoCompany in scripts/b24-test-data.ids.json, see scripts/b24-test-data.sh create-tasks). --user runs only the test client (what the user sees)
 # under another 1C user; the test manager always runs under the registry user, who can read the event log.
 # Exit codes: 0 all checks passed, 1 some failed, 2 environment not ready (no report, build error, timeout).
 #
@@ -49,6 +50,13 @@ if ! python3 .claude/skills/epf-build/scripts/epf-build.py -SourceFile tools/ui-
   exit 2
 fi
 
+TASKS=""
+if [ "$SCENARIO" = "строка" ]; then
+  TASKS=$(jq -r '[.tasks.ownDalstroy, .tasks.ownNoCompany] | map(select(. != null) | tostring) | join(",")' \
+    scripts/b24-test-data.ids.json 2>/dev/null)
+  [ "$(echo "$TASKS" | tr -cd ',' | wc -c)" -eq 1 ] || { echo "ENV: no own test tasks in scripts/b24-test-data.ids.json (create-tasks ownDalstroy ownNoCompany)"; exit 2; }
+fi
+
 PORT=$(python3 -c 'import socket; s = socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1])')
 SINCE=$(date +%Y%m%d%H%M%S)
 CLIENT_PID=""
@@ -81,7 +89,7 @@ done
 
 echo "== test manager as «${BASE_USER}», scenario «${SCENARIO}»"
 "$V8PATH/1cv8c" ENTERPRISE /F"$BASE_PATH" /N"$BASE_USER" /TESTMANAGER /Execute"$OUT/UiCheck.epf" \
-  /C"out=$OUT/report.txt;port=$PORT;scenario=$SCENARIO;since=$SINCE" \
+  /C"out=$OUT/report.txt;port=$PORT;scenario=$SCENARIO;since=$SINCE;tasks=$TASKS" \
   /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /UseHwLicenses- \
   /Out"$OUT/manager.log" &
 MANAGER_PID=$!

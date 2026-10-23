@@ -1,7 +1,7 @@
 #!/bin/bash
 # Creates or deletes the Bitrix24 test data of PRD «Тестовые данные и приёмка» through scripts/b24.sh.
 # The set is described in scripts/b24-test-data.json; created IDs go to scripts/b24-test-data.ids.json.
-# Usage: scripts/b24-test-data.sh create|delete
+# Usage: scripts/b24-test-data.sh create|delete|create-tasks KEY…
 # Exit codes: 0 — done, 1 — a Bitrix24 call failed (IDs created so far are kept), 2 — usage or setup error.
 # Must run outside the Claude Code sandbox, like scripts/b24.sh.
 
@@ -26,6 +26,39 @@ save_id() { # path id
   jq --argjson id "$2" "$1 = \$id" "$IDS" > "$TMP" && mv "$TMP" "$IDS"
 }
 user() { spec --arg k "$1" '.users[$k]'; }
+
+create_task() { # key: creates one task of the spec in the project and companies recorded in $IDS
+  local KEY="$1" ID GROUP
+  GROUP="$(jq -r '.project' "$IDS")"
+  ID="$(call tasks.task.add "$(jq --arg k "$KEY" --argjson g "$GROUP" --slurpfile ids "$IDS" '
+    .users as $u | .roles as $r | .tasks[] | select(.key == $k) | $r[.roles] as $role |
+    {fields: ({
+      TITLE: .title,
+      CREATED_BY: $u[$role.creator],
+      RESPONSIBLE_ID: $u[$role.responsible],
+      ACCOMPLICES: [$role.accomplices[] | $u[.]],
+      AUDITORS: [$role.auditors[] | $u[.]],
+      UF_CRM_TASK: [.companies[] | "CO_\($ids[0].companies[.])"],
+      TASK_CONTROL: "N"
+    } + (if .inProject then {GROUP_ID: $g} else {} end))}' "$SPEC")" | jq '.task.id | tonumber')"
+  save_id ".tasks.$KEY" "$ID"
+  if [ "$(spec --arg k "$KEY" '.tasks[] | select(.key == $k) | .complete // false')" = true ]; then
+    call tasks.task.complete "{\"taskId\": $ID}" >/dev/null
+    echo "Задача $KEY: $ID, завершена"
+  else
+    echo "Задача $KEY: $ID"
+  fi
+}
+
+create_tasks() { # keys: tasks of the spec into the project and companies that already exist (IDS), e.g. own* for UI checks
+  [ -f "$IDS" ] || { echo "Нет $IDS: сначала $0 create." >&2; exit 2; }
+  local KEY
+  for KEY in "$@"; do
+    [ "$(spec --arg k "$KEY" '[.tasks[] | select(.key == $k)] | length')" = 1 ] || { echo "В $SPEC нет задачи $KEY." >&2; exit 2; }
+    [ "$(jq -r --arg k "$KEY" '.tasks[$k] // empty' "$IDS")" = "" ] || { echo "Задача $KEY уже создана ($IDS)." >&2; exit 2; }
+    create_task "$KEY"
+  done
+}
 
 create() {
   [ ! -f "$IDS" ] || { echo "Данные уже созданы ($IDS). Сначала: $0 delete" >&2; exit 2; }
@@ -54,24 +87,7 @@ create() {
   done
 
   for KEY in $(spec '.tasks[].key'); do
-    ID="$(call tasks.task.add "$(jq --arg k "$KEY" --argjson g "$GROUP" --slurpfile ids "$IDS" '
-      .users as $u | .roles as $r | .tasks[] | select(.key == $k) | $r[.roles] as $role |
-      {fields: ({
-        TITLE: .title,
-        CREATED_BY: $u[$role.creator],
-        RESPONSIBLE_ID: $u[$role.responsible],
-        ACCOMPLICES: [$role.accomplices[] | $u[.]],
-        AUDITORS: [$role.auditors[] | $u[.]],
-        UF_CRM_TASK: [.companies[] | "CO_\($ids[0].companies[.])"],
-        TASK_CONTROL: "N"
-      } + (if .inProject then {GROUP_ID: $g} else {} end))}' "$SPEC")" | jq '.task.id | tonumber')"
-    save_id ".tasks.$KEY" "$ID"
-    if [ "$(spec --arg k "$KEY" '.tasks[] | select(.key == $k) | .complete // false')" = true ]; then
-      call tasks.task.complete "{\"taskId\": $ID}" >/dev/null
-      echo "Задача $KEY: $ID, завершена"
-    else
-      echo "Задача $KEY: $ID"
-    fi
+    create_task "$KEY"
   done
 }
 
@@ -100,6 +116,7 @@ delete() {
 
 case "${1:-}" in
   create) create ;;
+  create-tasks) shift; create_tasks "$@" ;;
   delete) delete ;;
   *) sed -n '4p' "$0" | sed 's/^# //' >&2; exit 2 ;;
 esac

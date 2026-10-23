@@ -29,6 +29,12 @@
         "developer",
         "inga"
       ]
+    },
+    "own": {
+      "creator": "developer",
+      "responsible": "developer",
+      "accomplices": [],
+      "auditors": []
     }
   },
   "companies": [
@@ -220,6 +226,22 @@
       ],
       "roles": "default",
       "inProject": false
+    },
+    {
+      "key": "ownDalstroy",
+      "title": "[ТЕСТ] Своя задача — Дальстрой",
+      "companies": [
+        "dalstroy"
+      ],
+      "roles": "own",
+      "inProject": true
+    },
+    {
+      "key": "ownNoCompany",
+      "title": "[ТЕСТ] Своя задача — без компании",
+      "companies": [],
+      "roles": "own",
+      "inProject": true
     }
   ]
 }

@@ -20,6 +20,8 @@
     "twoCompanies": 10194,
     "noCompany": 10196,
     "observer": 10198,
-    "outside": 10200
+    "outside": 10200,
+    "ownDalstroy": 10332,
+    "ownNoCompany": 10334
   }
 }
