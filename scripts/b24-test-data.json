@@ -145,7 +145,8 @@
         "arkharov"
       ],
       "roles": "default",
-      "inProject": true
+      "inProject": true,
+      "deadlineDays": 2
     },
     {
       "key": "dalstroy2",
@@ -154,7 +155,8 @@
         "dalstroy2"
       ],
       "roles": "default",
-      "inProject": true
+      "inProject": true,
+      "deadlineDays": 7
     },
     {
       "key": "norq",
@@ -181,7 +183,8 @@
         "kikinda"
       ],
       "roles": "default",
-      "inProject": true
+      "inProject": true,
+      "deadlineDays": 30
     },
     {
       "key": "dup",

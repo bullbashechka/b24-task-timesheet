@@ -27,10 +27,19 @@ save_id() { # path id
 }
 user() { spec --arg k "$1" '.users[$k]'; }
 
+deadlines() { # task key → DEADLINE (ISO, 18:00 local time) of the tasks that have deadlineDays in the spec
+  local KEY DAYS OUT="{}"
+  for KEY in $(spec '.tasks[] | select(.deadlineDays) | .key'); do
+    DAYS="$(spec --arg k "$KEY" '.tasks[] | select(.key == $k) | .deadlineDays')"
+    OUT="$(echo "$OUT" | jq --arg k "$KEY" --arg d "$(date -v+"${DAYS}"d +%Y-%m-%dT18:00:00%z | sed -E 's/([0-9]{2})([0-9]{2})$/\1:\2/')" '.[$k] = $d')"
+  done
+  echo "$OUT"
+}
+
 create_task() { # key: creates one task of the spec in the project and companies recorded in $IDS
   local KEY="$1" ID GROUP
   GROUP="$(jq -r '.project' "$IDS")"
-  ID="$(call tasks.task.add "$(jq --arg k "$KEY" --argjson g "$GROUP" --slurpfile ids "$IDS" '
+  ID="$(call tasks.task.add "$(jq --arg k "$KEY" --argjson g "$GROUP" --slurpfile ids "$IDS" --argjson deadlines "$(deadlines)" '
     .users as $u | .roles as $r | .tasks[] | select(.key == $k) | $r[.roles] as $role |
     {fields: ({
       TITLE: .title,
@@ -40,7 +49,8 @@ create_task() { # key: creates one task of the spec in the project and companies
       AUDITORS: [$role.auditors[] | $u[.]],
       UF_CRM_TASK: [.companies[] | "CO_\($ids[0].companies[.])"],
       TASK_CONTROL: "N"
-    } + (if .inProject then {GROUP_ID: $g} else {} end))}' "$SPEC")" | jq '.task.id | tonumber')"
+    } + (if .inProject then {GROUP_ID: $g} else {} end)
+      + (if .deadlineDays then {DEADLINE: $deadlines[.key]} else {} end))}' "$SPEC")" | jq '.task.id | tonumber')"
   save_id ".tasks.$KEY" "$ID"
   if [ "$(spec --arg k "$KEY" '.tasks[] | select(.key == $k) | .complete // false')" = true ]; then
     call tasks.task.complete "{\"taskId\": $ID}" >/dev/null
@@ -52,10 +62,14 @@ create_task() { # key: creates one task of the spec in the project and companies
 
 create_tasks() { # keys: tasks of the spec into the project and companies that already exist (IDS), e.g. own* for UI checks
   [ -f "$IDS" ] || { echo "Нет $IDS: сначала $0 create." >&2; exit 2; }
-  local KEY
+  local KEY OLD LEFT
   for KEY in "$@"; do
     [ "$(spec --arg k "$KEY" '[.tasks[] | select(.key == $k)] | length')" = 1 ] || { echo "В $SPEC нет задачи $KEY." >&2; exit 2; }
-    [ "$(jq -r --arg k "$KEY" '.tasks[$k] // empty' "$IDS")" = "" ] || { echo "Задача $KEY уже создана ($IDS)." >&2; exit 2; }
+    OLD="$(jq -r --arg k "$KEY" '.tasks[$k] // empty' "$IDS")"
+    if [ -n "$OLD" ]; then # a key already in ids.json is recreated only if the portal no longer has that task
+      LEFT="$("$B24" tasks.task.get "{\"taskId\": $OLD, \"select\": [\"ID\"]}" 2>/dev/null | jq -r '.result | if type == "array" then length else 1 end')"
+      [ "$LEFT" = 0 ] || { echo "Задача $KEY ($OLD) ещё есть в Битрикс24: не трогаю." >&2; continue; }
+    fi
     create_task "$KEY"
   done
 }
