@@ -66,6 +66,17 @@ else
   echo "ОК: экспортных функций с адресом вебхука в имени вне списка нет"
 fi
 
+# 4b. no exported function returns the OpenAI key: no exported name with «КлючOpenAI» (the masked presentation is
+# «ПредставлениеКлючаOpenAI», genitive, and takes the key as a parameter)
+BAD="$(grep -rnE --include='*.bsl' '^[[:space:]]*Функция[[:space:]]+[^ (]*КлючOpenAI[^ (]*[[:space:]]*\(.*\)[[:space:]]*Экспорт' "$PRODUCT" || true)"
+if [ -n "$BAD" ]; then
+  echo "НАРУШЕНИЕ: экспортная функция с ключом OpenAI в имени"
+  echo "$BAD" | cut -d: -f1,2 | sed 's/^/  /'
+  FAILED=1
+else
+  echo "ОК: экспортных функций с ключом OpenAI в имени нет"
+fi
+
 # 5. other code that touches the safe storage: test extension and the UI-check tool
 only "в тестах и tools/ui-check хранилище читают только известные модули" \
   'БезопасногоХранилища' \

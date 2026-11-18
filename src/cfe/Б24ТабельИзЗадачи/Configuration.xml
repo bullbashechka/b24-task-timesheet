@@ -80,6 +80,10 @@
 			<CommonCommand>б24т_НастройкиИнтеграции</CommonCommand>
 			<Constant>б24т_РежимТестирования</Constant>
 			<Constant>б24т_ПроектДляТестирования</Constant>
+			<Constant>б24т_ИспользоватьИИ</Constant>
+			<Constant>б24т_МодельИИ</Constant>
+			<Constant>б24т_УказанияДляИИ</Constant>
+			<Constant>б24т_ПримерыСтрокТабеля</Constant>
 			<CommonForm>б24т_НастройкиИнтеграции</CommonForm>
 			<Catalog>Пользователи</Catalog>
 			<Catalog>ФизическиеЛица</Catalog>
