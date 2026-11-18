@@ -2,7 +2,7 @@
   "mcpServers": {
     "1c": {
       "type": "http",
-      "url": "http://127.0.0.1:6003/mcp"
+      "url": "http://127.0.0.1:6004/mcp"
     },
     "b24-dev-mcp": {
       "type": "http",

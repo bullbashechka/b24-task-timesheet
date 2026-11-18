@@ -1,11 +1,12 @@
 #!/bin/bash
 # Runs the YAxUnit tests of the extension Б24ТабельИзЗадачиТесты in the local base.
 # Exit codes: 0 — all green, 1 — failures, 2 — the environment is not ready (no result file).
-# Base path, user and platform come from .v8-project.json (the "default" base).
+# Base path, user and platform come from .v8-project.json (the first base in "databases").
+# Works on macOS and on Windows (Git Bash): the platform is started by scripts/v8run.py.
 # Must run outside the Claude Code sandbox: 1C exits with 134 inside it.
 
 set -u
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+. "$(dirname "$0")/common.sh"
 REGISTRY="$ROOT/.v8-project.json"
 TEST_EXTENSION="Б24ТабельИзЗадачиТесты"
 TIMEOUT_SECONDS="${TIMEOUT_SECONDS:-600}"
@@ -15,43 +16,37 @@ if [ ! -f "$REGISTRY" ]; then
   exit 2
 fi
 
-json() { plutil -extract "$1" raw -o - "$REGISTRY"; }
-V8PATH="$(json v8path)"
-BASE_PATH="$(json databases.0.path)"
-BASE_USER="$(json databases.0.user)"
+V8PATH="$(registry_value .v8path)"
+BASE_PATH="$(registry_value '.databases[0].path')"
+BASE_USER="$(registry_value '.databases[0].user')"
+if [ "$IS_WINDOWS" = 1 ]; then V8CLIENT="$V8PATH\\1cv8c.exe"; else V8CLIENT="$V8PATH/1cv8c"; fi
+
+# On the Mac there is no license key, and /UseHwLicenses- keeps the client from looking for one. On Windows this PC
+# uses its key: with the switch the client does not start (its log then says "Цифровая подпись конфигурации неверна").
+if [ "$IS_WINDOWS" = 1 ]; then LICENSE_ARGS=(); else LICENSE_ARGS=(/UseHwLicenses-); fi
 
 OUT="$ROOT/.local/tests"
 mkdir -p "$OUT"
 rm -f "$OUT/exit-code.txt" "$OUT/junit.xml" "$OUT/yaxunit.log" "$OUT/1c.log"
 
-cat > "$OUT/yaxunit.json" <<EOF
-{
-  "filter": { "extensions": ["$TEST_EXTENSION"] },
-  "reportFormat": "jUnit",
-  "reportPath": "$OUT/junit.xml",
-  "exitCode": "$OUT/exit-code.txt",
-  "showReport": false,
-  "closeAfterTests": true,
-  "logging": { "enable": true, "file": "$OUT/yaxunit.log", "level": "debug" }
-}
-EOF
+# 1C reads the paths in its own (Windows or POSIX) form; jq escapes the backslashes.
+jq -n --arg ext "$TEST_EXTENSION" \
+  --arg report "$(native_path "$OUT/junit.xml")" \
+  --arg code "$(native_path "$OUT/exit-code.txt")" \
+  --arg log "$(native_path "$OUT/yaxunit.log")" \
+  '{filter: {extensions: [$ext]}, reportFormat: "jUnit", reportPath: $report, exitCode: $code,
+    showReport: false, closeAfterTests: true, logging: {enable: true, file: $log, level: "debug"}}' \
+  > "$OUT/yaxunit.json"
 
-"$V8PATH/1cv8c" ENTERPRISE /F"$BASE_PATH" /N"$BASE_USER" \
-  /C"RunUnitTests=$OUT/yaxunit.json" \
+MSYS_NO_PATHCONV=1 "$PY" "$(native_path "$ROOT/scripts/v8run.py")" --timeout "$TIMEOUT_SECONDS" -- "$V8CLIENT" ENTERPRISE \
+  "/F\"$BASE_PATH\"" "/N\"$BASE_USER\"" \
+  "/C\"RunUnitTests=$(native_path "$OUT/yaxunit.json")\"" \
   /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage \
-  /UseHwLicenses- /Out"$OUT/1c.log" &
-PID=$!
-
-ELAPSED=0
-while kill -0 "$PID" 2>/dev/null; do
-  if [ "$ELAPSED" -ge "$TIMEOUT_SECONDS" ]; then
-    echo "1С не завершилась за $TIMEOUT_SECONDS с, процесс остановлен." >&2
-    kill "$PID" 2>/dev/null
-    exit 2
-  fi
-  sleep 2
-  ELAPSED=$((ELAPSED + 2))
-done
+  "${LICENSE_ARGS[@]}" "/Out\"$(native_path "$OUT/1c.log")\""
+if [ $? = 124 ]; then
+  echo "1С не завершилась за $TIMEOUT_SECONDS с, процесс остановлен." >&2
+  exit 2
+fi
 
 if [ ! -f "$OUT/exit-code.txt" ]; then
   echo "Нет файла результата: тесты не выполнились. Лог YAxUnit: $OUT/yaxunit.log" >&2
@@ -84,10 +79,16 @@ fi
 
 echo "RED"
 if [ -f "$OUT/junit.xml" ]; then
-  for N in $(seq 1 "$(xmllint --xpath 'count(//testcase[failure or error])' "$OUT/junit.xml")"); do
-    NAME="$(xmllint --xpath "string((//testcase[failure or error])[$N]/@classname)" "$OUT/junit.xml")"
-    MESSAGE="$(xmllint --xpath "string((//testcase[failure or error])[$N]/*[self::failure or self::error]/@message)" "$OUT/junit.xml")"
-    echo "- $NAME: ${MESSAGE:0:500}"
-  done
+  "$PY" - "$(native_path "$OUT/junit.xml")" <<'PYEOF'
+import sys
+import xml.etree.ElementTree as ET
+
+for case in ET.parse(sys.argv[1]).iter("testcase"):
+    bad = case.find("failure")
+    if bad is None:
+        bad = case.find("error")
+    if bad is not None:
+        print("- %s: %s" % (case.get("classname", ""), (bad.get("message") or "")[:500]))
+PYEOF
 fi
 exit 1

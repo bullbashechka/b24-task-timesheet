@@ -7,7 +7,7 @@
 # Must run outside the Claude Code sandbox, like scripts/b24.sh.
 
 set -euo pipefail
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+. "$(dirname "$0")/common.sh"
 B24="$ROOT/scripts/b24.sh"
 IDS="$ROOT/scripts/b24-test-data.ids.json"
 TEMPLATES="$ROOT/src/cfe/Б24ТабельИзЗадачиТесты/CommonTemplates"
@@ -15,12 +15,12 @@ PREFIX="б24тТест_Ответ_"
 
 [ -f "$IDS" ] || { echo "Нет $IDS: сначала scripts/b24-test-data.sh create" >&2; exit 2; }
 # .env is read, not executed: only TEST_USER_EMAIL is needed.
-TEST_USER_EMAIL="$(sed -n 's/^TEST_USER_EMAIL=//p' "$ROOT/.env" | tail -1 | tr -d "\"'\r")"
+TEST_USER_EMAIL="$(env_value TEST_USER_EMAIL | tr -d "\"'")"
 [ -n "$TEST_USER_EMAIL" ] || { echo "В $ROOT/.env нет TEST_USER_EMAIL" >&2; exit 2; }
 id() { jq -r "$1" "$IDS"; }
 DEV=30; ACCOMPLICE=50
 GROUP="$(id .project)"
-SINCE="$(date -v-30d '+%d.%m.%Y') 00:00:00"
+SINCE="$(date_shift -30 '%d.%m.%Y') 00:00:00"
 TASK_SELECT='["ID","TITLE","CREATED_BY","RESPONSIBLE_ID","ACCOMPLICES","AUDITORS","STATUS","REAL_STATUS","GROUP_ID","UF_CRM_TASK","DEADLINE","CLOSED_DATE","ACTIVITY_DATE","CREATED_DATE"]'
 RQ_SELECT='["ID","ENTITY_TYPE_ID","ENTITY_ID","PRESET_ID","NAME","SORT","ACTIVE","RQ_BIN","RQ_IIN","RQ_INN"]'
 STATUS_FILTER="\"::SUBFILTER-ST\":{\"::LOGIC\":\"OR\",\"!REAL_STATUS\":5,\">=CLOSED_DATE\":\"$SINCE\"}"
@@ -81,9 +81,13 @@ done
 record sonet_group_get_Проект sonet_group.get "{\"FILTER\":{\"ID\":$GROUP}}"
 record Ошибка_НеверныйВебхук user.current '{}' . --bad-token
 
+# The body of a recorded template: without the BOM and the CR of its CRLF lines.
+# (A pipe, not <(…): jq.exe on Windows can't open the /proc/…/fd path of a process substitution.)
+body_of() { tail -c +4 "$TEMPLATES/$PREFIX$1/Ext/Template.txt" | tr -d '\r'; }
+
 # Synthetic answers. A Russian company: the BIN answer with the number moved to RQ_INN of a Russian preset.
-jq '.result |= map(.PRESET_ID = "7" | .NAME = "Российская организация" | .RQ_INN = .RQ_BIN | .RQ_BIN = null)' \
-  <(tail -c +4 "$TEMPLATES/${PREFIX}crm_requisite_list_БИН/Ext/Template.txt" | tr -d '\r') \
+body_of crm_requisite_list_БИН \
+  | jq '.result |= map(.PRESET_ID = "7" | .NAME = "Российская организация" | .RQ_INN = .RQ_BIN | .RQ_BIN = null)' \
   | write_template crm_requisite_list_ИНН_Синтетика
 # Error bodies as documented for QUERY_LIMIT_EXCEEDED (HTTP 503) and INTERNAL_SERVER_ERROR (HTTP 500).
 echo '{"error":"QUERY_LIMIT_EXCEEDED","error_description":"Too many requests"}' | write_template Ошибка_ЛимитЗапросов_Синтетика
@@ -95,7 +99,6 @@ record tasks_task_list_Пусто tasks.task.list '{"filter":{"ID":0},"select":[
 record crm_company_list_Пусто crm.company.list '{"filter":{"ID":[999999999]},"select":["ID","TITLE"]}'
 record sonet_group_get_НеНайден sonet_group.get '{"FILTER":{"ID":999999999}}'
 
-body_of() { tail -c +4 "$TEMPLATES/$PREFIX$1/Ext/Template.txt" | tr -d '\r'; }
 body_of user_admin_Да | jq '.result = false' | write_template user_admin_Нет_Синтетика
 # Stage 6: an inactive user, and two different users matching the addresses of one employee.
 body_of user_get_Найден | jq '.result[0].ACTIVE = false' | write_template user_get_Неактивный_Синтетика

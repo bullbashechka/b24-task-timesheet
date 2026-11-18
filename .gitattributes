@@ -1,0 +1,9 @@
+# Shell and Python scripts keep LF on every machine: Git for Windows (core.autocrlf=true)
+# would otherwise check them out with CRLF, and heredocs would carry the CR into generated files.
+*.sh text eol=lf
+*.py text eol=lf
+# Windows PowerShell 5.1 reads scripts in the ANSI code page unless they have a BOM; keep them ASCII and CRLF.
+*.ps1 text eol=crlf
+
+# Invented test descriptions of Bitrix24 tasks: LF on every machine
+scripts/b24-test-data/*.txt text eol=lf

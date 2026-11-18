@@ -1,15 +1,17 @@
 #!/bin/bash
 # Calls one Bitrix24 REST method through the development webhook.
-# The webhook URL comes from the macOS Keychain (item b24-dev-webhook) and is masked in every output.
+# The webhook URL is the secret b24-dev-webhook (common.sh: macOS Keychain or a Windows DPAPI file)
+# and is masked in every output.
 # Usage: scripts/b24.sh <method> ['<json params>'] [--write] [--save <file>] [--bad-token]
 #   --write      allow the methods that create or delete test data;
 #   --save FILE  also write the masked answer to FILE;
 #   --bad-token  spoil the webhook token to record the "webhook rejected" answer.
 # Exit codes: 0 — answer without error, 1 — Bitrix24 or transport error, 2 — usage or environment error.
-# Must run outside the Claude Code sandbox: the sandbox has no Keychain access.
+# Must run outside the Claude Code sandbox: the sandbox has no access to the secret store.
 
 set -u
-KEYCHAIN_ITEM="b24-dev-webhook"
+. "$(dirname "$0")/common.sh"
+SECRET_NAME="b24-dev-webhook"
 
 READ_METHODS=" user.get user.current user.admin tasks.task.list tasks.task.get tasks.task.getFields
   crm.company.get crm.company.list crm.company.fields crm.requisite.list crm.requisite.fields
@@ -18,7 +20,7 @@ WRITE_METHODS=" sonet_group.create sonet_group.user.add sonet_group.delete
   crm.company.add crm.company.delete crm.requisite.add crm.requisite.delete
   tasks.task.add tasks.task.update tasks.task.complete tasks.task.delete "
 
-usage() { sed -n '4,7p' "$0" | sed 's/^# \{0,1\}//' >&2; exit 2; }
+usage() { sed -n '5,8p' "$0" | sed 's/^# \{0,1\}//' >&2; exit 2; }
 
 METHOD="${1:-}"; [ -n "$METHOD" ] || usage; shift
 PARAMS='{}'
@@ -58,16 +60,16 @@ else
   check_method "$METHOD"
 fi
 
-WEBHOOK="$(security find-generic-password -s "$KEYCHAIN_ITEM" -w 2>/dev/null)"
+WEBHOOK="$(secret_get "$SECRET_NAME")"
 if [ -z "$WEBHOOK" ]; then
-  echo "В Связке ключей нет записи $KEYCHAIN_ITEM. Выполните в Терминале:" >&2
-  echo "  security add-generic-password -a \"\$USER\" -s $KEYCHAIN_ITEM -w" >&2
+  echo "Адрес вебхука ($SECRET_NAME) не сохранён. Выполните в своём терминале:" >&2
+  echo "  $(secret_hint "$SECRET_NAME")" >&2
   exit 2
 fi
 WEBHOOK="${WEBHOOK%/}/"
 TOKEN="$(printf '%s' "$WEBHOOK" | sed -E 's#^.*/rest/[0-9]+/([^/]+)/$#\1#')"
 if ! printf '%s' "$WEBHOOK" | grep -Eq '^https://[^/]+/rest/[0-9]+/[A-Za-z0-9]+/$'; then
-  echo "Запись $KEYCHAIN_ITEM не похожа на адрес вебхука (https://<портал>/rest/<id>/<токен>/)." >&2
+  echo "Секрет $SECRET_NAME не похож на адрес вебхука (https://<портал>/rest/<id>/<токен>/)." >&2
   exit 2
 fi
 if [ "$BAD_TOKEN" = 1 ]; then WEBHOOK="${WEBHOOK%"$TOKEN/"}invalidtoken0000/"; fi
@@ -75,10 +77,13 @@ if [ "$BAD_TOKEN" = 1 ]; then WEBHOOK="${WEBHOOK%"$TOKEN/"}invalidtoken0000/"; f
 mask() { sed -E -e "s#$TOKEN#***#g" -e 's#/rest/[0-9]+/[A-Za-z0-9]+#/rest/***#g'; }
 
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
+# The parameters go to curl as a file: on Windows a native curl gets its command line in the ANSI code page,
+# and Cyrillic in an inline --data-binary reaches the portal broken.
+printf '%s' "$PARAMS" > "$TMP/params"
 # The URL goes to curl through stdin, so it does not show up in the process list either.
 # --globoff: no [] and {} expansion in the URL; --proto: HTTPS only.
 HTTP_CODE="$(printf 'url = "%s%s.json"\n' "$WEBHOOK" "$METHOD" | curl --config - --globoff --proto =https -sS --max-time 30 \
-  -X POST -H 'Content-Type: application/json' --data-binary "$PARAMS" \
+  -X POST -H 'Content-Type: application/json' --data-binary "@$(native_path "$TMP/params")" \
   -o "$TMP/body" -w '%{http_code}' 2>"$TMP/err")"
 CURL_EXIT=$?
 unset WEBHOOK

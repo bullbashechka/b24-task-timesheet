@@ -7,6 +7,7 @@
 
 set -euo pipefail
 DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$DIR/common.sh"
 SPEC="$DIR/b24-test-data.json"
 IDS="$DIR/b24-test-data.ids.json"
 B24="$DIR/b24.sh"
@@ -31,15 +32,28 @@ deadlines() { # task key → DEADLINE (ISO, 18:00 local time) of the tasks that 
   local KEY DAYS OUT="{}"
   for KEY in $(spec '.tasks[] | select(.deadlineDays) | .key'); do
     DAYS="$(spec --arg k "$KEY" '.tasks[] | select(.key == $k) | .deadlineDays')"
-    OUT="$(echo "$OUT" | jq --arg k "$KEY" --arg d "$(date -v+"${DAYS}"d +%Y-%m-%dT18:00:00%z | sed -E 's/([0-9]{2})([0-9]{2})$/\1:\2/')" '.[$k] = $d')"
+    OUT="$(echo "$OUT" | jq --arg k "$KEY" --arg d "$(date_shift "+$DAYS" '%Y-%m-%dT18:00:00%z' | sed -E 's/([0-9]{2})([0-9]{2})$/\1:\2/')" '.[$k] = $d')"
   done
   echo "$OUT"
 }
 
+description_of() { # task key → the description: the text of `description`, or the content of the file `descriptionFile`
+  # (a file name in scripts/b24-test-data/); empty if the task has neither
+  local FILE
+  FILE="$(spec --arg k "$1" '.tasks[] | select(.key == $k) | .descriptionFile // empty')"
+  if [ -n "$FILE" ]; then
+    [ -f "$DIR/b24-test-data/$FILE" ] || { echo "Нет файла описания $DIR/b24-test-data/$FILE" >&2; exit 2; }
+    tr -d '\r' < "$DIR/b24-test-data/$FILE"
+  else
+    spec --arg k "$1" '.tasks[] | select(.key == $k) | .description // empty'
+  fi
+}
+
 create_task() { # key: creates one task of the spec in the project and companies recorded in $IDS
-  local KEY="$1" ID GROUP
+  local KEY="$1" ID GROUP DESCRIPTION
   GROUP="$(jq -r '.project' "$IDS")"
-  ID="$(call tasks.task.add "$(jq --arg k "$KEY" --argjson g "$GROUP" --slurpfile ids "$IDS" --argjson deadlines "$(deadlines)" '
+  DESCRIPTION="$(description_of "$KEY")"
+  ID="$(call tasks.task.add "$(jq --arg k "$KEY" --argjson g "$GROUP" --arg desc "$DESCRIPTION" --slurpfile ids "$IDS" --argjson deadlines "$(deadlines)" '
     .users as $u | .roles as $r | .tasks[] | select(.key == $k) | $r[.roles] as $role |
     {fields: ({
       TITLE: .title,
@@ -49,7 +63,8 @@ create_task() { # key: creates one task of the spec in the project and companies
       AUDITORS: [$role.auditors[] | $u[.]],
       UF_CRM_TASK: [.companies[] | "CO_\($ids[0].companies[.])"],
       TASK_CONTROL: "N"
-    } + (if .inProject then {GROUP_ID: $g} else {} end)
+    } + (if ($desc | length) > 0 then {DESCRIPTION: $desc} else {} end)
+      + (if .inProject then {GROUP_ID: $g} else {} end)
       + (if .deadlineDays then {DEADLINE: $deadlines[.key]} else {} end))}' "$SPEC")" | jq '.task.id | tonumber')"
   save_id ".tasks.$KEY" "$ID"
   if [ "$(spec --arg k "$KEY" '.tasks[] | select(.key == $k) | .complete // false')" = true ]; then
