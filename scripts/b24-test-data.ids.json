@@ -22,6 +22,12 @@
     "observer": 10364,
     "outside": 10366,
     "ownDalstroy": 10332,
-    "ownNoCompany": 10334
+    "ownNoCompany": 10334,
+    "aiUpdate": 10700,
+    "aiNoValue": 10702,
+    "aiNoMatch": 10704,
+    "aiTerms": 10706,
+    "aiInjection": 10708,
+    "aiLong": 10710
   }
 }

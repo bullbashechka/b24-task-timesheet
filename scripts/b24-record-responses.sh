@@ -3,7 +3,8 @@
 # of the test extension. Answers come from the test data of scripts/b24-test-data.sh through scripts/b24.sh,
 # then lose real names, e-mails, photos and the portal domain. "_Синтетика" answers are built here by hand:
 # the portal can't produce them on demand.
-# Usage: scripts/b24-record-responses.sh
+# Usage: scripts/b24-record-responses.sh [stage14]
+#   stage14  record only the answers added in stage 14 (no TEST_USER_EMAIL needed for them).
 # Must run outside the Claude Code sandbox, like scripts/b24.sh.
 
 set -euo pipefail
@@ -16,7 +17,9 @@ PREFIX="б24тТест_Ответ_"
 [ -f "$IDS" ] || { echo "Нет $IDS: сначала scripts/b24-test-data.sh create" >&2; exit 2; }
 # .env is read, not executed: only TEST_USER_EMAIL is needed.
 TEST_USER_EMAIL="$(env_value TEST_USER_EMAIL | tr -d "\"'")"
-[ -n "$TEST_USER_EMAIL" ] || { echo "В $ROOT/.env нет TEST_USER_EMAIL" >&2; exit 2; }
+if [ "${1:-}" != stage14 ]; then
+  [ -n "$TEST_USER_EMAIL" ] || { echo "В $ROOT/.env нет TEST_USER_EMAIL" >&2; exit 2; }
+fi
 id() { jq -r "$1" "$IDS"; }
 DEV=30; ACCOMPLICE=50
 GROUP="$(id .project)"
@@ -53,6 +56,16 @@ record() { # case name, method, params [, extra jq filter] [, --bad-token]
   jq "$SANITIZE | $FILTER" "$TMP" | write_template "$CASE"
   rm -f "$TMP"
 }
+
+# Stage 14: a task with its description (BB-code), the fields of the product list plus DESCRIPTION.
+# The task aiTerms is invented: a test surname, version and BIN «99…».
+stage14() {
+  local TASK
+  TASK="$(id .tasks.aiTerms)"
+  record tasks_task_get_Описание tasks.task.get \
+    "{\"taskId\":$TASK,\"select\":[\"ID\",\"TITLE\",\"DESCRIPTION\",\"CREATED_BY\",\"RESPONSIBLE_ID\",\"ACCOMPLICES\",\"STATUS\",\"GROUP_ID\",\"UF_CRM_TASK\",\"DEADLINE\",\"CLOSED_DATE\",\"ACTIVITY_DATE\"]}"
+}
+if [ "${1:-}" = stage14 ]; then stage14; exit 0; fi
 
 record user_get_Найден user.get "{\"FILTER\":{\"EMAIL\":\"$TEST_USER_EMAIL\",\"ACTIVE\":true}}" \
   '.result |= map({ID, ACTIVE, NAME: "Тест", LAST_NAME: "Тестов", EMAIL: "Test.User@Example.com"})'
@@ -120,3 +133,6 @@ ALL="$(jq -c '[.companies[]]' "$IDS")"
 record crm_company_list_НаборС6 crm.company.list "{\"filter\":{\"ID\":$ALL},\"select\":[\"ID\",\"TITLE\"]}"
 record crm_requisite_list_НаборС6 crm.requisite.list \
   "{\"filter\":{\"ENTITY_TYPE_ID\":4,\"ENTITY_ID\":$ALL},\"select\":$RQ_SELECT,\"order\":{\"SORT\":\"ASC\",\"ID\":\"ASC\"}}"
+
+# Stage 14 (also runs alone: scripts/b24-record-responses.sh stage14).
+stage14

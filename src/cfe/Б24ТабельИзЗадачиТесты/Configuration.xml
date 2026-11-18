@@ -97,6 +97,21 @@
 			<CommonTemplate>б24тТест_Ответ_Ошибка_МетодНеНайден_Синтетика</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_Ошибка_ДоступЗапрещён_Синтетика</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_Ошибка_ВремяМетода_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_get_Описание</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_КлючОтклонён</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_МодельНедоступна</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_НетСредств</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_ЛимитЗапросов_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_ОшибкаСервера_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_НеJSON_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_Пустой_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_Успех</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_ПроверкаИИ</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_Оборванный</CommonTemplate>
+			<CommonTemplate>б24тТест_ОтветИИ_Отказ_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_МестаФормулировок</CommonTemplate>
+			<CommonTemplate>б24тТест_ФормулировкиИИ</CommonTemplate>
+			<CommonTemplate>б24тТест_ПримерыИИ</CommonTemplate>
 			<CommonModule>б24тТест_Сопоставление</CommonModule>
 			<CommonModule>б24тТест_ЗаписанныеОтветы</CommonModule>
 			<CommonModule>б24тТест_ТабельИДБ24</CommonModule>
@@ -114,6 +129,7 @@
 			<CommonModule>б24тТест_Контрагенты</CommonModule>
 			<CommonModule>б24тТест_ЗаполнениеИзЗадачи</CommonModule>
 			<CommonModule>б24тТест_ЗаполнениеИзЗадачиФормаКлиент</CommonModule>
+			<CommonModule>б24тТест_ДанныеИИ</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "text": { "type": "string" },
+    "own_words": { "type": "boolean" },
+    "unfilled": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["text", "own_words", "unfilled"],
+  "additionalProperties": false
+}
