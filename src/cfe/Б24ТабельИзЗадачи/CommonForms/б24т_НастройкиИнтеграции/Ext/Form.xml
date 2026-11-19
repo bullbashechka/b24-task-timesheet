@@ -256,8 +256,29 @@
 									</Title>
 									<ExtendedTooltip name="КнопкаУдалитьКлючРасширеннаяПодсказка" id="53"/>
 								</Button>
+								<Button name="КнопкаПроверитьИИ" id="69">
+									<CommandName>Form.Command.ПроверитьИИКоманда</CommandName>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Проверить ИИ</v8:content>
+										</v8:item>
+									</Title>
+									<ExtendedTooltip name="КнопкаПроверитьИИРасширеннаяПодсказка" id="70"/>
+								</Button>
 							</ChildItems>
 						</UsualGroup>
+						<LabelDecoration name="НадписьРезультатаПроверкиИИ" id="71">
+							<Visible>false</Visible>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Результат проверки ИИ</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="НадписьРезультатаПроверкиИИКонтекстноеМеню" id="72"/>
+							<ExtendedTooltip name="НадписьРезультатаПроверкиИИРасширеннаяПодсказка" id="73"/>
+						</LabelDecoration>
 						<LabelDecoration name="ПодсказкаКлюча" id="54">
 							<Title formatted="false">
 								<v8:item>
@@ -279,6 +300,9 @@
 							<TitleLocation>Top</TitleLocation>
 							<ContextMenu name="МодельИИКонтекстноеМеню" id="58"/>
 							<ExtendedTooltip name="МодельИИРасширеннаяПодсказка" id="59"/>
+							<Events>
+								<Event name="OnChange">МодельИИПриИзменении</Event>
+							</Events>
 						</InputField>
 						<InputField name="УказанияДляИИ" id="60">
 							<DataPath>УказанияДляИИ</DataPath>
@@ -528,6 +552,15 @@
 				</v8:item>
 			</Title>
 			<Action>УдалитьКлючКоманда</Action>
+		</Command>
+		<Command name="ПроверитьИИКоманда" id="33">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверить ИИ</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ПроверитьИИ</Action>
 		</Command>
 	</Commands>
 </Form>

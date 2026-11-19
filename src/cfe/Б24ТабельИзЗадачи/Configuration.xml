@@ -77,6 +77,8 @@
 			<CommonModule>б24т_Контрагенты</CommonModule>
 			<CommonModule>б24т_ЗаполнениеИзЗадачи</CommonModule>
 			<CommonModule>б24т_ЗаполнениеИзЗадачиКлиентСервер</CommonModule>
+			<CommonModule>б24т_OpenAI</CommonModule>
+			<CommonModule>б24т_ТранспортOpenAI</CommonModule>
 			<CommonCommand>б24т_НастройкиИнтеграции</CommonCommand>
 			<Constant>б24т_РежимТестирования</Constant>
 			<Constant>б24т_ПроектДляТестирования</Constant>

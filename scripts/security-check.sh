@@ -1,9 +1,14 @@
 #!/bin/bash
-# Static check of the webhook rules (PRD «Связь с Битрикс24 и безопасность», TASKS 11.1) over the BSL sources:
-#   1. the HTTPS connection is created only in б24т_ТранспортHTTPS (so every Bitrix24 call goes through the stage 5 client);
-#   2. the safe storage is read only by б24т_Настройки and б24т_Битрикс24, written and deleted only by б24т_Настройки;
-#   3. forms never call б24т_Битрикс24, and б24т_Настройки is called only by the settings form;
-#   4. no exported function returns the full webhook address (exported names with «АдресВебхука» are a fixed list);
+# Static check of the webhook and OpenAI key rules (PRD «Связь с Битрикс24 и безопасность», Ф14; TASKS 11.1, 16.7)
+# over the BSL sources:
+#   1. the HTTPS connection is created only in the transports б24т_ТранспортHTTPS and б24т_ТранспортOpenAI (so every
+#      Bitrix24 call goes through the stage 5 client and every OpenAI call through the stage 16 client); the OpenAI
+#      address and the Authorization header appear only in б24т_ТранспортOpenAI;
+#   2. the safe storage is read only by б24т_Настройки, б24т_Битрикс24 and б24т_OpenAI, written and deleted only by
+#      б24т_Настройки;
+#   3. forms never call б24т_Битрикс24 or б24т_OpenAI, and б24т_Настройки is called only by the settings form;
+#   4. no exported function returns the full webhook address (exported names with «АдресВебхука» are a fixed list),
+#      the OpenAI key (no exported name with «КлючOpenAI») or the stored secrets (the storage readers are not exported);
 #   5. the test extension and tools/ui-check read the safe storage only in the known places.
 # Comment lines (//) are ignored. Patterns avoid Cyrillic ranges: the BSD grep of macOS compares bytes in them. Usage: scripts/security-check.sh. Exit codes: 0 clean, 1 a rule is broken.
 
@@ -34,13 +39,18 @@ only() {
   fi
 }
 
-only "HTTPS-соединение создаёт только б24т_ТранспортHTTPS" \
+only "HTTPS-соединение создают только б24т_ТранспортHTTPS и б24т_ТранспортOpenAI" \
   'HTTPСоединение|ЗащищенноеСоединение|ЗащищённоеСоединение|HTTPЗапрос' \
-  '/CommonModules/б24т_ТранспортHTTPS/' "$PRODUCT"
+  '/CommonModules/(б24т_ТранспортHTTPS|б24т_ТранспортOpenAI)/' "$PRODUCT"
 
-only "безопасное хранилище читают только б24т_Настройки и б24т_Битрикс24" \
+# The host as a string literal of its own: the «Проверить ИИ» text names api.openai.com inside a sentence.
+only "адрес OpenAI и заголовок с ключом есть только в б24т_ТранспортOpenAI" \
+  '"api\.openai\.com"|Authorization|Bearer' \
+  '/CommonModules/б24т_ТранспортOpenAI/' "$PRODUCT"
+
+only "безопасное хранилище читают только б24т_Настройки, б24т_Битрикс24 и б24т_OpenAI" \
   'ПрочитатьДанныеИзБезопасногоХранилища' \
-  '/CommonModules/(б24т_Настройки|б24т_Битрикс24)/' "$PRODUCT"
+  '/CommonModules/(б24т_Настройки|б24т_Битрикс24|б24т_OpenAI)/' "$PRODUCT"
 
 only "безопасное хранилище пишет и стирает только б24т_Настройки" \
   'ЗаписатьДанныеВБезопасноеХранилище|УдалитьДанныеИзБезопасногоХранилища|УстановитьДанныеВБезопасноеХранилище' \
@@ -48,6 +58,10 @@ only "безопасное хранилище пишет и стирает то�
 
 only "формы и команды не вызывают б24т_Битрикс24" \
   'б24т_Битрикс24\.' \
+  '/CommonModules/' "$PRODUCT"
+
+only "формы и команды не вызывают б24т_OpenAI" \
+  'б24т_OpenAI\.' \
   '/CommonModules/' "$PRODUCT"
 
 only "б24т_Настройки из форм вызывает только форма настроек" \
@@ -75,6 +89,16 @@ if [ -n "$BAD" ]; then
   FAILED=1
 else
   echo "ОК: экспортных функций с ключом OpenAI в имени нет"
+fi
+
+# 4c. the functions that read the safe storage stay private: КлючИзХранилища, АдресИзХранилища, АдресВебхукаКлиента
+BAD="$(grep -rnE --include='*.bsl' '^[[:space:]]*Функция[[:space:]]+(КлючИзХранилища|АдресИзХранилища|АдресВебхукаКлиента)[[:space:]]*\(.*\)[[:space:]]*Экспорт' "$PRODUCT" || true)"
+if [ -n "$BAD" ]; then
+  echo "НАРУШЕНИЕ: функция чтения безопасного хранилища экспортная"
+  echo "$BAD" | cut -d: -f1,2 | sed 's/^/  /'
+  FAILED=1
+else
+  echo "ОК: функции чтения безопасного хранилища не экспортные"
 fi
 
 # 5. other code that touches the safe storage: test extension and the UI-check tool
