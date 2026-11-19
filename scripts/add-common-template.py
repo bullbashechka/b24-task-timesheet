@@ -5,7 +5,8 @@ The skill template-add can't do it: it adds templates owned by an object. A comm
   <ext>/CommonTemplates/<name>.xml                 the metadata (a new uuid);
   <ext>/CommonTemplates/<name>/Ext/Template.txt    the text, UTF-8 with one BOM; created empty if absent;
   <ext>/Configuration.xml                          <CommonTemplate><name></CommonTemplate> in ChildObjects,
-                                                   after the last common template.
+                                                   after the last common template (the first one goes before
+                                                   the first common module).
 Usage: python scripts/add-common-template.py <extension dir> <name> [synonym]
 Exit codes: 0 — added, 1 — the template already exists or the structure is not as expected.
 The recording scripts (b24-record-responses.sh, openai-record-responses.sh) fill Template.txt afterwards.
@@ -71,11 +72,18 @@ def add(extension_dir, name, synonym):
         return 1
     lines = text.split(newline)
     last = max((i for i, line in enumerate(lines) if line.strip().startswith("<CommonTemplate>")), default=None)
-    if last is None:
-        print("В Configuration.xml нет ни одного общего макета: добавьте первый вручную.", file=sys.stderr)
-        return 1
+    if last is not None:
+        position = last + 1
+    else:
+        # The first template of the extension: the platform keeps templates before the common modules.
+        first_module = next((i for i, line in enumerate(lines) if line.strip().startswith("<CommonModule>")), None)
+        if first_module is None:
+            print("В Configuration.xml нет ни общих макетов, ни общих модулей: добавьте первый макет вручную.",
+                  file=sys.stderr)
+            return 1
+        last, position = first_module, first_module
     indent = lines[last][: len(lines[last]) - len(lines[last].lstrip())]
-    lines.insert(last + 1, "%s<CommonTemplate>%s</CommonTemplate>" % (indent, name))
+    lines.insert(position, "%s<CommonTemplate>%s</CommonTemplate>" % (indent, name))
     with open(configuration, "wb") as handle:
         handle.write((BOM if raw.startswith(BOM) else b"") + newline.join(lines).encode("utf-8"))
 

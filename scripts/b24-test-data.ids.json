@@ -28,6 +28,7 @@
     "aiNoMatch": 10704,
     "aiTerms": 10706,
     "aiInjection": 10708,
-    "aiLong": 10710
+    "aiLong": 10710,
+    "aiQuotes": 10724
   }
 }

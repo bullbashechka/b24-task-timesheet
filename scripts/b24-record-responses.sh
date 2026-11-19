@@ -3,8 +3,9 @@
 # of the test extension. Answers come from the test data of scripts/b24-test-data.sh through scripts/b24.sh,
 # then lose real names, e-mails, photos and the portal domain. "_Синтетика" answers are built here by hand:
 # the portal can't produce them on demand.
-# Usage: scripts/b24-record-responses.sh [stage14]
+# Usage: scripts/b24-record-responses.sh [stage14|stage17]
 #   stage14  record only the answers added in stage 14 (no TEST_USER_EMAIL needed for them).
+#   stage17  record only the answers added in stage 17 (descriptions of the tasks aiLong and aiQuotes).
 # Must run outside the Claude Code sandbox, like scripts/b24.sh.
 
 set -euo pipefail
@@ -17,7 +18,7 @@ PREFIX="б24тТест_Ответ_"
 [ -f "$IDS" ] || { echo "Нет $IDS: сначала scripts/b24-test-data.sh create" >&2; exit 2; }
 # .env is read, not executed: only TEST_USER_EMAIL is needed.
 TEST_USER_EMAIL="$(env_value TEST_USER_EMAIL | tr -d "\"'")"
-if [ "${1:-}" != stage14 ]; then
+if [ "${1:-}" != stage14 ] && [ "${1:-}" != stage17 ]; then
   [ -n "$TEST_USER_EMAIL" ] || { echo "В $ROOT/.env нет TEST_USER_EMAIL" >&2; exit 2; }
 fi
 id() { jq -r "$1" "$IDS"; }
@@ -66,6 +67,17 @@ stage14() {
     "{\"taskId\":$TASK,\"select\":[\"ID\",\"TITLE\",\"DESCRIPTION\",\"CREATED_BY\",\"RESPONSIBLE_ID\",\"ACCOMPLICES\",\"STATUS\",\"GROUP_ID\",\"UF_CRM_TASK\",\"DEADLINE\",\"CLOSED_DATE\",\"ACTIVITY_DATE\"]}"
 }
 if [ "${1:-}" = stage14 ]; then stage14; exit 0; fi
+
+# Stage 17: the description of a long task with every kind of markup (aiLong), of a task with quotes and the signs
+# < > & (aiQuotes, to see how Bitrix24 returns them) and a synthetic answer whose description is HTML, as in old tasks
+# (descriptionInBbcode «N»). Same select as stage 14.
+stage17() {
+  local SELECT='["ID","TITLE","DESCRIPTION","CREATED_BY","RESPONSIBLE_ID","ACCOMPLICES","STATUS","GROUP_ID","UF_CRM_TASK","DEADLINE","CLOSED_DATE","ACTIVITY_DATE"]'
+  record tasks_task_get_ОписаниеДлинное tasks.task.get "{\"taskId\":$(id .tasks.aiLong),\"select\":$SELECT}"
+  record tasks_task_get_Кавычки tasks.task.get "{\"taskId\":$(id .tasks.aiQuotes),\"select\":$SELECT}"
+  record tasks_task_get_ОписаниеHTML_Синтетика tasks.task.get "{\"taskId\":$(id .tasks.aiQuotes),\"select\":$SELECT}"     '.result.task.descriptionInBbcode = "N" | .result.task.description = "<b>Настройка</b><br>ТОО &quot;Ромашка&quot; &amp; ИП &lt;Тестов&gt;<br>Версия 3.0.99.1<br><br><ul><li>Загрузка выписки</li></ul>&nbsp;Конец"'
+}
+if [ "${1:-}" = stage17 ]; then stage17; exit 0; fi
 
 record user_get_Найден user.get "{\"FILTER\":{\"EMAIL\":\"$TEST_USER_EMAIL\",\"ACTIVE\":true}}" \
   '.result |= map({ID, ACTIVE, NAME: "Тест", LAST_NAME: "Тестов", EMAIL: "Test.User@Example.com"})'
@@ -136,3 +148,4 @@ record crm_requisite_list_НаборС6 crm.requisite.list \
 
 # Stage 14 (also runs alone: scripts/b24-record-responses.sh stage14).
 stage14
+stage17

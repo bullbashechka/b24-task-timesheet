@@ -30,11 +30,16 @@ mkdir -p "$OUT"
 rm -f "$OUT/exit-code.txt" "$OUT/junit.xml" "$OUT/yaxunit.log" "$OUT/1c.log"
 
 # 1C reads the paths in its own (Windows or POSIX) form; jq escapes the backslashes.
-jq -n --arg ext "$TEST_EXTENSION" \
+# TEST_MODULES="б24тТест_СодержаниеИИ,б24тТест_Задачи" runs only these test modules (a quick red/green loop); the full
+# run before a commit is without it.
+MODULES='[]'
+if [ -n "${TEST_MODULES:-}" ]; then MODULES="$(printf '%s' "$TEST_MODULES" | jq -R 'split(",")')"; fi
+jq -n --arg ext "$TEST_EXTENSION" --argjson modules "$MODULES" \
   --arg report "$(native_path "$OUT/junit.xml")" \
   --arg code "$(native_path "$OUT/exit-code.txt")" \
   --arg log "$(native_path "$OUT/yaxunit.log")" \
-  '{filter: {extensions: [$ext]}, reportFormat: "jUnit", reportPath: $report, exitCode: $code,
+  '{filter: ({extensions: [$ext]} + (if ($modules | length) > 0 then {modules: $modules} else {} end)),
+    reportFormat: "jUnit", reportPath: $report, exitCode: $code,
     showReport: false, closeAfterTests: true, logging: {enable: true, file: $log, level: "debug"}}' \
   > "$OUT/yaxunit.json"
 

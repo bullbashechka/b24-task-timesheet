@@ -293,6 +293,14 @@
       "roles": "own",
       "inProject": true,
       "descriptionFile": "ai-long.txt"
+    },
+    {
+      "key": "aiQuotes",
+      "title": "[ТЕСТ] ИИ: ТОО \"Ромашка\" и ИП 'Тестов' < > &",
+      "companies": [],
+      "roles": "own",
+      "inProject": true,
+      "descriptionFile": "ai-quotes.txt"
     }
   ]
 }

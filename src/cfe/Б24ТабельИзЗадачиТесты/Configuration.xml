@@ -112,6 +112,9 @@
 			<CommonTemplate>б24тТест_МестаФормулировок</CommonTemplate>
 			<CommonTemplate>б24тТест_ФормулировкиИИ</CommonTemplate>
 			<CommonTemplate>б24тТест_ПримерыИИ</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_get_ОписаниеДлинное</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_get_Кавычки</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_get_ОписаниеHTML_Синтетика</CommonTemplate>
 			<CommonModule>б24тТест_Сопоставление</CommonModule>
 			<CommonModule>б24тТест_ЗаписанныеОтветы</CommonModule>
 			<CommonModule>б24тТест_ТабельИДБ24</CommonModule>
@@ -132,6 +135,7 @@
 			<CommonModule>б24тТест_ДанныеИИ</CommonModule>
 			<CommonModule>б24тТест_OpenAI</CommonModule>
 			<CommonModule>б24тТест_ЗаглушкаOpenAI</CommonModule>
+			<CommonModule>б24тТест_СодержаниеИИ</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>
