@@ -53,120 +53,301 @@
 			<ContextMenu name="НадписьПредупрежденийКонтекстноеМеню" id="30"/>
 			<ExtendedTooltip name="НадписьПредупрежденийРасширеннаяПодсказка" id="31"/>
 		</LabelDecoration>
-		<InputField name="НовыйАдресВебхука" id="5">
-			<DataPath>НовыйАдресВебхука</DataPath>
-			<Title>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Адрес входящего вебхука Битрикс24</v8:content>
-				</v8:item>
-			</Title>
-			<TitleLocation>Top</TitleLocation>
-			<PasswordMode>true</PasswordMode>
-			<ChoiceHistoryOnInput>DontUse</ChoiceHistoryOnInput>
-			<ContextMenu name="НовыйАдресВебхукаКонтекстноеМеню" id="6"/>
-			<ExtendedTooltip name="НовыйАдресВебхукаРасширеннаяПодсказка" id="7"/>
-			<Events>
-				<Event name="OnChange">НовыйАдресВебхукаПриИзменении</Event>
-			</Events>
-		</InputField>
-		<UsualGroup name="ГруппаСохранённыйАдрес" id="8">
-			<Representation>None</Representation>
-			<ExtendedTooltip name="ГруппаСохранённыйАдресРасширеннаяПодсказка" id="9"/>
+		<Pages name="СтраницыНастроек" id="32">
+			<PagesRepresentation>TabsOnTop</PagesRepresentation>
+			<ExtendedTooltip name="СтраницыНастроекРасширеннаяПодсказка" id="33"/>
 			<ChildItems>
-				<LabelDecoration name="НадписьСохранённогоАдреса" id="10">
-					<Title formatted="false">
-						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Не указан</v8:content>
-						</v8:item>
-					</Title>
-					<ContextMenu name="НадписьСохранённогоАдресаКонтекстноеМеню" id="11"/>
-					<ExtendedTooltip name="НадписьСохранённогоАдресаРасширеннаяПодсказка" id="12"/>
-				</LabelDecoration>
-				<Button name="КнопкаУдалитьАдрес" id="13">
-					<CommandName>Form.Command.УдалитьАдресКоманда</CommandName>
+				<Page name="СтраницаБитрикс24" id="34">
 					<Title>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Удалить адрес</v8:content>
+							<v8:content>Битрикс24</v8:content>
 						</v8:item>
 					</Title>
-					<ExtendedTooltip name="КнопкаУдалитьАдресРасширеннаяПодсказка" id="14"/>
-				</Button>
-				<Button name="КнопкаПроверитьПодключение" id="24">
-					<CommandName>Form.Command.ПроверитьПодключениеКоманда</CommandName>
+					<ExtendedTooltip name="СтраницаБитрикс24РасширеннаяПодсказка" id="35"/>
+					<ChildItems>
+						<InputField name="НовыйАдресВебхука" id="5">
+							<DataPath>НовыйАдресВебхука</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Адрес входящего вебхука Битрикс24</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Top</TitleLocation>
+							<PasswordMode>true</PasswordMode>
+							<ChoiceHistoryOnInput>DontUse</ChoiceHistoryOnInput>
+							<ContextMenu name="НовыйАдресВебхукаКонтекстноеМеню" id="6"/>
+							<ExtendedTooltip name="НовыйАдресВебхукаРасширеннаяПодсказка" id="7"/>
+							<Events>
+								<Event name="OnChange">НовыйАдресВебхукаПриИзменении</Event>
+							</Events>
+						</InputField>
+						<UsualGroup name="ГруппаСохранённыйАдрес" id="8">
+							<Representation>None</Representation>
+							<ExtendedTooltip name="ГруппаСохранённыйАдресРасширеннаяПодсказка" id="9"/>
+							<ChildItems>
+								<LabelDecoration name="НадписьСохранённогоАдреса" id="10">
+									<Title formatted="false">
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Не указан</v8:content>
+										</v8:item>
+									</Title>
+									<ContextMenu name="НадписьСохранённогоАдресаКонтекстноеМеню" id="11"/>
+									<ExtendedTooltip name="НадписьСохранённогоАдресаРасширеннаяПодсказка" id="12"/>
+								</LabelDecoration>
+								<Button name="КнопкаУдалитьАдрес" id="13">
+									<CommandName>Form.Command.УдалитьАдресКоманда</CommandName>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Удалить адрес</v8:content>
+										</v8:item>
+									</Title>
+									<ExtendedTooltip name="КнопкаУдалитьАдресРасширеннаяПодсказка" id="14"/>
+								</Button>
+								<Button name="КнопкаПроверитьПодключение" id="24">
+									<CommandName>Form.Command.ПроверитьПодключениеКоманда</CommandName>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Проверить подключение</v8:content>
+										</v8:item>
+									</Title>
+									<ExtendedTooltip name="КнопкаПроверитьПодключениеРасширеннаяПодсказка" id="25"/>
+								</Button>
+							</ChildItems>
+						</UsualGroup>
+						<LabelDecoration name="ПодсказкаАдреса" id="15">
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Создайте в Битрикс24 входящий вебхук с правами «Задачи», «CRM», «Пользователи» и «Рабочие группы» и вставьте его адрес</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ПодсказкаАдресаКонтекстноеМеню" id="16"/>
+							<ExtendedTooltip name="ПодсказкаАдресаРасширеннаяПодсказка" id="17"/>
+						</LabelDecoration>
+						<CheckBoxField name="РежимТестирования" id="18">
+							<DataPath>РежимТестирования</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Режим тестирования</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Right</TitleLocation>
+							<CheckBoxType>Auto</CheckBoxType>
+							<ContextMenu name="РежимТестированияКонтекстноеМеню" id="19"/>
+							<ExtendedTooltip name="РежимТестированияРасширеннаяПодсказка" id="20"/>
+							<Events>
+								<Event name="OnChange">РежимТестированияПриИзменении</Event>
+							</Events>
+						</CheckBoxField>
+						<InputField name="ПроектДляТестирования" id="21">
+							<DataPath>ПроектДляТестирования</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Проект для тестирования (ID)</v8:content>
+								</v8:item>
+							</Title>
+							<Format>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ЧГ=0</v8:content>
+								</v8:item>
+							</Format>
+							<EditFormat>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ЧГ=0</v8:content>
+								</v8:item>
+							</EditFormat>
+							<MinValue xsi:type="xs:decimal">0</MinValue>
+							<ContextMenu name="ПроектДляТестированияКонтекстноеМеню" id="22"/>
+							<ExtendedTooltip name="ПроектДляТестированияРасширеннаяПодсказка" id="23"/>
+						</InputField>
+						<LabelDecoration name="НадписьРезультатаПроверки" id="26">
+							<Visible>false</Visible>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Результат проверки</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="НадписьРезультатаПроверкиКонтекстноеМеню" id="27"/>
+							<ExtendedTooltip name="НадписьРезультатаПроверкиРасширеннаяПодсказка" id="28"/>
+						</LabelDecoration>
+					</ChildItems>
+				</Page>
+				<Page name="СтраницаИИ" id="36">
 					<Title>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Проверить подключение</v8:content>
+							<v8:content>ИИ для содержания</v8:content>
 						</v8:item>
 					</Title>
-					<ExtendedTooltip name="КнопкаПроверитьПодключениеРасширеннаяПодсказка" id="25"/>
-				</Button>
+					<ExtendedTooltip name="СтраницаИИРасширеннаяПодсказка" id="37"/>
+					<ChildItems>
+						<LabelDecoration name="НадписьКопииБазы" id="38">
+							<Visible>false</Visible>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>База похожа на копию: работа с внешними ресурсами заблокирована, ИИ не используется</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="НадписьКопииБазыКонтекстноеМеню" id="39"/>
+							<ExtendedTooltip name="НадписьКопииБазыРасширеннаяПодсказка" id="40"/>
+						</LabelDecoration>
+						<CheckBoxField name="ИспользоватьИИ" id="41">
+							<DataPath>ИспользоватьИИ</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Использовать ИИ</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Right</TitleLocation>
+							<CheckBoxType>Auto</CheckBoxType>
+							<ContextMenu name="ИспользоватьИИКонтекстноеМеню" id="42"/>
+							<ExtendedTooltip name="ИспользоватьИИРасширеннаяПодсказка" id="43"/>
+						</CheckBoxField>
+						<InputField name="НовыйКлючOpenAI" id="44">
+							<DataPath>НовыйКлючOpenAI</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Ключ OpenAI</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Top</TitleLocation>
+							<PasswordMode>true</PasswordMode>
+							<ChoiceHistoryOnInput>DontUse</ChoiceHistoryOnInput>
+							<ContextMenu name="НовыйКлючOpenAIКонтекстноеМеню" id="45"/>
+							<ExtendedTooltip name="НовыйКлючOpenAIРасширеннаяПодсказка" id="46"/>
+							<Events>
+								<Event name="OnChange">НовыйКлючOpenAIПриИзменении</Event>
+							</Events>
+						</InputField>
+						<UsualGroup name="ГруппаСохранённыйКлюч" id="47">
+							<Representation>None</Representation>
+							<ExtendedTooltip name="ГруппаСохранённыйКлючРасширеннаяПодсказка" id="48"/>
+							<ChildItems>
+								<LabelDecoration name="НадписьСохранённогоКлюча" id="49">
+									<Title formatted="false">
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Не указан</v8:content>
+										</v8:item>
+									</Title>
+									<ContextMenu name="НадписьСохранённогоКлючаКонтекстноеМеню" id="50"/>
+									<ExtendedTooltip name="НадписьСохранённогоКлючаРасширеннаяПодсказка" id="51"/>
+								</LabelDecoration>
+								<Button name="КнопкаУдалитьКлюч" id="52">
+									<CommandName>Form.Command.УдалитьКлючКоманда</CommandName>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Удалить ключ</v8:content>
+										</v8:item>
+									</Title>
+									<ExtendedTooltip name="КнопкаУдалитьКлючРасширеннаяПодсказка" id="53"/>
+								</Button>
+								<Button name="КнопкаПроверитьИИ" id="69">
+									<CommandName>Form.Command.ПроверитьИИКоманда</CommandName>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Проверить ИИ</v8:content>
+										</v8:item>
+									</Title>
+									<ExtendedTooltip name="КнопкаПроверитьИИРасширеннаяПодсказка" id="70"/>
+								</Button>
+							</ChildItems>
+						</UsualGroup>
+						<LabelDecoration name="НадписьРезультатаПроверкиИИ" id="71">
+							<Visible>false</Visible>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Результат проверки ИИ</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="НадписьРезультатаПроверкиИИКонтекстноеМеню" id="72"/>
+							<ExtendedTooltip name="НадписьРезультатаПроверкиИИРасширеннаяПодсказка" id="73"/>
+						</LabelDecoration>
+						<LabelDecoration name="ПодсказкаКлюча" id="54">
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Создайте ключ API в личном кабинете OpenAI и вставьте его</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ПодсказкаКлючаКонтекстноеМеню" id="55"/>
+							<ExtendedTooltip name="ПодсказкаКлючаРасширеннаяПодсказка" id="56"/>
+						</LabelDecoration>
+						<InputField name="МодельИИ" id="57">
+							<DataPath>МодельИИ</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Модель</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Top</TitleLocation>
+							<ContextMenu name="МодельИИКонтекстноеМеню" id="58"/>
+							<ExtendedTooltip name="МодельИИРасширеннаяПодсказка" id="59"/>
+							<Events>
+								<Event name="OnChange">МодельИИПриИзменении</Event>
+							</Events>
+						</InputField>
+						<InputField name="УказанияДляИИ" id="60">
+							<DataPath>УказанияДляИИ</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Дополнительные указания для ИИ</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Top</TitleLocation>
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<Height>6</Height>
+							<MultiLine>true</MultiLine>
+							<ContextMenu name="УказанияДляИИКонтекстноеМеню" id="61"/>
+							<ExtendedTooltip name="УказанияДляИИРасширеннаяПодсказка" id="62"/>
+						</InputField>
+						<InputField name="ПримерыСтрокТабеля" id="63">
+							<DataPath>ПримерыСтрокТабеля</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Примеры строк табеля</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Top</TitleLocation>
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<Height>8</Height>
+							<MultiLine>true</MultiLine>
+							<ContextMenu name="ПримерыСтрокТабеляКонтекстноеМеню" id="64"/>
+							<ExtendedTooltip name="ПримерыСтрокТабеляРасширеннаяПодсказка" id="65"/>
+						</InputField>
+						<LabelDecoration name="ПодсказкаПримеров" id="66">
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>По одной строке. Фамилии, названия организаций, БИН и номера замените</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ПодсказкаПримеровКонтекстноеМеню" id="67"/>
+							<ExtendedTooltip name="ПодсказкаПримеровРасширеннаяПодсказка" id="68"/>
+						</LabelDecoration>
+					</ChildItems>
+				</Page>
 			</ChildItems>
-		</UsualGroup>
-		<LabelDecoration name="ПодсказкаАдреса" id="15">
-			<Title formatted="false">
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Создайте в Битрикс24 входящий вебхук с правами «Задачи», «CRM», «Пользователи» и «Рабочие группы» и вставьте его адрес</v8:content>
-				</v8:item>
-			</Title>
-			<ContextMenu name="ПодсказкаАдресаКонтекстноеМеню" id="16"/>
-			<ExtendedTooltip name="ПодсказкаАдресаРасширеннаяПодсказка" id="17"/>
-		</LabelDecoration>
-		<CheckBoxField name="РежимТестирования" id="18">
-			<DataPath>РежимТестирования</DataPath>
-			<Title>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Режим тестирования</v8:content>
-				</v8:item>
-			</Title>
-			<TitleLocation>Right</TitleLocation>
-			<CheckBoxType>Auto</CheckBoxType>
-			<ContextMenu name="РежимТестированияКонтекстноеМеню" id="19"/>
-			<ExtendedTooltip name="РежимТестированияРасширеннаяПодсказка" id="20"/>
-			<Events>
-				<Event name="OnChange">РежимТестированияПриИзменении</Event>
-			</Events>
-		</CheckBoxField>
-		<InputField name="ПроектДляТестирования" id="21">
-			<DataPath>ПроектДляТестирования</DataPath>
-			<Title>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Проект для тестирования (ID)</v8:content>
-				</v8:item>
-			</Title>
-			<Format>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>ЧГ=0</v8:content>
-				</v8:item>
-			</Format>
-			<EditFormat>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>ЧГ=0</v8:content>
-				</v8:item>
-			</EditFormat>
-			<MinValue xsi:type="xs:decimal">0</MinValue>
-			<ContextMenu name="ПроектДляТестированияКонтекстноеМеню" id="22"/>
-			<ExtendedTooltip name="ПроектДляТестированияРасширеннаяПодсказка" id="23"/>
-		</InputField>
-		<LabelDecoration name="НадписьРезультатаПроверки" id="26">
-			<Visible>false</Visible>
-			<Title formatted="false">
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Результат проверки</v8:content>
-				</v8:item>
-			</Title>
-			<ContextMenu name="НадписьРезультатаПроверкиКонтекстноеМеню" id="27"/>
-			<ExtendedTooltip name="НадписьРезультатаПроверкиРасширеннаяПодсказка" id="28"/>
-		</LabelDecoration>
+		</Pages>
 	</ChildItems>
 	<Attributes>
 		<Attribute name="ПредставлениеАдреса" id="24">
@@ -237,6 +418,103 @@
 				</v8:NumberQualifiers>
 			</Type>
 		</Attribute>
+		<Attribute name="ИспользоватьИИ" id="29">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Использовать ИИ</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="НовыйКлючOpenAI" id="30">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Новый ключ open AI</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="УдалитьКлюч" id="31">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Удалить ключ</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПредставлениеКлюча" id="32">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Представление ключа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="МодельИИ" id="33">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Модель ИИ</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>100</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="УказанияДляИИ" id="34">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Указания для ИИ</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПримерыСтрокТабеля" id="35">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Примеры строк табеля</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
 	</Attributes>
 	<Commands>
 		<Command name="ЗаписатьИЗакрыть" id="29">
@@ -265,6 +543,24 @@
 				</v8:item>
 			</Title>
 			<Action>ПроверитьПодключение</Action>
+		</Command>
+		<Command name="УдалитьКлючКоманда" id="32">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Удалить ключ команда</v8:content>
+				</v8:item>
+			</Title>
+			<Action>УдалитьКлючКоманда</Action>
+		</Command>
+		<Command name="ПроверитьИИКоманда" id="33">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверить ИИ</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ПроверитьИИ</Action>
 		</Command>
 	</Commands>
 </Form>

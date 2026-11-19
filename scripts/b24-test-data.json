@@ -245,6 +245,62 @@
       "companies": [],
       "roles": "own",
       "inProject": true
+    },
+    {
+      "key": "aiUpdate",
+      "title": "[ТЕСТ] ИИ: обновление базы",
+      "companies": [],
+      "roles": "own",
+      "inProject": true,
+      "descriptionFile": "ai-update.txt"
+    },
+    {
+      "key": "aiNoValue",
+      "title": "[ТЕСТ] ИИ: установка 1С-Коннект",
+      "companies": [],
+      "roles": "own",
+      "inProject": true,
+      "descriptionFile": "ai-no-value.txt"
+    },
+    {
+      "key": "aiNoMatch",
+      "title": "[ТЕСТ] ИИ: печать этикеток",
+      "companies": [],
+      "roles": "own",
+      "inProject": true,
+      "descriptionFile": "ai-no-match.txt"
+    },
+    {
+      "key": "aiTerms",
+      "title": "[ТЕСТ] ИИ: ошибка отправки ЭСФ",
+      "companies": [],
+      "roles": "own",
+      "inProject": true,
+      "descriptionFile": "ai-terms.txt"
+    },
+    {
+      "key": "aiInjection",
+      "title": "[ТЕСТ] ИИ: загрузка банковской выписки",
+      "companies": [],
+      "roles": "own",
+      "inProject": true,
+      "descriptionFile": "ai-injection.txt"
+    },
+    {
+      "key": "aiLong",
+      "title": "[ТЕСТ] ИИ: длинное описание с оформлением",
+      "companies": [],
+      "roles": "own",
+      "inProject": true,
+      "descriptionFile": "ai-long.txt"
+    },
+    {
+      "key": "aiQuotes",
+      "title": "[ТЕСТ] ИИ: ТОО \"Ромашка\" и ИП 'Тестов' < > &",
+      "companies": [],
+      "roles": "own",
+      "inProject": true,
+      "descriptionFile": "ai-quotes.txt"
     }
   ]
 }

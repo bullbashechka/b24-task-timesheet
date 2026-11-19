@@ -67,6 +67,7 @@
 			<Language>Русский</Language>
 			<Subsystem>Администрирование</Subsystem>
 			<Role>б24т_ОсновнаяРоль</Role>
+			<CommonTemplate>б24т_ПравилаИИ</CommonTemplate>
 			<CommonModule>б24т_Сопоставление</CommonModule>
 			<CommonModule>б24т_Настройки</CommonModule>
 			<CommonModule>б24т_Битрикс24</CommonModule>
@@ -77,9 +78,16 @@
 			<CommonModule>б24т_Контрагенты</CommonModule>
 			<CommonModule>б24т_ЗаполнениеИзЗадачи</CommonModule>
 			<CommonModule>б24т_ЗаполнениеИзЗадачиКлиентСервер</CommonModule>
+			<CommonModule>б24т_OpenAI</CommonModule>
+			<CommonModule>б24т_ТранспортOpenAI</CommonModule>
+			<CommonModule>б24т_СодержаниеИИ</CommonModule>
 			<CommonCommand>б24т_НастройкиИнтеграции</CommonCommand>
 			<Constant>б24т_РежимТестирования</Constant>
 			<Constant>б24т_ПроектДляТестирования</Constant>
+			<Constant>б24т_ИспользоватьИИ</Constant>
+			<Constant>б24т_МодельИИ</Constant>
+			<Constant>б24т_УказанияДляИИ</Constant>
+			<Constant>б24т_ПримерыСтрокТабеля</Constant>
 			<CommonForm>б24т_НастройкиИнтеграции</CommonForm>
 			<Catalog>Пользователи</Catalog>
 			<Catalog>ФизическиеЛица</Catalog>
