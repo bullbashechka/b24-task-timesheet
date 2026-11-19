@@ -524,7 +524,97 @@
 									<ChoiceHistoryOnInput>DontUse</ChoiceHistoryOnInput>
 									<ContextMenu name="СодержаниеКонтекстноеМеню" id="114"/>
 									<ExtendedTooltip name="СодержаниеРасширеннаяПодсказка" id="115"/>
+									<Events>
+										<Event name="EditTextChange">СодержаниеИзменениеТекстаРедактирования</Event>
+										<Event name="OnChange">СодержаниеПриИзменении</Event>
+									</Events>
 								</InputField>
+								<UsualGroup name="ГруппаИИ" id="125">
+									<Visible>false</Visible>
+									<Group>Vertical</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="ГруппаИИРасширеннаяПодсказка" id="126"/>
+									<ChildItems>
+										<UsualGroup name="ГруппаКнопкиИИ" id="127">
+											<Group>AlwaysHorizontal</Group>
+											<Representation>None</Representation>
+											<ShowTitle>false</ShowTitle>
+											<ExtendedTooltip name="ГруппаКнопкиИИРасширеннаяПодсказка" id="128"/>
+											<ChildItems>
+												<Button name="ЗаполнитьСПомощьюИИ" id="129">
+													<CommandName>Form.Command.ЗаполнитьСПомощьюИИ</CommandName>
+													<Title>
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Заполнить с помощью ИИ</v8:content>
+														</v8:item>
+													</Title>
+													<ExtendedTooltip name="ЗаполнитьСПомощьюИИРасширеннаяПодсказка" id="130"/>
+												</Button>
+												<Button name="ВернутьПрежнийТекст" id="131">
+													<Visible>false</Visible>
+													<CommandName>Form.Command.ВернутьПрежнийТекст</CommandName>
+													<Title>
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Вернуть прежний текст</v8:content>
+														</v8:item>
+													</Title>
+													<ExtendedTooltip name="ВернутьПрежнийТекстРасширеннаяПодсказка" id="132"/>
+												</Button>
+												<LabelDecoration name="НадписьОжиданияИИ" id="133">
+													<Visible>false</Visible>
+													<AutoMaxWidth>false</AutoMaxWidth>
+													<Title formatted="false">
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Надпись ожидания ИИ</v8:content>
+														</v8:item>
+													</Title>
+													<ContextMenu name="НадписьОжиданияИИКонтекстноеМеню" id="134"/>
+													<ExtendedTooltip name="НадписьОжиданияИИРасширеннаяПодсказка" id="135"/>
+												</LabelDecoration>
+											</ChildItems>
+										</UsualGroup>
+										<LabelDecoration name="НадписьЗаполните" id="136">
+											<Visible>false</Visible>
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<Title formatted="false">
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Надпись заполните</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="НадписьЗаполнитеКонтекстноеМеню" id="137"/>
+											<ExtendedTooltip name="НадписьЗаполнитеРасширеннаяПодсказка" id="138"/>
+										</LabelDecoration>
+										<LabelDecoration name="НадписьНеИзменён" id="139">
+											<Visible>false</Visible>
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<Title formatted="false">
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Надпись не изменён</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="НадписьНеИзменёнКонтекстноеМеню" id="140"/>
+											<ExtendedTooltip name="НадписьНеИзменёнРасширеннаяПодсказка" id="141"/>
+										</LabelDecoration>
+										<LabelDecoration name="НадписьСообщенияИИ" id="142">
+											<Visible>false</Visible>
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<Title formatted="false">
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Надпись сообщения ИИ</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="НадписьСообщенияИИКонтекстноеМеню" id="143"/>
+											<ExtendedTooltip name="НадписьСообщенияИИРасширеннаяПодсказка" id="144"/>
+										</LabelDecoration>
+									</ChildItems>
+								</UsualGroup>
 								<InputField name="Контрагент" id="116">
 									<DataPath>Контрагент</DataPath>
 									<ReadOnly>true</ReadOnly>
@@ -971,6 +1061,113 @@
 				<v8:Type>xs:boolean</v8:Type>
 			</Type>
 		</Attribute>
+		<Attribute name="ИИДоступен" id="164">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ доступен</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИИЗапросИдёт" id="165">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ запрос идёт</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИИПрежнийТекст" id="166">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ прежний текст</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ИИЕстьПрежний" id="167">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ есть прежний</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИИИскомыеМеста" id="168">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ искомые места</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueListType</v8:Type>
+			</Type>
+			<Settings xsi:type="v8:TypeDescription">
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Settings>
+		</Attribute>
+		<Attribute name="ИИТекстОтвета" id="169">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ текст ответа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ИИНеИзменён" id="170">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ не изменён</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИИСообщение" id="171">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ сообщение</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
 		<ConditionalAppearance>
 			<dcsset:item>
 				<dcsset:selection>
@@ -1022,6 +1219,30 @@
 				</v8:item>
 			</Title>
 			<Action>ДобавитьВТабель</Action>
+		</Command>
+		<Command name="ЗаполнитьСПомощьюИИ" id="165">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить с помощью ИИ</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ИИ составит содержание по задаче и тексту в поле. Можно заранее набрать, что сделано: версию, фамилию, название базы</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗаполнитьСПомощьюИИ</Action>
+		</Command>
+		<Command name="ВернутьПрежнийТекст" id="166">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Вернуть прежний текст</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ВернутьПрежнийТекст</Action>
 		</Command>
 	</Commands>
 	<Parameters>

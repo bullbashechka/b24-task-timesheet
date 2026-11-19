@@ -136,6 +136,11 @@
 			<CommonModule>б24тТест_OpenAI</CommonModule>
 			<CommonModule>б24тТест_ЗаглушкаOpenAI</CommonModule>
 			<CommonModule>б24тТест_СодержаниеИИ</CommonModule>
+			<CommonModule>б24тТест_ЗаполнениеИИ</CommonModule>
+			<CommonModule>б24тТест_ЖивойПрогонИИ</CommonModule>
+			<CommonModule>б24тТест_ЖивыеПримерыИИ</CommonModule>
+			<CommonModule>б24тТест_ОкноИИ</CommonModule>
+			<CommonModule>б24тТест_ОкноИИФормаКлиент</CommonModule>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

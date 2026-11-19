@@ -81,6 +81,8 @@
 			<CommonModule>б24т_OpenAI</CommonModule>
 			<CommonModule>б24т_ТранспортOpenAI</CommonModule>
 			<CommonModule>б24т_СодержаниеИИ</CommonModule>
+			<CommonModule>б24т_СодержаниеИИКлиентСервер</CommonModule>
+			<CommonModule>б24т_ЗаполнениеИИ</CommonModule>
 			<CommonCommand>б24т_НастройкиИнтеграции</CommonCommand>
 			<Constant>б24т_РежимТестирования</Constant>
 			<Constant>б24т_ПроектДляТестирования</Constant>

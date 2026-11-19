@@ -6,7 +6,8 @@
 #      address and the Authorization header appear only in б24т_ТранспортOpenAI;
 #   2. the safe storage is read only by б24т_Настройки, б24т_Битрикс24 and б24т_OpenAI, written and deleted only by
 #      б24т_Настройки;
-#   3. forms never call б24т_Битрикс24 or б24т_OpenAI, and б24т_Настройки is called only by the settings form;
+#   3. forms never call б24т_Битрикс24 or б24т_OpenAI, and б24т_Настройки is called only by the settings form; the
+#      OpenAI request (б24т_OpenAI.Вызвать) is made only by б24т_Настройки (check) and б24т_ЗаполнениеИИ (operation);
 #   4. no exported function returns the full webhook address (exported names with «АдресВебхука» are a fixed list),
 #      the OpenAI key (no exported name with «КлючOpenAI») or the stored secrets (the storage readers are not exported);
 #   5. the test extension and tools/ui-check read the safe storage only in the known places.
@@ -63,6 +64,12 @@ only "формы и команды не вызывают б24т_Битрикс24
 only "формы и команды не вызывают б24т_OpenAI" \
   'б24т_OpenAI\.' \
   '/CommonModules/' "$PRODUCT"
+
+# The only callers of the OpenAI client: the settings check («Проверить ИИ», explicit key from the form) and the
+# «Заполнить с помощью ИИ» operation (the saved key, read by the client itself).
+only "запрос к OpenAI (б24т_OpenAI.Вызвать) делают только б24т_Настройки и б24т_ЗаполнениеИИ" \
+  'б24т_OpenAI\.Вызвать' \
+  '/CommonModules/(б24т_Настройки|б24т_ЗаполнениеИИ)/' "$PRODUCT"
 
 only "б24т_Настройки из форм вызывает только форма настроек" \
   'б24т_Настройки\.' \

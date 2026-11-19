@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Runs the 1C platform with a time limit. Used by run-tests.sh.
 
-Usage: v8run.py [--timeout SECONDS] -- <executable> <argument>...
+Usage: v8run.py [--timeout SECONDS] [--pidfile FILE] -- <executable> <argument>...
+
+--pidfile writes the platform's process id to FILE right after the start: ui-check.sh runs the test client and the
+test manager in the background and stops exactly these two processes (taskkill /T on Windows).
 
 Arguments carry their own quotes inside the value, the way 1C expects them: /F"D:\\a b", /N"user",
 /C"key=value". On Windows they are joined into one command line as they are (Git Bash would rewrite
@@ -28,8 +31,12 @@ def strip_framing_quotes(arg):
 
 def main(argv):
     timeout = None
-    if argv[:1] == ["--timeout"]:
-        timeout = float(argv[1])
+    pidfile = None
+    while argv[:1] in (["--timeout"], ["--pidfile"]):
+        if argv[0] == "--timeout":
+            timeout = float(argv[1])
+        else:
+            pidfile = argv[1]
         argv = argv[2:]
     if argv[:1] == ["--"]:
         argv = argv[1:]
@@ -42,6 +49,9 @@ def main(argv):
     else:
         command = [executable] + [strip_framing_quotes(a) for a in arguments]
     process = subprocess.Popen(command)
+    if pidfile:
+        with open(pidfile, "w", encoding="ascii") as f:
+            f.write(str(process.pid))
     try:
         return process.wait(timeout=timeout)
     except subprocess.TimeoutExpired:
