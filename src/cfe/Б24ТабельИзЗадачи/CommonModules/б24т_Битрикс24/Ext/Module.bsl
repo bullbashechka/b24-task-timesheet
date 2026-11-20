@@ -250,10 +250,12 @@
 #Область СлужебныеПроцедурыИФункции
 
 // Единственный список методов, которые клиент вправе вызвать. Только чтение. Сравнение точное, с учётом регистра.
+// Чат задачи только читается (Ф15): запись в чат и отметка «прочитано» (im.message.add, im.dialog.read и другие im.*)
+// сюда не входят.
 Функция РазрешённыеМетоды()
 
 	Возврат СтрРазделить("user.get,user.admin,tasks.task.list,tasks.task.get,crm.company.get,crm.company.list,"
-		+ "crm.requisite.list,sonet_group.get", ",");
+		+ "crm.requisite.list,sonet_group.get,im.dialog.messages.get", ",");
 
 КонецФункции
 

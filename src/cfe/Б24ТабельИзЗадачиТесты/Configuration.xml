@@ -155,6 +155,8 @@
 			<CommonModule>б24тТест_ЖивойПрогонИИ</CommonModule>
 			<CommonModule>б24тТест_ЖивыеПримерыИИ</CommonModule>
 			<CommonModule>б24тТест_ОкноИИ</CommonModule>
+			<CommonModule>б24тТест_КомментарииИИ</CommonModule>
+			<CommonModule>б24тТест_КомментарииЗадачи</CommonModule>
 			<CommonModule>б24тТест_ОкноИИФормаКлиент</CommonModule>
 		</ChildObjects>
 	</Configuration>

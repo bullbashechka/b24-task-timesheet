@@ -9,8 +9,9 @@
 # scripts/b24-test-data.sh create-tasks) and are passed to the processor as «tasks=ключ:номер,…»; each scenario lists the
 # keys it needs:
 #   окно, поиск, чужой — none; строка — ownDalstroy, ownNoCompany; список, контрагенты — the whole set;
-#   права — observer, outside; сотрудник — ownDalstroy; безтеста — outside; ии — aiUpdate, aiNoValue (AI switched on
-#   with the development key in the settings of the base); безопасность — the key of the webhook is searched in the
+#   права — observer, outside; сотрудник — ownDalstroy; безтеста — outside; ии — aiUpdate, aiNoValue, aiCommentName (AI
+#   switched on with the development key in the settings of the base; the scenario switches «Передавать ИИ комментарии
+#   задачи» on for С26 and off again in any case, восстановить switches it off too); безопасность — the key of the webhook is searched in the
 #   event log and in the files listed in .local/ui-check/leak-files.txt; восстановить — puts the base back after an
 #   interrupted run (test mode on with the project, «[ТЕСТ] Сотрудник» unlinked, scenario timesheets deleted).
 # --user runs only the test client (what the user sees) under another 1C user (сотрудник, чужой: "[ТЕСТ] Сотрудник"); the
@@ -80,7 +81,7 @@ case "$SCENARIO" in
   права) NEEDS="observer outside" ;;
   сотрудник) NEEDS="ownDalstroy" ;;
   безтеста) NEEDS="outside" ;;
-  ии) NEEDS="aiUpdate aiNoValue" ;;
+  ии) NEEDS="aiUpdate aiNoValue aiCommentName" ;;
   *) NEEDS="" ;;
 esac
 for KEY in $NEEDS; do

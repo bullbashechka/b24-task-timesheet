@@ -10,7 +10,10 @@
 #      OpenAI request (б24т_OpenAI.Вызвать) is made only by б24т_Настройки (check) and б24т_ЗаполнениеИИ (operation);
 #   4. no exported function returns the full webhook address (exported names with «АдресВебхука» are a fixed list),
 #      the OpenAI key (no exported name with «КлючOpenAI») or the stored secrets (the storage readers are not exported);
-#   5. the test extension and tools/ui-check read the safe storage only in the known places.
+#   5. the test extension and tools/ui-check read the safe storage only in the known places;
+#   6. the task chat is only read (Ф15): the only `im.*` method named in the product is im.dialog.messages.get, and only
+#      the REST client (its allowed list), the comments reader б24т_КомментарииЗадачи and the connection check
+#      (б24т_Настройки) name it; forms never call б24т_КомментарииЗадачи (it talks to Bitrix24).
 # Comment lines (//) are ignored. Patterns avoid Cyrillic ranges: the BSD grep of macOS compares bytes in them. Usage: scripts/security-check.sh. Exit codes: 0 clean, 1 a rule is broken.
 
 set -u
@@ -60,6 +63,25 @@ only "безопасное хранилище пишет и стирает то�
 only "формы и команды не вызывают б24т_Битрикс24" \
   'б24т_Битрикс24\.' \
   '/CommonModules/' "$PRODUCT"
+
+only "формы и команды не вызывают б24т_КомментарииЗадачи" \
+  'б24т_КомментарииЗадачи\.' \
+  '/CommonModules/' "$PRODUCT"
+
+# 6. chat methods: a string literal starting with «im.» anywhere in the product must be im.dialog.messages.get, and it
+# appears only in the allowed list of the client, the comments reader and the right check of «Проверить подключение».
+only "из методов чата в продукте есть только чтение im.dialog.messages.get" \
+  '"im\.|,im\.' \
+  '/CommonModules/(б24т_Битрикс24|б24т_КомментарииЗадачи|б24т_Настройки)/' "$PRODUCT"
+BAD="$(grep -rnE --include='*.bsl' '"im\.|,im\.' "$PRODUCT" 2>/dev/null | grep -vE '^[^:]+:[0-9]+:[[:space:]]*//' \
+  | grep -oE '"im\.[A-Za-z._]+|,im\.[A-Za-z._]+' | grep -vE 'im\.dialog\.messages\.get$')"
+if [ -n "$BAD" ]; then
+  echo "НАРУШЕНИЕ: в продукте назван метод чата, кроме im.dialog.messages.get"
+  echo "$BAD" | sed 's/^/  /'
+  FAILED=1
+else
+  echo "ОК: в продукте не назван ни один метод чата, кроме im.dialog.messages.get"
+fi
 
 only "формы и команды не вызывают б24т_OpenAI" \
   'б24т_OpenAI\.' \

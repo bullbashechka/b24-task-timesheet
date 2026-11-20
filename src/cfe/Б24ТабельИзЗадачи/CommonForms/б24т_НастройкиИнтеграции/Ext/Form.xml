@@ -215,6 +215,29 @@
 							<ContextMenu name="ИспользоватьИИКонтекстноеМеню" id="42"/>
 							<ExtendedTooltip name="ИспользоватьИИРасширеннаяПодсказка" id="43"/>
 						</CheckBoxField>
+						<CheckBoxField name="ПередаватьКомментарииИИ" id="74">
+							<DataPath>ПередаватьКомментарииИИ</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Передавать ИИ комментарии задачи</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Right</TitleLocation>
+							<CheckBoxType>Auto</CheckBoxType>
+							<ContextMenu name="ПередаватьКомментарииИИКонтекстноеМеню" id="75"/>
+							<ExtendedTooltip name="ПередаватьКомментарииИИРасширеннаяПодсказка" id="76"/>
+						</CheckBoxField>
+						<LabelDecoration name="ПодсказкаКомментариев" id="77">
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Вебхуку нужно право «Чат и уведомления»: его показывает «Проверить подключение» на закладке «Битрикс24»</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ПодсказкаКомментариевКонтекстноеМеню" id="78"/>
+							<ExtendedTooltip name="ПодсказкаКомментариевРасширеннаяПодсказка" id="79"/>
+						</LabelDecoration>
 						<InputField name="НовыйКлючOpenAI" id="44">
 							<DataPath>НовыйКлючOpenAI</DataPath>
 							<Title>
@@ -513,6 +536,17 @@
 					<v8:Length>0</v8:Length>
 					<v8:AllowedLength>Variable</v8:AllowedLength>
 				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПередаватьКомментарииИИ" id="36">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Передавать ИИ комментарии задачи</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
 			</Type>
 		</Attribute>
 	</Attributes>
