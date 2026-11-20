@@ -99,6 +99,19 @@ expect_refused "перевод строки" $'user.get\nverbose'
 expect_refused "кавычка" 'user.get"'
 expect_refused "неизвестный метод" user.update
 
+# Stage 22: the chat history is read freely; writing a test comment needs --write; the other im.* methods
+# (mark read or unread, edit, delete, create a chat) never pass, with or without --write.
+run im.dialog.messages.get '{"DIALOG_ID":"chat1"}'
+[ "$CODE" = 0 ] || fail "im.dialog.messages.get: код $CODE, ожидался 0 ($OUTPUT)"
+expect_refused "im.message.add без --write" im.message.add '{"DIALOG_ID":"chat1","MESSAGE":"x"}'
+run im.message.add '{"DIALOG_ID":"chat1","MESSAGE":"x"}' --write
+[ "$CODE" = 0 ] || fail "im.message.add --write: код $CODE, ожидался 0 ($OUTPUT)"
+for M in im.dialog.read im.dialog.unread im.message.update im.message.delete im.chat.add im.message.like im.dialog.messages.search; do
+  expect_refused "$M без --write" "$M" '{"DIALOG_ID":"chat1"}'
+  expect_refused "$M с --write" "$M" '{"DIALOG_ID":"chat1"}' --write
+done
+expect_refused "batch с im.dialog.read" batch '{"cmd":{"a":"im.dialog.read?DIALOG_ID=chat1"}}'
+
 # batch: every command is checked the same way.
 expect_refused "batch с шаблоном" batch '{"cmd":{"a":"tasks.task.[a-g][d-e][d-t]"}}'
 expect_refused "batch с записью" batch '{"cmd":{"a":"tasks.task.add?fields[TITLE]=x"}}'

@@ -1,7 +1,8 @@
 #!/bin/bash
 # Creates or deletes the Bitrix24 test data of PRD «Тестовые данные и приёмка» through scripts/b24.sh.
 # The set is described in scripts/b24-test-data.json; created IDs go to scripts/b24-test-data.ids.json.
-# Usage: scripts/b24-test-data.sh create|delete|create-tasks KEY…
+# Usage: scripts/b24-test-data.sh create|delete|create-tasks KEY…|add-comments KEY [PART]
+#   add-comments  writes the comments of the task KEY from the spec into its chat (part day1 unless PART is given).
 # Exit codes: 0 — done, 1 — a Bitrix24 call failed (IDs created so far are kept), 2 — usage or setup error.
 # Must run outside the Claude Code sandbox, like scripts/b24.sh.
 
@@ -13,11 +14,14 @@ IDS="$DIR/b24-test-data.ids.json"
 B24="$DIR/b24.sh"
 
 call() { # method params → result JSON on stdout; stops the script on an error
-  local OUT
-  if ! OUT="$("$B24" "$1" "$2" --write 2>/dev/null)"; then
-    echo "Ошибка $1: $(echo "$OUT" | jq -c '{error, error_description}' 2>/dev/null || echo "$OUT")" >&2
+  local OUT ERR
+  ERR="$(mktemp)"
+  if ! OUT="$("$B24" "$1" "$2" --write 2>"$ERR")"; then
+    echo "Ошибка $1: $(echo "$OUT" | jq -c '{error, error_description}' 2>/dev/null || echo "$OUT") $(tr '\n' ' ' < "$ERR")" >&2
+    rm -f "$ERR"
     exit 1
   fi
+  rm -f "$ERR"
   echo "$OUT" | jq '.result'
 }
 spec() { jq -r "$@" "$SPEC"; }
@@ -89,6 +93,39 @@ create_tasks() { # keys: tasks of the spec into the project and companies that a
   done
 }
 
+add_comments() { # key [part]: the comments of the spec (`comments`, `commentsGenerated`) of one own test task go into its chat
+  [ -f "$IDS" ] || { echo "Нет $IDS: сначала $0 create." >&2; exit 2; }
+  local KEY="${1:-}" PART="${2:-day1}" TASK ME TEXTS CHAT N I DONE
+  [ -n "$KEY" ] || { echo "Нужен ключ задачи." >&2; exit 2; }
+  TASK="$(jq -r --arg k "$KEY" '.tasks[$k] // empty' "$IDS")"
+  [ -n "$TASK" ] || { echo "Задачи $KEY нет в $IDS." >&2; exit 2; }
+  # How many comments of the part are already written (a number; `true` of an earlier version means all of them).
+  DONE="$(jq -r --arg k "$KEY:$PART" '(.comments[$k] // 0) | if . == true then 100000 else . end' "$IDS")"
+  # The texts: the comments of the part, or the generated ones (a part is `day1` unless the spec says otherwise).
+  TEXTS="$(jq -c --arg k "$KEY" --arg p "$PART" '
+    .tasks[] | select(.key == $k) |
+    [(.comments // [])[] | select((.part // "day1") == $p) | .text]
+    + (if $p == "day1" and .commentsGenerated
+       then [range(1; .commentsGenerated.count + 1) as $n | .commentsGenerated.template | split("{n}") | join($n | tostring)]
+       else [] end)' "$SPEC")"
+  N="$(echo "$TEXTS" | jq 'length')"
+  [ "$N" -gt 0 ] || { echo "В спецификации у $KEY нет комментариев части $PART." >&2; exit 2; }
+  if [ "$DONE" -ge "$N" ]; then echo "Комментарии $KEY ($PART) уже записаны." >&2; exit 2; fi
+  ME="$(user developer)"
+  # Only the developer may be in the task: a comment of a test task must not notify a colleague.
+  CHAT="$("$B24" tasks.task.get "{\"taskId\": $TASK, \"select\": [\"ID\", \"CREATED_BY\", \"RESPONSIBLE_ID\", \"ACCOMPLICES\", \"AUDITORS\", \"CHAT_ID\"]}" 2>/dev/null \
+    | jq -r --argjson me "$ME" '.result.task | select((.createdBy | tonumber) == $me and (.responsibleId | tonumber) == $me
+        and ((.accomplices // []) | length) == 0 and ((.auditors // []) | length) == 0) | .chatId // empty')"
+  case "$CHAT" in ''|0|null) echo "Задача $KEY ($TASK): нет чата или в ней не один разработчик. Не пишу." >&2; exit 2 ;; esac
+  # The number of written comments is kept after each one: a failed run goes on from the next comment, not from the first.
+  for ((I = DONE; I < N; I++)); do
+    call im.message.add "$(echo "$TEXTS" | jq -c --argjson i "$I" --arg d "chat$CHAT" '{DIALOG_ID: $d, MESSAGE: .[$i]}')" >/dev/null
+    TMP="$(mktemp)"
+    jq --arg k "$KEY:$PART" --argjson n "$((I + 1))" '.comments[$k] = $n' "$IDS" > "$TMP" && mv "$TMP" "$IDS"
+  done
+  echo "Задача $KEY: записано комментариев $N ($PART)"
+}
+
 create() {
   [ ! -f "$IDS" ] || { echo "Данные уже созданы ($IDS). Сначала: $0 delete" >&2; exit 2; }
   if spec '[.users[], .presets[]] | any(. == null)' | grep -q true; then
@@ -146,6 +183,7 @@ delete() {
 case "${1:-}" in
   create) create ;;
   create-tasks) shift; create_tasks "$@" ;;
+  add-comments) shift; add_comments "$@" ;;
   delete) delete ;;
   *) sed -n '4p' "$0" | sed 's/^# //' >&2; exit 2 ;;
 esac

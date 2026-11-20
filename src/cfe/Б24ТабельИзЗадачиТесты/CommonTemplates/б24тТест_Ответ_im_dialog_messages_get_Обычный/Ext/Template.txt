@@ -1,0 +1,70 @@
+﻿{
+  "result": {
+    "chat_id": 6034,
+    "messages": [
+      {
+        "id": 288118,
+        "chat_id": 6034,
+        "author_id": 30,
+        "date": "2026-11-20T08:56:44+03:00",
+        "text": "Звонила Мария: нужно кому-то из бухгалтерии, кому именно, она уточнит.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288116,
+        "chat_id": 6034,
+        "author_id": 30,
+        "date": "2026-11-20T08:56:42+03:00",
+        "text": "Ирина Сергеевна и Пётр Николаевич просят установить 1С-Коннект, но не сказали, на чей компьютер.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288106,
+        "chat_id": 6034,
+        "author_id": 0,
+        "date": "2026-11-20T08:56:10+03:00",
+        "text": "[USER=30]Тест Пользователь 30[/USER] создал [URL=/workgroups/group/38/tasks/task/view/10742/]задачу[/URL]",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": {
+          "NOTIFY": "N",
+          "URL_ID": [
+            5840
+          ]
+        },
+        "disappearing_date": null
+      }
+    ],
+    "users": [
+      {
+        "id": 30,
+        "active": true,
+        "name": "Тест Пользователь 30",
+        "first_name": "Тест30",
+        "last_name": "Тестов30",
+        "bot": false,
+        "type": "user"
+      }
+    ],
+    "files": []
+  },
+  "time": {
+    "start": 1795155615,
+    "finish": 1795155615.85694,
+    "duration": 0.8569400310516357,
+    "processing": 0,
+    "date_start": "2026-11-20T09:20:15+03:00",
+    "date_finish": "2026-11-20T09:20:15+03:00",
+    "operating_reset_at": 1795155780,
+    "operating": 0.5706007480621338
+  }
+}

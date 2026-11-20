@@ -1,0 +1,78 @@
+﻿{
+  "result": {
+    "chat_id": 5988,
+    "messages": [
+      {
+        "id": 288062,
+        "chat_id": 5988,
+        "author_id": 0,
+        "date": "2026-11-20T07:50:59+03:00",
+        "text": "[USER=30]Тест Пользователь 30[/USER] изменил крайний срок задачи на [URL=/workgroups/group/38/tasks/task/view/10700/?chatAction=changeDeadline][TIMESTAMP=1795183200 FORMAT=LONG_DATE_FORMAT], [TIMESTAMP=1795183200 FORMAT=SHORT_TIME_FORMAT][/URL]",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": {
+          "NOTIFY": "N"
+        },
+        "disappearing_date": null
+      },
+      {
+        "id": 288002,
+        "chat_id": 5988,
+        "author_id": 0,
+        "date": "2026-11-19T17:00:57+03:00",
+        "text": "[USER=30]Тест Пользователь 30[/USER], задача просрочена [TIMESTAMP=1795096800 FORMAT=LONG_DATE_FORMAT], [TIMESTAMP=1795096800 FORMAT=SHORT_TIME_FORMAT]\n[URL=/workgroups/group/38/tasks/task/view/10700/?chatAction=completeTask]Завершите её[/URL] как можно скорее или [URL=/workgroups/group/38/tasks/task/view/10700/?chatAction=changeDeadline]измените крайний срок[/URL]",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": {
+          "NOTIFY": "N"
+        },
+        "disappearing_date": null
+      },
+      {
+        "id": 287470,
+        "chat_id": 5988,
+        "author_id": 0,
+        "date": "2026-11-18T17:01:24+03:00",
+        "text": "[USER=30]Тест Пользователь 30[/USER], задача почти просрочена. Крайний срок задачи [URL=/workgroups/group/38/tasks/task/view/10700/?chatAction=changeDeadline][TIMESTAMP=1795096800 FORMAT=LONG_DATE_FORMAT], [TIMESTAMP=1795096800 FORMAT=SHORT_TIME_FORMAT][/URL]",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": {
+          "NOTIFY": "N"
+        },
+        "disappearing_date": null
+      },
+      {
+        "id": 287260,
+        "chat_id": 5988,
+        "author_id": 0,
+        "date": "2026-11-18T12:55:54+03:00",
+        "text": "[USER=30]Тест Пользователь 30[/USER] создал [URL=/workgroups/group/38/tasks/task/view/10700/]задачу[/URL]",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": {
+          "NOTIFY": "N",
+          "URL_ID": [
+            5796
+          ]
+        },
+        "disappearing_date": null
+      }
+    ],
+    "users": [],
+    "files": []
+  },
+  "time": {
+    "start": 1795155627,
+    "finish": 1795155627.638105,
+    "duration": 0.6381049156188965,
+    "processing": 0,
+    "date_start": "2026-11-20T09:20:27+03:00",
+    "date_finish": "2026-11-20T09:20:27+03:00",
+    "operating_reset_at": 1795155780,
+    "operating": 0.7153027057647705
+  }
+}

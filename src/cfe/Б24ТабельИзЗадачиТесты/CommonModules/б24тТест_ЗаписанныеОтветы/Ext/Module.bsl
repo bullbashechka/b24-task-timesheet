@@ -147,7 +147,13 @@
 		+ "Ошибка_ДоступЗапрещён_Синтетика,Ошибка_ВремяМетода_Синтетика,"
 		+ "crm_company_list_НаборС6,crm_requisite_list_НаборС6,"
 		+ "tasks_task_get_Описание,"
-		+ "tasks_task_get_ОписаниеДлинное,tasks_task_get_Кавычки,tasks_task_get_ОписаниеHTML_Синтетика", ",");
+		+ "tasks_task_get_ОписаниеДлинное,tasks_task_get_Кавычки,tasks_task_get_ОписаниеHTML_Синтетика,"
+		+ "im_dialog_messages_get_НетПрава,im_dialog_messages_get_НетДоступа,im_dialog_messages_get_Обычный,"
+		+ "im_dialog_messages_get_Пусто,im_dialog_messages_get_ТолькоСистемные,im_dialog_messages_get_ФайлИЦитата,"
+		+ "im_dialog_messages_get_Страница1,im_dialog_messages_get_Страница2,"
+		+ "im_dialog_messages_get_РазныеДни_Синтетика,im_dialog_messages_get_ЧужиеАвторы_Синтетика,"
+		+ "im_dialog_messages_get_СредняяСтраница_Синтетика,"
+		+ "tasks_task_get_ЧатЗадачи,tasks_task_get_БезЧата_Синтетика", ",");
 
 	Имена = Новый Массив;
 	Для Каждого Случай Из Случаи Цикл

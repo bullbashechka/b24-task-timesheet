@@ -62,10 +62,17 @@ secret_file() { printf '%s/b24-task-timesheet/secrets/%s.dpapi' "$(cygpath -u "$
 secret_get() {
   if [ "$IS_WINDOWS" = 1 ]; then
     [ -n "${LOCALAPPDATA:-}" ] && [ -f "$(secret_file "$1")" ] || return 0
-    # The file name goes in through an environment variable, so nothing is quoted into the command.
-    B24_SECRET_FILE="$(cygpath -w "$(secret_file "$1")")" powershell.exe -NoProfile -NonInteractive -Command \
-      '$s = (Get-Content -Raw -LiteralPath $env:B24_SECRET_FILE).Trim() | ConvertTo-SecureString; [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($s))' \
-      2>/dev/null | tr -d '\r\n'
+    # PowerShell sometimes starts and answers nothing (seen on 2026-11-20: three calls of six); the file is there,
+    # so an empty answer is tried again. The file name goes in through an environment variable, so nothing is quoted
+    # into the command.
+    local TRY VALUE
+    for TRY in 1 2 3; do
+      VALUE="$(B24_SECRET_FILE="$(cygpath -w "$(secret_file "$1")")" powershell.exe -NoProfile -NonInteractive -Command \
+        '$s = (Get-Content -Raw -LiteralPath $env:B24_SECRET_FILE).Trim() | ConvertTo-SecureString; [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($s))' \
+        2>/dev/null | tr -d '\r\n')"
+      if [ -n "$VALUE" ]; then printf '%s' "$VALUE"; return 0; fi
+      sleep 0.5
+    done
   else
     security find-generic-password -s "$1" -w 2>/dev/null
   fi

@@ -15,10 +15,14 @@ SECRET_NAME="b24-dev-webhook"
 
 READ_METHODS=" user.get user.current user.admin tasks.task.list tasks.task.get tasks.task.getFields
   crm.company.get crm.company.list crm.company.fields crm.requisite.list crm.requisite.fields
-  crm.requisite.preset.list crm.requisite.preset.field.list sonet_group.get sonet_group.user.get "
+  crm.requisite.preset.list crm.requisite.preset.field.list sonet_group.get sonet_group.user.get
+  im.dialog.messages.get "
+# im.message.add writes a test comment into the chat of an own test task (stage 22). Other im.* methods
+# (im.dialog.read, im.dialog.unread, im.message.update, im.message.delete, …) are not listed on purpose.
 WRITE_METHODS=" sonet_group.create sonet_group.user.add sonet_group.delete
   crm.company.add crm.company.delete crm.requisite.add crm.requisite.delete
-  tasks.task.add tasks.task.update tasks.task.complete tasks.task.delete "
+  tasks.task.add tasks.task.update tasks.task.complete tasks.task.delete
+  im.message.add "
 
 usage() { sed -n '5,8p' "$0" | sed 's/^# \{0,1\}//' >&2; exit 2; }
 

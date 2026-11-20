@@ -115,6 +115,21 @@
 			<CommonTemplate>б24тТест_Ответ_tasks_task_get_ОписаниеДлинное</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_tasks_task_get_Кавычки</CommonTemplate>
 			<CommonTemplate>б24тТест_Ответ_tasks_task_get_ОписаниеHTML_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_НетПрава</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_НетДоступа</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_Обычный</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_ТолькоСистемные</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_Пусто</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_Страница1</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_Страница2</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_РазныеДни_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_ЧужиеАвторы_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_СредняяСтраница_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_get_ЧатЗадачи</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_tasks_task_get_БезЧата_Синтетика</CommonTemplate>
+			<CommonTemplate>б24тТест_Ответ_im_dialog_messages_get_ФайлИЦитата</CommonTemplate>
+			<CommonTemplate>б24тТест_ПримерыИИКомментарии</CommonTemplate>
+			<CommonTemplate>б24тТест_ПримерыПаролей</CommonTemplate>
 			<CommonModule>б24тТест_Сопоставление</CommonModule>
 			<CommonModule>б24тТест_ЗаписанныеОтветы</CommonModule>
 			<CommonModule>б24тТест_ТабельИДБ24</CommonModule>

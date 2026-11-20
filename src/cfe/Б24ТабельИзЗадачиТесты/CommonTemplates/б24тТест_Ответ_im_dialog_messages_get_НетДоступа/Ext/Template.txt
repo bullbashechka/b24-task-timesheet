@@ -1,0 +1,4 @@
+﻿{
+  "error": "ACCESS_ERROR",
+  "error_description": "You do not have access to the specified dialog"
+}

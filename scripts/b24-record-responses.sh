@@ -3,9 +3,12 @@
 # of the test extension. Answers come from the test data of scripts/b24-test-data.sh through scripts/b24.sh,
 # then lose real names, e-mails, photos and the portal domain. "_Синтетика" answers are built here by hand:
 # the portal can't produce them on demand.
-# Usage: scripts/b24-record-responses.sh [stage14|stage17]
+# Usage: scripts/b24-record-responses.sh [stage14|stage17|stage22-noscope|stage22]
 #   stage14  record only the answers added in stage 14 (no TEST_USER_EMAIL needed for them).
 #   stage17  record only the answers added in stage 17 (descriptions of the tasks aiLong and aiQuotes).
+#   stage22-noscope  the answer of the chat history method to a webhook WITHOUT the right «Чат и уведомления»
+#            (run it before the right is added; it can't be recorded afterwards).
+#   stage22  the answers of the task chats (stage 22): needs the right and the own test tasks with comments.
 # Must run outside the Claude Code sandbox, like scripts/b24.sh.
 
 set -euo pipefail
@@ -15,10 +18,13 @@ IDS="$ROOT/scripts/b24-test-data.ids.json"
 TEMPLATES="$ROOT/src/cfe/Б24ТабельИзЗадачиТесты/CommonTemplates"
 PREFIX="б24тТест_Ответ_"
 
+if [ -n "${1:-}" ] && ! printf '%s' "$1" | grep -Eqx 'stage14|stage17|stage22-noscope|stage22'; then
+  echo "Неизвестный режим $1: допустимы stage14, stage17, stage22-noscope, stage22 или без параметров (всё)." >&2; exit 2
+fi
 [ -f "$IDS" ] || { echo "Нет $IDS: сначала scripts/b24-test-data.sh create" >&2; exit 2; }
 # .env is read, not executed: only TEST_USER_EMAIL is needed.
 TEST_USER_EMAIL="$(env_value TEST_USER_EMAIL | tr -d "\"'")"
-if [ "${1:-}" != stage14 ] && [ "${1:-}" != stage17 ]; then
+if ! printf '%s' "${1:-}" | grep -Eqx 'stage14|stage17|stage22-noscope|stage22'; then
   [ -n "$TEST_USER_EMAIL" ] || { echo "В $ROOT/.env нет TEST_USER_EMAIL" >&2; exit 2; }
 fi
 id() { jq -r "$1" "$IDS"; }
@@ -78,6 +84,90 @@ stage17() {
   record tasks_task_get_ОписаниеHTML_Синтетика tasks.task.get "{\"taskId\":$(id .tasks.aiQuotes),\"select\":$SELECT}"     '.result.task.descriptionInBbcode = "N" | .result.task.description = "<b>Настройка</b><br>ТОО &quot;Ромашка&quot; &amp; ИП &lt;Тестов&gt;<br>Версия 3.0.99.1<br><br><ul><li>Загрузка выписки</li></ul>&nbsp;Конец"'
 }
 if [ "${1:-}" = stage17 ]; then stage17; exit 0; fi
+
+# Stage 22, part 1: the real answer of a webhook without the right «Чат и уведомления» (scope `im`): HTTP 401,
+# `insufficient_scope`. The portal answers before it looks at the chat, so any chat id will do.
+stage22_noscope() {
+  record im_dialog_messages_get_НетПрава im.dialog.messages.get '{"DIALOG_ID":"chat999999999","LIMIT":1}'
+}
+if [ "${1:-}" = stage22-noscope ]; then stage22_noscope; exit 0; fi
+
+# Stage 22: the chat of a task (im.dialog.messages.get) and the task field CHAT_ID. Real answers come from the own test
+# tasks (invented texts): aiCommentMany (a system message and two comments), aiUpdate (system messages only) and
+# aiCommentLong (56 messages: two pages). The people are replaced by scripts/sanitize-im.jq. The answer «no right» is
+# recorded earlier (stage22-noscope): it can't be produced once the webhook has the right.
+body_of() { tail -c +4 "$TEMPLATES/$PREFIX$1/Ext/Template.txt" | tr -d '\r'; }
+record_im() { # case name, method, params [, extra jq filter]
+  local CASE="$1" METHOD="$2" PARAMS="$3" FILTER="${4:-.}"
+  TMP="$(mktemp)"
+  "$B24" "$METHOD" "$PARAMS" --save "$TMP" >/dev/null 2>&1 || true
+  jq -e 'type == "object"' "$TMP" >/dev/null || { echo "$CASE: ответ не JSON" >&2; rm -f "$TMP"; exit 1; }
+  jq -f "$ROOT/scripts/sanitize-im.jq" "$TMP" | jq "$FILTER" | write_template "$CASE"
+  rm -f "$TMP"
+}
+chat_of() { # task key → the chat number of the task
+  "$B24" tasks.task.get "{\"taskId\":$(id ".tasks.$1"),\"select\":[\"ID\",\"CHAT_ID\"]}" 2>/dev/null | jq -r '.result.task.chatId'
+}
+
+# The pieces of a synthetic chat: a message and a user in the shape of the real answers.
+IM_DEFS='
+  def msg($id; $author; $date; $text; $params): {id: $id, chat_id: 6032, author_id: $author, date: $date, text: $text,
+    unread: false, uuid: null, replaces: [], params: $params, disappearing_date: null};
+  def user($id): {id: $id, active: true, name: "Тест Пользователь \($id)", first_name: "Тест\($id)",
+    last_name: "Тестов\($id)", bot: false, type: "user"};'
+
+stage22() {
+  local CHAT LAST SELECT
+  # No access: the portal answers so for a chat that does not exist; a chat the caller may not read gives the same code.
+  record_im im_dialog_messages_get_НетДоступа im.dialog.messages.get '{"DIALOG_ID":"chat999999999","LIMIT":1}'
+
+  CHAT="$(chat_of aiCommentMany)"
+  record_im im_dialog_messages_get_Обычный im.dialog.messages.get "{\"DIALOG_ID\":\"chat$CHAT\",\"LIMIT\":50}"
+  # A message number that is older than every message: the portal answers with empty lists.
+  record_im im_dialog_messages_get_Пусто im.dialog.messages.get "{\"DIALOG_ID\":\"chat$CHAT\",\"LIMIT\":50,\"LAST_ID\":1}"
+  record_im im_dialog_messages_get_ТолькоСистемные im.dialog.messages.get "{\"DIALOG_ID\":\"chat$(chat_of aiUpdate)\",\"LIMIT\":50}"
+
+  # A picture and a reply with a quote, added by hand in the browser to the chat of aiCommentName (the script can only
+  # write text). The file is a message with an empty text and params.FILE_ID, the picture is in files[]; the reply carries
+  # no trace of the quote: only its own text.
+  record_im im_dialog_messages_get_ФайлИЦитата im.dialog.messages.get "{\"DIALOG_ID\":\"chat$(chat_of aiCommentName)\",\"LIMIT\":50}"
+
+  CHAT="$(chat_of aiCommentLong)"
+  record_im im_dialog_messages_get_Страница1 im.dialog.messages.get "{\"DIALOG_ID\":\"chat$CHAT\",\"LIMIT\":50}"
+  LAST="$("$B24" im.dialog.messages.get "{\"DIALOG_ID\":\"chat$CHAT\",\"LIMIT\":50}" 2>/dev/null | jq '[.result.messages[].id] | min')"
+  record_im im_dialog_messages_get_Страница2 im.dialog.messages.get "{\"DIALOG_ID\":\"chat$CHAT\",\"LIMIT\":50,\"LAST_ID\":$LAST}"
+
+  SELECT='["ID","TITLE","DESCRIPTION","CREATED_BY","RESPONSIBLE_ID","ACCOMPLICES","STATUS","GROUP_ID","UF_CRM_TASK","DEADLINE","CLOSED_DATE","ACTIVITY_DATE","CHAT_ID"]'
+  record tasks_task_get_ЧатЗадачи tasks.task.get "{\"taskId\":$(id .tasks.aiCommentName),\"select\":$SELECT}"
+  body_of tasks_task_get_ЧатЗадачи | jq '.result.task.chatId = null' | write_template tasks_task_get_БезЧата_Синтетика
+
+  # Messages of several days around the border of the day of a timesheet (19.11.2026, the portal writes +03:00):
+  # 18.11 23:59:59, 19.11 00:00:00, 19.11 23:59:59, 20.11 00:00:00, and a system message in the middle of the day.
+  jq -n "$IM_DEFS"'
+    {result: {chat_id: 6032, messages: [
+        msg(288140; 26; "2026-11-20T00:00:00+03:00"; "Комментарий следующего дня."; []),
+        msg(288139; 30; "2026-11-19T23:59:59+03:00"; "Комментарий вечера дня табеля."; []),
+        msg(288138; 26; "2026-11-19T00:00:00+03:00"; "Комментарий начала дня табеля."; []),
+        msg(288137; 30; "2026-11-18T23:59:59+03:00"; "Комментарий предыдущего дня."; []),
+        msg(288136; 0; "2026-11-19T12:00:00+03:00"; "[USER=30]Тест Пользователь 30[/USER] изменил крайний срок задачи"; {NOTIFY: "N"})],
+      users: [user(30), user(26)], files: []}}' | write_template im_dialog_messages_get_РазныеДни_Синтетика
+
+  # Comments of other people: the product tells «свой» by author_id and never passes the numbers or names on.
+  jq -n "$IM_DEFS"'
+    {result: {chat_id: 6032, messages: [
+        msg(288152; 30; "2026-11-19T15:00:00+03:00"; "Поставил, проверьте, пожалуйста."; []),
+        msg(288151; 26; "2026-11-19T14:00:00+03:00"; "[USER=30]Тест Пользователь 30[/USER], Ирина Сергеевна просит поставить 1С-Коннект."; []),
+        msg(288150; 28; "2026-11-19T13:00:00+03:00"; "Пётр Николаевич уточнил, что нужен 1С-Коннект и на второй ПК."; []),
+        msg(288149; 0; "2026-11-19T12:00:00+03:00"; "[USER=26]Тест Пользователь 26[/USER] создал [URL=/workgroups/group/38/tasks/task/view/10740/]задачу[/URL]"; {NOTIFY: "N"})],
+      users: [user(30), user(26), user(28)], files: []}}' | write_template im_dialog_messages_get_ЧужиеАвторы_Синтетика
+
+  # A full page from the middle of a long chat: the next page is asked with LAST_ID = the lowest number of this one.
+  jq -n "$IM_DEFS"'
+    {result: {chat_id: 6032, messages: [range(288249; 288199; -1) as $i
+        | msg($i; (if $i % 2 == 0 then 30 else 26 end); "2026-11-19T12:00:00+03:00"; "Комментарий \($i)."; [])],
+      users: [user(30), user(26)], files: []}}' | write_template im_dialog_messages_get_СредняяСтраница_Синтетика
+}
+if [ "${1:-}" = stage22 ]; then stage22; exit 0; fi
 
 record user_get_Найден user.get "{\"FILTER\":{\"EMAIL\":\"$TEST_USER_EMAIL\",\"ACTIVE\":true}}" \
   '.result |= map({ID, ACTIVE, NAME: "Тест", LAST_NAME: "Тестов", EMAIL: "Test.User@Example.com"})'
@@ -149,3 +239,4 @@ record crm_requisite_list_НаборС6 crm.requisite.list \
 # Stage 14 (also runs alone: scripts/b24-record-responses.sh stage14).
 stage14
 stage17
+stage22

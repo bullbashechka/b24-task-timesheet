@@ -29,6 +29,20 @@
     "aiTerms": 10706,
     "aiInjection": 10708,
     "aiLong": 10710,
-    "aiQuotes": 10724
+    "aiQuotes": 10724,
+    "aiCommentName": 10740,
+    "aiCommentMany": 10742,
+    "aiCommentDays": 10744,
+    "aiPassword": 10746,
+    "aiCommentInjection": 10748,
+    "aiCommentLong": 10750
+  },
+  "comments": {
+    "aiCommentMany:day1": true,
+    "aiCommentDays:day1": true,
+    "aiCommentLong:day1": 55,
+    "aiCommentName:day1": 2,
+    "aiPassword:day1": 2,
+    "aiCommentInjection:day1": 2
   }
 }

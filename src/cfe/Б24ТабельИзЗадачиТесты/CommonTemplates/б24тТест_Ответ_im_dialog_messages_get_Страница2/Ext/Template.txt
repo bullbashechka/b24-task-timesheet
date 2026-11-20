@@ -1,0 +1,106 @@
+﻿{
+  "result": {
+    "chat_id": 6042,
+    "messages": [
+      {
+        "id": 288146,
+        "chat_id": 6042,
+        "author_id": 30,
+        "date": "2026-11-20T08:59:36+03:00",
+        "text": "Комментарий 5: обсудили с клиентом настройку обмена с банком и порядок загрузки выписок, клиент просит перезвонить позже.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288144,
+        "chat_id": 6042,
+        "author_id": 30,
+        "date": "2026-11-20T08:59:34+03:00",
+        "text": "Комментарий 4: обсудили с клиентом настройку обмена с банком и порядок загрузки выписок, клиент просит перезвонить позже.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288142,
+        "chat_id": 6042,
+        "author_id": 30,
+        "date": "2026-11-20T08:59:30+03:00",
+        "text": "Комментарий 3: обсудили с клиентом настройку обмена с банком и порядок загрузки выписок, клиент просит перезвонить позже.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288126,
+        "chat_id": 6042,
+        "author_id": 30,
+        "date": "2026-11-20T08:57:01+03:00",
+        "text": "Комментарий 2: обсудили с клиентом настройку обмена с банком и порядок загрузки выписок, клиент просит перезвонить позже.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288124,
+        "chat_id": 6042,
+        "author_id": 30,
+        "date": "2026-11-20T08:56:59+03:00",
+        "text": "Комментарий 1: обсудили с клиентом настройку обмена с банком и порядок загрузки выписок, клиент просит перезвонить позже.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288114,
+        "chat_id": 6042,
+        "author_id": 0,
+        "date": "2026-11-20T08:56:29+03:00",
+        "text": "[USER=30]Тест Пользователь 30[/USER] создал [URL=/workgroups/group/38/tasks/task/view/10750/]задачу[/URL]",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": {
+          "NOTIFY": "N",
+          "URL_ID": [
+            5848
+          ]
+        },
+        "disappearing_date": null
+      }
+    ],
+    "users": [
+      {
+        "id": 30,
+        "active": true,
+        "name": "Тест Пользователь 30",
+        "first_name": "Тест30",
+        "last_name": "Тестов30",
+        "bot": false,
+        "type": "user"
+      }
+    ],
+    "files": []
+  },
+  "time": {
+    "start": 1795155641,
+    "finish": 1795155641.378314,
+    "duration": 0.3783140182495117,
+    "processing": 0,
+    "date_start": "2026-11-20T09:20:41+03:00",
+    "date_finish": "2026-11-20T09:20:41+03:00",
+    "operating_reset_at": 1795155780,
+    "operating": 1.0008618831634521
+  }
+}

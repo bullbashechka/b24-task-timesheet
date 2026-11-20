@@ -1,0 +1,90 @@
+﻿{
+  "result": {
+    "chat_id": 6032,
+    "messages": [
+      {
+        "id": 288140,
+        "chat_id": 6032,
+        "author_id": 26,
+        "date": "2026-11-20T00:00:00+03:00",
+        "text": "Комментарий следующего дня.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288139,
+        "chat_id": 6032,
+        "author_id": 30,
+        "date": "2026-11-19T23:59:59+03:00",
+        "text": "Комментарий вечера дня табеля.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288138,
+        "chat_id": 6032,
+        "author_id": 26,
+        "date": "2026-11-19T00:00:00+03:00",
+        "text": "Комментарий начала дня табеля.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288137,
+        "chat_id": 6032,
+        "author_id": 30,
+        "date": "2026-11-18T23:59:59+03:00",
+        "text": "Комментарий предыдущего дня.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288136,
+        "chat_id": 6032,
+        "author_id": 0,
+        "date": "2026-11-19T12:00:00+03:00",
+        "text": "[USER=30]Тест Пользователь 30[/USER] изменил крайний срок задачи",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": {
+          "NOTIFY": "N"
+        },
+        "disappearing_date": null
+      }
+    ],
+    "users": [
+      {
+        "id": 30,
+        "active": true,
+        "name": "Тест Пользователь 30",
+        "first_name": "Тест30",
+        "last_name": "Тестов30",
+        "bot": false,
+        "type": "user"
+      },
+      {
+        "id": 26,
+        "active": true,
+        "name": "Тест Пользователь 26",
+        "first_name": "Тест26",
+        "last_name": "Тестов26",
+        "bot": false,
+        "type": "user"
+      }
+    ],
+    "files": []
+  }
+}

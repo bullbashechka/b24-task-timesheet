@@ -1,0 +1,87 @@
+﻿{
+  "result": {
+    "chat_id": 6032,
+    "messages": [
+      {
+        "id": 288152,
+        "chat_id": 6032,
+        "author_id": 30,
+        "date": "2026-11-19T15:00:00+03:00",
+        "text": "Поставил, проверьте, пожалуйста.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288151,
+        "chat_id": 6032,
+        "author_id": 26,
+        "date": "2026-11-19T14:00:00+03:00",
+        "text": "[USER=30]Тест Пользователь 30[/USER], Ирина Сергеевна просит поставить 1С-Коннект.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288150,
+        "chat_id": 6032,
+        "author_id": 28,
+        "date": "2026-11-19T13:00:00+03:00",
+        "text": "Пётр Николаевич уточнил, что нужен 1С-Коннект и на второй ПК.",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": [],
+        "disappearing_date": null
+      },
+      {
+        "id": 288149,
+        "chat_id": 6032,
+        "author_id": 0,
+        "date": "2026-11-19T12:00:00+03:00",
+        "text": "[USER=26]Тест Пользователь 26[/USER] создал [URL=/workgroups/group/38/tasks/task/view/10740/]задачу[/URL]",
+        "unread": false,
+        "uuid": null,
+        "replaces": [],
+        "params": {
+          "NOTIFY": "N"
+        },
+        "disappearing_date": null
+      }
+    ],
+    "users": [
+      {
+        "id": 30,
+        "active": true,
+        "name": "Тест Пользователь 30",
+        "first_name": "Тест30",
+        "last_name": "Тестов30",
+        "bot": false,
+        "type": "user"
+      },
+      {
+        "id": 26,
+        "active": true,
+        "name": "Тест Пользователь 26",
+        "first_name": "Тест26",
+        "last_name": "Тестов26",
+        "bot": false,
+        "type": "user"
+      },
+      {
+        "id": 28,
+        "active": true,
+        "name": "Тест Пользователь 28",
+        "first_name": "Тест28",
+        "last_name": "Тестов28",
+        "bot": false,
+        "type": "user"
+      }
+    ],
+    "files": []
+  }
+}
