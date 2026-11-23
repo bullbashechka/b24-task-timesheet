@@ -157,6 +157,8 @@
 			<CommonModule>б24тТест_ОкноИИ</CommonModule>
 			<CommonModule>б24тТест_КомментарииИИ</CommonModule>
 			<CommonModule>б24тТест_КомментарииЗадачи</CommonModule>
+			<CommonModule>б24тТест_ПроверкаЗапросаИИ</CommonModule>
+			<CommonModule>б24тТест_ТранспортOpenAIСПроверкой</CommonModule>
 			<CommonModule>б24тТест_ОкноИИФормаКлиент</CommonModule>
 		</ChildObjects>
 	</Configuration>

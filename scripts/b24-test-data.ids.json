@@ -21,8 +21,8 @@
     "noCompany": 10362,
     "observer": 10364,
     "outside": 10366,
-    "ownDalstroy": 10332,
-    "ownNoCompany": 10334,
+    "ownDalstroy": 10786,
+    "ownNoCompany": 10788,
     "aiUpdate": 10700,
     "aiNoValue": 10702,
     "aiNoMatch": 10704,
@@ -43,6 +43,7 @@
     "aiCommentLong:day1": 55,
     "aiCommentName:day1": 2,
     "aiPassword:day1": 2,
-    "aiCommentInjection:day1": 2
+    "aiCommentInjection:day1": 2,
+    "aiCommentDays:day2": 1
   }
 }
