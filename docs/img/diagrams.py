@@ -159,7 +159,7 @@ def counterparty():
         arrow(ax, [(t2, 5.85), (t2, y), (qx, y)], color=col)
 
     ax.text(0.35, 0.7, "Строка добавляется в любом случае. Если контрагента нет и тип времени «Клиент…», после добавления "
-            "открывается выбор контрагента.", ha="left", va="center", fontsize=19, color=RED)
+            "курсор стоит в ячейке «Контрагент».", ha="left", va="center", fontsize=19, color=RED)
     fig.savefig(OUT + "/schema-counterparty.png", dpi=100)
 
 
